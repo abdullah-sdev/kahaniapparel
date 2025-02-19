@@ -2,11 +2,46 @@
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
-        <!-- Name -->
+        <!-- First Name -->
         <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
+            <x-input-label for="first_name" :value="__('First Name')" />
+            <x-text-input id="first_name" class="block mt-1 w-full" type="text" name="first_name" :value="old('first_name')" required autofocus autocomplete="first_name" />
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
+        </div>
+
+        <!-- Last Name -->
+        <div class="mt-4">
+            <x-input-label for="last_name" :value="__('Last Name')" />
+            <x-text-input id="last_name" class="block mt-1 w-full" type="text" name="last_name" :value="old('last_name')" required autocomplete="last_name" />
+            <x-input-error :messages="$errors->get('last_name')" class="mt-2" />
+        </div>
+
+        <!-- Phone -->
+        <div class="mt-4">
+            <x-input-label for="phone" :value="__('Phone')" />
+            <x-text-input id="phone" class="block mt-1 w-full" type="tel" name="phone" :value="old('phone')" required autocomplete="phone" />
+            <x-input-error :messages="$errors->get('phone')" class="mt-2" />
+        </div>
+
+        <!-- Gender -->
+        <div class="mt-4">
+            <x-input-label for="gender" :value="__('Gender')" />
+
+            <select id="gender" name="gender" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+                <option value="" disabled {{ old('gender') == '' ? 'selected' : '' }}>Select a gender</option>
+                <option value="male" {{ old('gender') == 'male' ? 'selected' : '' }}>Male</option>
+                <option value="female" {{ old('gender') == 'female' ? 'selected' : '' }}>Female</option>
+                <option value="other" {{ old('gender') == 'other' ? 'selected' : '' }}>Other</option>
+            </select>
+
+            <x-input-error :messages="$errors->get('gender')" class="mt-2" />
+        </div>
+
+        <!-- Date Of Birth -->
+        <div class="mt-4">
+            <x-input-label for="date_of_birth" :value="__('Date Of Birth')" />
+            <x-text-input id="date_of_birth" class="block mt-1 w-full" type="date" name="date_of_birth" :value="old('date_of_birth')" required autocomplete="bday" />
+            <x-input-error :messages="$errors->get('date_of_birth')" class="mt-2" />
         </div>
 
         <!-- Email Address -->
