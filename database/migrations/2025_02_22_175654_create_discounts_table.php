@@ -14,6 +14,12 @@ return new class extends Migration
         Schema::create('discounts', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('code')->nullable()->unique();
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
+            $table->integer('usage_limit')->nullable();
+            $table->integer('usage_count')->default(0)->constrained()->constrained();
+            $table->enum('status', ['active', 'inactive'])->default('active');
             $table->enum('type', ['percentage', 'amount'])->default('percentage');
             $table->decimal('value', 10, 2);
             $table->timestamps();
