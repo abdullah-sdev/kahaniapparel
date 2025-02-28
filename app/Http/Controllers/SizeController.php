@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ProductColor;
-use App\Http\Requests\StoreProductColorRequest;
-use App\Http\Requests\UpdateProductColorRequest;
+use App\Models\Size;
+use App\Http\Requests\StoreSizeRequest;
+use App\Http\Requests\UpdateSizeRequest;
 
-class ProductColorController extends Controller
+class SizeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,7 +27,7 @@ class ProductColorController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreProductColorRequest $request)
+    public function store(StoreSizeRequest $request)
     {
         //
     }
@@ -35,7 +35,7 @@ class ProductColorController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(ProductColor $productColor)
+    public function show(Size $size)
     {
         //
     }
@@ -43,7 +43,7 @@ class ProductColorController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(ProductColor $productColor)
+    public function edit(Size $size)
     {
         //
     }
@@ -51,7 +51,7 @@ class ProductColorController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateProductColorRequest $request, ProductColor $productColor)
+    public function update(UpdateSizeRequest $request, Size $size)
     {
         //
     }
@@ -59,7 +59,7 @@ class ProductColorController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ProductColor $productColor)
+    public function destroy(Size $size)
     {
         //
     }

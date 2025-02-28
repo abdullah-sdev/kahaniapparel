@@ -6,18 +6,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Color extends Model
+class Size extends Model
 {
-    /** @use HasFactory<\Database\Factories\ColorFactory> */
+    /** @use HasFactory<\Database\Factories\SizesFactory> */
     use HasFactory;
 
     protected $fillable = [
         'name',
-        'hex',
     ];
 
     public function products(): BelongsToMany
     {
-        return $this->belongsToMany(Product::class, 'product_colors');
+        return $this->belongsToMany(Product::class, 'product_sizes');
     }
 }

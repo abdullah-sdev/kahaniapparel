@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ProductSize;
-use App\Http\Requests\StoreProductSizeRequest;
-use App\Http\Requests\UpdateProductSizeRequest;
+use App\Models\Gallery;
+use App\Http\Requests\StoreGalleryRequest;
+use App\Http\Requests\UpdateGalleryRequest;
 
-class ProductSizeController extends Controller
+class GalleryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,7 +27,7 @@ class ProductSizeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreProductSizeRequest $request)
+    public function store(StoreGalleryRequest $request)
     {
         //
     }
@@ -35,7 +35,7 @@ class ProductSizeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(ProductSize $productSize)
+    public function show(Gallery $gallery)
     {
         //
     }
@@ -43,7 +43,7 @@ class ProductSizeController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(ProductSize $productSize)
+    public function edit(Gallery $gallery)
     {
         //
     }
@@ -51,7 +51,7 @@ class ProductSizeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateProductSizeRequest $request, ProductSize $productSize)
+    public function update(UpdateGalleryRequest $request, Gallery $gallery)
     {
         //
     }
@@ -59,7 +59,7 @@ class ProductSizeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ProductSize $productSize)
+    public function destroy(Gallery $gallery)
     {
         //
     }

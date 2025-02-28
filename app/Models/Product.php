@@ -4,7 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
@@ -23,19 +25,28 @@ class Product extends Model
         'is_enable',
     ];
 
-    public function categories(): HasMany
+    public function categories(): belongsToMany
     {
-        return $this->HasMany(ProductCategory::class);
+        return $this->belongsToMany(Category::class);
     }
 
-    public function sizes(): HasMany
+    public function sizes(): belongsToMany
     {
-        return $this->HasMany(ProductSize::class);
+        return $this->belongsToMany(Size::class);
     }
 
-    public function colors(): HasMany
+    public function colors(): BelongsToMany
     {
-        return $this->HasMany(ProductColor::class);
+        return $this->belongsToMany(Color::class);
     }
 
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(Review::class);
+    }
+
+    public function gallery(): MorphMany
+    {
+        return $this->morphMany(Gallery::class, 'imageable')->orderBy('sort_order', 'asc')->orderBy('id', 'asc');
+    }
 }

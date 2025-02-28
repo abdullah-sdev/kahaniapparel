@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('product_pictures', function (Blueprint $table) {
+        Schema::create('galleries', function (Blueprint $table) {
             $table->id();
             // Reference: https://medium.com/@asia.joumaa/polymorphic-relationship-in-laravel-2384bc63e9ef
-            $table->string('url');
-            $table->string('image_type');
-            $table->morphs('parentable');
-            $table->integer('sort_order');
-            // $table->foreignId('product_id')->constrained()->onDelete('cascade');
+            $table->morphs('imageable');  // Creates `imageable_id` and `imageable_type`
+            $table->string('image_path');  // Path of the gallery image
+            $table->integer('sort_order')->default(0); // Order of the gallery image
             $table->text('description')->nullable();
             $table->timestamps();
         });
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('product_pictures');
+        Schema::dropIfExists('galleries');
     }
 };
