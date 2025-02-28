@@ -19,10 +19,11 @@ class OrderFactory extends Factory
         return [
             //
             'user_id' => rand(1, 10),
-            'payment_status' => array_rand(['paid', 'unpaid']),
+            'payment_status' => $this->faker->randomElement(['pending', 'paid', 'failed']),
+            'order_status' => $this->faker->randomElement(['processing', 'shipped', 'delivered', 'cancelled']),
+            'payment_type' => $this->faker->randomElement(['cash', 'credit_card']),
             'tracking_number' => $this->faker->unique()->numberBetween(100000, 999999),
-            'order_status' => array_rand(['waiting', 'preparing', 'shipping', 'delivered', 'canceled']),
-            'payment_type' => array_rand(['online', 'cash']),
+            // 'order_status' => array_rand(['waiting', 'preparing', 'shipping', 'delivered', 'canceled']),
             'cargo_company_id' => rand(1, 3),
             'discount_id' => rand(1, 5),
             'subtotal' => $this->faker->numberBetween(100, 1000),

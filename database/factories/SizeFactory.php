@@ -18,7 +18,7 @@ class SizeFactory extends Factory
     {
         return [
             //
-            'size' => $this->faker->randomElement(['XS', 'S', 'M', 'L', 'XL', 'XXL']),
+            'name' => $this->faker->randomElement(['XS', 'S', 'M', 'L', 'XL', 'XXL']),
         ];
     }
 }
