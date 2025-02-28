@@ -18,6 +18,8 @@ class WishlistFactory extends Factory
     {
         return [
             //
+            'product_id' => rand(1, 10),
+            'user_id' => rand(1, 10),
         ];
     }
 }

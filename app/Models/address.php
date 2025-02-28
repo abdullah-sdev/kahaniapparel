@@ -18,7 +18,7 @@ class Address extends Model
         'address2',
         'country',
         'city',
-        'province',
+        'state',
         'postalCode',
     ];
 

@@ -18,6 +18,9 @@ class CargoCompanyFactory extends Factory
     {
         return [
             //
+            'name' => $this->faker->company(),
+            'code' => $this->faker->regexify('[A-Z]{3}[0-9]{3}'),
+            'tax_number' => $this->faker->regexify('[0-9]{12}'),
         ];
     }
 }

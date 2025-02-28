@@ -18,6 +18,11 @@ class ReviewFactory extends Factory
     {
         return [
             //
+            'product_id' => rand(1, 10),
+            'user_id' => rand(1, 10),
+            'order_id' => rand(1, 10),
+            'comment' => $this->faker->paragraph,
+            'rating' => rand(1,5),
         ];
     }
 }

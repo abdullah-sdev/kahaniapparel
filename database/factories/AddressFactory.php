@@ -18,6 +18,13 @@ class AddressFactory extends Factory
     {
         return [
             //
+            'user_id' => rand(1, 5),
+            'address1' => $this->faker->streetAddress(),
+            'address2' => $this->faker->secondaryAddress(),
+            'country' => $this->faker->country(),
+            'city' => $this->faker->city(),
+            'state' => $this->faker->stateAbbr(),
+            'postalCode' => $this->faker->postcode(),
         ];
     }
 }
