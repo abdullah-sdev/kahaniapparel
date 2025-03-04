@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\OrderItem;
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,11 +19,14 @@ class ReviewFactory extends Factory
     public function definition(): array
     {
         $orderItemIds = OrderItem::pluck('id')->toArray();
+        $orderItem = OrderItem::find($this->faker->randomElement($orderItemIds));
+        $userId = $orderItem ? $orderItem->order->user_id : null;
+
         return [
             //
-            'product_id' => rand(1, 10),
-            'user_id' => rand(1, 10),
-            'order_item_id' => $this->faker->randomElement($orderItemIds),
+            'product_id' => $orderItem->product_id,
+            'user_id' => $userId,
+            'order_item_id' => $orderItem->id,
             'comment' => $this->faker->paragraph,
             'rating' => rand(1,5),
         ];

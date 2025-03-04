@@ -13,20 +13,21 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(10)->create();
+
         $this->call([
-            AddressSeeder::class,
-            ProductSeeder::class,
-            GallerySeeder::class,
+            UserSeeder::class,  // is with Address
+            // AddressSeeder::class,
+            // GallerySeeder::class,
             ColorSeeder::class,
             CategorySeeder::class,
             SizeSeeder::class,
             CargoCompanySeeder::class,
+            ProductSeeder::class, // is with Gallery
             DiscountSeeder::class,
             WishlistSeeder::class,
             OrderSeeder::class,
-            OrderItemSeeder::class,
-            ReviewSeeder::class,
+            // OrderItemSeeder::class,
+            // ReviewSeeder::class,
         ]);
 
 

@@ -45,4 +45,15 @@ class UserFactory extends Factory
             'email_verified_at' => null,
         ]);
     }
+
+
+    /**
+     * Create a user with an address.
+     *
+     * @return static
+     */
+    public function withAddress(): static
+    {
+        return $this->has(AddressFactory::new(), 'address');
+    }
 }

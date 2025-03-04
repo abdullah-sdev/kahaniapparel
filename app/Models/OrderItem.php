@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
 class OrderItem extends Model
 {
@@ -27,5 +29,15 @@ class OrderItem extends Model
     public function product(): BelongsTo
     {
         return $this->BelongsTo(Product::class);
+    }
+
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(Review::class);
+    }
+
+    public function user(): HasOneThrough
+    {
+        return $this->hasOneThrough(User::class, Order::class, 'order_id', 'user_id', 'id');
     }
 }

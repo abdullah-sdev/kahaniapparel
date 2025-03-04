@@ -2,11 +2,12 @@
 
 namespace Database\Seeders;
 
-use App\Models\Category;
+use App\Models\Address;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class CategorySeeder extends Seeder
+class UserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,6 +15,9 @@ class CategorySeeder extends Seeder
     public function run(): void
     {
         //
-        Category::factory()->count(20)->create();
+        User::factory()
+        ->has(Address::factory()->count(3))
+        ->count(10)
+        ->create();
     }
 }

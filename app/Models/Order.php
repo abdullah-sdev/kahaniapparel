@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -33,7 +34,7 @@ class Order extends Model
 
     public function discount(): HasOne
     {
-        return $this->hasOne(Discount::class);
+        return $this->hasOne(Discount::class, 'id', 'discount_id');
     }
 
     public function user(): BelongsTo
@@ -44,5 +45,10 @@ class Order extends Model
     public function orderItems(): HasMany
     {
         return $this->hasMany(OrderItem::class);
+    }
+
+    public function reviews(): HasManyThrough
+    {
+        return $this->hasManyThrough(Review::class, OrderItem::class);
     }
 }

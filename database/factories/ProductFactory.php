@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Gallery;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,7 +20,8 @@ class ProductFactory extends Factory
         return [
             //
             'name' => $this->faker->unique()->word(),
-            'price' => $this->faker->numberBetween(1000, 10000),
+            'actual_price' => $this->faker->numberBetween(1000, 10000),
+            'discounted_price' => $this->faker->numberBetween(1, 9999),
             'description' => $this->faker->paragraph(),
             'thumbnail_image' => $this->faker->imageUrl(),
             'thumbnail_image1' => $this->faker->imageUrl(),
@@ -27,5 +29,15 @@ class ProductFactory extends Factory
             'is_in_stock' => $this->faker->boolean(),
             'is_enable' => $this->faker->boolean(),
         ];
+    }
+
+
+    public function withGallery(): self
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'gallery' => Gallery::factory()->count(3)->make(),
+            ];
+        });
     }
 }
