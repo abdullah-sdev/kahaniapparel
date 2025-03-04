@@ -13,6 +13,9 @@ class UserController extends Controller
     public function index()
     {
         //
+        $users = User::select('first_name', 'last_name', 'email', 'phone', 'gender', 'dateOfBirth', )->paginate(10);
+        $data = compact('users');
+        return view('admin.users.index', $data);
     }
 
     /**
