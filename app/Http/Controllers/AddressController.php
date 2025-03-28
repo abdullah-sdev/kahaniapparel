@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\address;
+use App\Models\Address;
 use App\Http\Requests\StoreaddressRequest;
 use App\Http\Requests\UpdateaddressRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class AddressController extends Controller
 {
@@ -14,7 +16,13 @@ class AddressController extends Controller
     public function index()
     {
         //
-        return view('admin.address.index');
+        // Gate::authorize('viewAny', Address::class);
+        if (!Auth::user()->can('viewAny', Address::class)) {
+            abort(403);
+        }
+        $addresses = Address::where('user_id', Auth::user()->id)->paginate(10);
+        $data = compact('addresses');
+        return view('admin.address.index')->with($data);
     }
 
     /**
@@ -23,6 +31,7 @@ class AddressController extends Controller
     public function create()
     {
         //
+        return view('admin.address.create');
     }
 
     /**
