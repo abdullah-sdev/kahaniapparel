@@ -21,6 +21,7 @@ class AddressFactory extends Factory
         return [
             //
             'user_id' => $userID->random(),
+            'name' => $this->faker->name(),
             'address1' => $this->faker->streetAddress(),
             'address2' => $this->faker->secondaryAddress(),
             'country' => $this->faker->country(),

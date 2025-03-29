@@ -13,7 +13,8 @@ class AddressPolicy
      */
     public function viewAny(User $user): bool
     {
-        return false;
+        return true;
+
         // return  auth()->user()->id == $user->id;
     }
 
@@ -22,7 +23,8 @@ class AddressPolicy
      */
     public function view(User $user, Address $address): bool
     {
-        return false;
+        // return true;
+        return $user->id == $address->user_id;
     }
 
     /**
@@ -30,7 +32,7 @@ class AddressPolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        return  auth()->user()->id == $user->id;
     }
 
     /**

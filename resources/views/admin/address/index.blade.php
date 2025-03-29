@@ -26,6 +26,10 @@
                                                 class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
                                                 User Name
                                             </th>
+                                            <th scope="col"
+                                                class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
+                                                Address Name
+                                            </th>
 
                                             <th scope="col"
                                                 class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
@@ -74,6 +78,10 @@
                                                 </td>
                                                 <td
                                                     class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-neutral-200">
+                                                    {{ $address->name }}
+                                                </td>
+                                                <td
+                                                    class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-neutral-200">
                                                     {{ $address->address1 }}
                                                 </td>
                                                 <td
@@ -97,17 +105,23 @@
                                                     {{ $address->postalCode }}
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
-
+                                                    @can('update', $address)
+                                                    <a
+                                                    class="inline-block p-2 text-sm font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                                    href="{{ route('addresses.show', $address->id) }}">Show</a>
+                                                    @endcan
                                                     @can('delete', $address)
-                                                    <form action="{{ route('addresses.destroy', $address->id) }}"
-                                                        method="post">
-                                                        @csrf
-                                                        @method('delete')
-                                                        <button type="submit"
-                                                            class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-red-600 hover:text-red-800 focus:outline-hidden focus:text-red-800 disabled:opacity-50 disabled:pointer-events-none dark:text-red-500 dark:hover:text-red-400 dark:focus:text-red-400">
-                                                            Delete
-                                                        </button>
-                                                    </form>
+                                                        <form
+                                                        class="inline-block"
+                                                        action="{{ route('addresses.destroy', $address->id) }}"
+                                                            method="post">
+                                                            @csrf
+                                                            @method('delete')
+                                                            <button type="submit"
+                                                                class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-red-600 hover:text-red-800 focus:outline-hidden focus:text-red-800 disabled:opacity-50 disabled:pointer-events-none dark:text-red-500 dark:hover:text-red-400 dark:focus:text-red-400">
+                                                                Delete
+                                                            </button>
+                                                        </form>
                                                     @endcan
 
                                                 </td>

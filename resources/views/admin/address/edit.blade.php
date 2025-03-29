@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Addresses') }}
+            {{ __('Edit Address') }}
         </h2>
     </x-slot>
 
@@ -26,20 +26,15 @@
                     <div class="-m-1.5 overflow-x-auto">
                         <div class="p-1.5 min-w-full inline-block align-middle">
                             <div class="overflow-hidden">
-                                <form method="POST" action="{{ route('addresses.store') }}" class="p-5">
+                                <form method="POST" action="{{ route('addresses.update', $address)  }}" class="p-5">
                                     @csrf
-
-                                    <div class="max-w-sm">
-
-                                        <input type="hidden" id="user_id" name="user_id" value="4"
-                                            class="py-2.5 sm:py-3 px-4 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-                                            placeholder="User">
-                                    </div>
+                                    @method('PUT')
                                     <div class="max-w-sm pt-4">
                                         <label for="name"
                                             class="block text-sm font-medium mb-2 dark:text-white">
                                             Name</label>
                                         <input type="text" id="name" name="name"
+                                        value="{{ $address->name }}"
                                             class="py-2.5 sm:py-3 px-4 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                                             placeholder="Name">
                                     </div>
@@ -48,6 +43,7 @@
                                             class="block text-sm font-medium mb-2 dark:text-white">
                                             Address 1</label>
                                         <input type="text" id="address1" name="address1"
+                                        value="{{ $address->address1 }}"
                                             class="py-2.5 sm:py-3 px-4 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                                             placeholder="Address 1">
                                     </div>
@@ -56,6 +52,7 @@
                                             class="block text-sm font-medium mb-2 dark:text-white">
                                             Address 2</label>
                                         <input type="text" id="address2" name="address2"
+                                        value="{{ $address->address2 }}"
                                             class="py-2.5 sm:py-3 px-4 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                                             placeholder="Address 2">
                                     </div>
@@ -64,6 +61,7 @@
                                             class="block text-sm font-medium mb-2 dark:text-white">
                                             Country</label>
                                         <input type="text" id="country" name="country"
+                                        value="{{ $address->country }}"
                                             class="py-2.5 sm:py-3 px-4 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                                             placeholder="Country">
                                     </div>
@@ -72,6 +70,7 @@
                                             class="block text-sm font-medium mb-2 dark:text-white">
                                             City</label>
                                         <input type="text" id="city" name="city"
+                                        value="{{ $address->city }}"
                                             class="py-2.5 sm:py-3 px-4 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                                             placeholder="City">
                                     </div>
@@ -80,6 +79,7 @@
                                             class="block text-sm font-medium mb-2 dark:text-white">
                                             State</label>
                                         <input type="text" id="state" name="state"
+                                        value="{{ $address->state }}"
                                             class="py-2.5 sm:py-3 px-4 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                                             placeholder="State">
                                     </div>
@@ -88,6 +88,7 @@
                                             class="block text-sm font-medium mb-2 dark:text-white">
                                             Postal Code</label>
                                         <input type="text" id="postalCode" name="postalCode"
+                                        value="{{ $address->postalCode }}"
                                             class="py-2.5 sm:py-3 px-4 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                                             placeholder="Postal Code">
                                     </div>
