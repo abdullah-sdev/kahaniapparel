@@ -15,7 +15,7 @@ class AddressController extends Controller
     public function index()
     {
         //
-        if (auth()->user()->cannot('viewAny', Address::class)) {
+        if (Auth::user()->cannot('viewAny', Address::class)) {
             abort(403);
         }
         $addresses = Address::with('user')->paginate(10);
@@ -29,7 +29,7 @@ class AddressController extends Controller
     public function create()
     {
         //
-        if (auth()->user()->cannot('create', Address::class)) {
+        if (Auth::user()->cannot('create', Address::class)) {
             abort(403);
         }
         return view('admin.address.create');
@@ -41,7 +41,7 @@ class AddressController extends Controller
     public function store(StoreAddressRequest $request)
     {
         //
-        if (auth()->user()->cannot('create', Address::class)) {
+        if (Auth::user()->cannot('create', Address::class)) {
             abort(403);
         }
         Address::create($request->validated());
@@ -54,7 +54,7 @@ class AddressController extends Controller
     public function show(Address $address)
     {
         //
-        if (auth()->user()->cannot('view', $address)) {
+        if (Auth::user()->cannot('view', $address)) {
             abort(403);
         }
         return view('admin.address.show', compact('address'));

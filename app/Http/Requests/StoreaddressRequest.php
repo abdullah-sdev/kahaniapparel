@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Models\Address;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class StoreAddressRequest extends FormRequest
 {
@@ -12,8 +13,7 @@ class StoreAddressRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        // dd(auth()->user()->can('create', Address::class));
-        return auth()->user()->can('create', Address::class);
+        return Auth::user()->can('create', Address::class);
     }
 
     /**
