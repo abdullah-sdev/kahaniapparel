@@ -4,7 +4,7 @@ namespace App\Policies;
 
 use App\Models\CargoCompany;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
+use Illuminate\Support\Facades\Auth;
 
 class CargoCompanyPolicy
 {
@@ -13,7 +13,7 @@ class CargoCompanyPolicy
      */
     public function viewAny(User $user): bool
     {
-        return false;
+        return Auth::check();
     }
 
     /**
@@ -21,7 +21,7 @@ class CargoCompanyPolicy
      */
     public function view(User $user, CargoCompany $cargoCompany): bool
     {
-        return false;
+        return Auth::check();
     }
 
     /**
@@ -29,15 +29,17 @@ class CargoCompanyPolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        return Auth::check();
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, CargoCompany $cargoCompany): bool
+    public function update(User $user): bool
     {
-        return false;
+        $authUser = Auth::user();
+        // dd($authUser);
+        return Auth::check();
     }
 
     /**
@@ -45,7 +47,7 @@ class CargoCompanyPolicy
      */
     public function delete(User $user, CargoCompany $cargoCompany): bool
     {
-        return false;
+        return Auth::check();
     }
 
     /**
@@ -53,7 +55,7 @@ class CargoCompanyPolicy
      */
     public function restore(User $user, CargoCompany $cargoCompany): bool
     {
-        return false;
+        return Auth::check();
     }
 
     /**
@@ -61,6 +63,6 @@ class CargoCompanyPolicy
      */
     public function forceDelete(User $user, CargoCompany $cargoCompany): bool
     {
-        return false;
+        return Auth::check();
     }
 }

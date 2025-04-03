@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\CargoCompany;
 use App\Http\Requests\StoreCargoCompanyRequest;
 use App\Http\Requests\UpdateCargoCompanyRequest;
+use Illuminate\Support\Facades\Auth;
 
 class CargoCompanyController extends Controller
 {
@@ -14,6 +15,12 @@ class CargoCompanyController extends Controller
     public function index()
     {
         //
+        if (Auth::user()->cannot('viewAny', CargoCompany::class)) {
+            abort(403);
+        }
+        $cargoCompanies = CargoCompany::paginate(10);
+        $data = compact('cargoCompanies');
+        return view('admin.cargocompanies.index')->with($data);
     }
 
     /**
@@ -22,6 +29,10 @@ class CargoCompanyController extends Controller
     public function create()
     {
         //
+        if (Auth::user()->cannot('create', CargoCompany::class)) {
+            abort(403);
+        }
+        return view('admin.cargocompanies.create');
     }
 
     /**
@@ -30,6 +41,11 @@ class CargoCompanyController extends Controller
     public function store(StoreCargoCompanyRequest $request)
     {
         //
+        if (Auth::user()->cannot('create', CargoCompany::class)) {
+            abort(403);
+        }
+        CargoCompany::create($request->validated());
+        redirect()->route('cargo-companies.index')->with('success', 'Cargo Company created successfully');
     }
 
     /**
@@ -38,6 +54,10 @@ class CargoCompanyController extends Controller
     public function show(CargoCompany $cargoCompany)
     {
         //
+        // if (Auth::user()->cannot('view', CargoCompany::class)) {
+        //     abort(403);
+        // }
+        return view('admin.cargocompanies.show', compact('cargoCompany'));
     }
 
     /**
@@ -46,6 +66,11 @@ class CargoCompanyController extends Controller
     public function edit(CargoCompany $cargoCompany)
     {
         //
+        // dd(Auth::user()->first_name);
+        if (Auth::user()->cannot('update', $cargoCompany)) {
+            abort(403);
+        }
+         return view('admin.cargocompanies.edit', compact('cargoCompany'));
     }
 
     /**
@@ -54,6 +79,11 @@ class CargoCompanyController extends Controller
     public function update(UpdateCargoCompanyRequest $request, CargoCompany $cargoCompany)
     {
         //
+        if (Auth::user()->cannot('update', $cargoCompany)) {
+            abort(403);
+        }
+        $cargoCompany->update($request->validated());
+        return redirect()->route('cargo-companies.index')->with('success', 'Cargo Company updated successfully');
     }
 
     /**
@@ -62,5 +92,7 @@ class CargoCompanyController extends Controller
     public function destroy(CargoCompany $cargoCompany)
     {
         //
+        $cargoCompany->delete();
+        return redirect()->route('cargo-companies.index')->with('success', 'Cargo Company deleted successfully');
     }
 }
