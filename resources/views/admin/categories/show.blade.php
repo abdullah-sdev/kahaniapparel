@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Cargo Company') }}
+            {{ __('Category:') }}
         </h2>
     </x-slot>
 
@@ -14,24 +14,12 @@
                         <div class="border rounded">
                             <div class="py-2 px-4">
                                 <div class="font-bold">Name</div>
-                                <div class="">{{ $cargoCompany->name }}</div>
-                            </div>
-                        </div>
-                        <div class="border rounded">
-                            <div class="py-2 px-4">
-                                <div class="font-bold">Code</div>
-                                <div class="">{{ $cargoCompany->code }}</div>
-                            </div>
-                        </div>
-                        <div class="border rounded">
-                            <div class="py-2 px-4">
-                                <div class="font-bold">Tax Number</div>
-                                <div class="">{{ $cargoCompany->tax_number }}</div>
+                                <div class="">{{ $category->name }}</div>
                             </div>
                         </div>
 
                         <div>
-                            <a href="{{ route('cargo-companies.edit', $cargoCompany->id) }}"
+                            <a href="{{ route('categories.edit', $category->id) }}"
                                 class="text-blue-600 hover:text-blue-700">Edit</a>
                         </div>
                     </div>
