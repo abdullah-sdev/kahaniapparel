@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\Models\Color;
 use App\Models\User;
+use Auth;
 use Illuminate\Auth\Access\Response;
 
 class ColorPolicy
@@ -13,7 +14,8 @@ class ColorPolicy
      */
     public function viewAny(User $user): bool
     {
-        return false;
+        $authUser = Auth::user();
+        return Auth::check();
     }
 
     /**
@@ -21,7 +23,8 @@ class ColorPolicy
      */
     public function view(User $user, Color $color): bool
     {
-        return false;
+        $authUser = Auth::user();
+        return Auth::check();
     }
 
     /**
@@ -29,15 +32,17 @@ class ColorPolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        $authUser = Auth::user();
+        return Auth::check();
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Color $color): bool
+    public function update(User $user): bool
     {
-        return false;
+        $authUser = Auth::user();
+        return Auth::check();
     }
 
     /**
@@ -45,7 +50,8 @@ class ColorPolicy
      */
     public function delete(User $user, Color $color): bool
     {
-        return false;
+        $authUser = Auth::user();
+        return Auth::check();
     }
 
     /**
@@ -53,7 +59,8 @@ class ColorPolicy
      */
     public function restore(User $user, Color $color): bool
     {
-        return false;
+        $authUser = Auth::user();
+        return Auth::check();
     }
 
     /**
@@ -61,6 +68,7 @@ class ColorPolicy
      */
     public function forceDelete(User $user, Color $color): bool
     {
-        return false;
+        $authUser = Auth::user();
+        return Auth::check();
     }
 }

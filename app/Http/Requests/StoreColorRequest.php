@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Color;
+use Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreColorRequest extends FormRequest
@@ -11,7 +13,8 @@ class StoreColorRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        // return false;
+        return Auth::user()->can('create', Color::class);
     }
 
     /**
@@ -23,6 +26,8 @@ class StoreColorRequest extends FormRequest
     {
         return [
             //
+            'name' => 'required|string|max:255',
+            'hex' => 'required',
         ];
     }
 }
