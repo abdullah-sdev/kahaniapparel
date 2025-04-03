@@ -24,6 +24,9 @@
                     <x-nav-link :href="route('cargo-companies.index')" :active="request()->routeIs('cargo-companies.*')">
                         {{ __('Cargo Companies') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.*')">
+                        {{ __('Categories') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -86,6 +89,13 @@
 
             <x-responsive-nav-link :href="route('addresses.index')" :active="request()->routeIs('addresses.*')">
                 {{ __('Addresses') }}
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('cargo-companies.index')" :active="request()->routeIs('cargo-companies.*')">
+                {{ __('Cargo Companies') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.*')">
+                {{ __('Categories') }}
             </x-responsive-nav-link>
         </div>
 
