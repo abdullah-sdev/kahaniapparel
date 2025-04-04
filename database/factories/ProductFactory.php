@@ -3,6 +3,10 @@
 namespace Database\Factories;
 
 use App\Models\Gallery;
+use App\Models\Color;
+use App\Models\Size;
+use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -40,4 +44,15 @@ class ProductFactory extends Factory
             ];
         });
     }
+
+    public function withColorsSizesCategory(): self
+    {
+        return $this->afterCreating(function (Product $product) {
+            $product->colors()->attach(Color::inRandomOrder()->take(3)->pluck('id'));
+            $product->sizes()->attach(Size::inRandomOrder()->take(3)->pluck('id'));
+            $product->categories()->attach(Category::inRandomOrder()->take(3)->pluck('id'));
+        });
+    }
+
+
 }

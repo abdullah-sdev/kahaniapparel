@@ -15,6 +15,7 @@ class ProductSeeder extends Seeder
     {
         //
         Product::factory()
+        ->withColorsSizesCategory()
         ->has(Gallery::factory()->count(5))
         ->count(100)
         ->create();
