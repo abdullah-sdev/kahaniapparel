@@ -17,6 +17,18 @@
                                 <div class="">{{ $category->name }}</div>
                             </div>
                         </div>
+                        <div class="border rounded">
+                            <div class="py-2 px-4">
+                                <div class="font-bold">Products</div>
+                                <div class="">
+                                    @forelse ($category->products as $product)
+                                        <div><a href="{{ route('products.show', $product->id) }}">{{ $product->name }}</a></div>
+                                    @empty
+                                        No Products
+                                    @endforelse
+                                </div>
+                            </div>
+                        </div>
 
                         <div>
                             <a href="{{ route('categories.edit', $category->id) }}"

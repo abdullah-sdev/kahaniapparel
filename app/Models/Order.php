@@ -17,6 +17,7 @@ class Order extends Model
 
     protected $fillable = [
         'user_id',
+        'address_id',
         'payment_status',
         'tracking_number',
         'order_status',
@@ -27,14 +28,18 @@ class Order extends Model
         'delivery_cost',
     ];
 
-    public function cargo_company(): HasOne
+    public function cargoCompany(): BelongsTo
     {
-        return $this->hasOne(CargoCompany::class);
+        return $this->belongsTo(CargoCompany::class, 'cargo_company_id');
     }
 
     public function discount(): HasOne
     {
         return $this->hasOne(Discount::class, 'id', 'discount_id');
+    }
+    public function address(): HasOne
+    {
+        return $this->hasOne(Address::class, 'id', 'address_id');
     }
 
     public function user(): BelongsTo

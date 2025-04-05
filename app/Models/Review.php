@@ -11,6 +11,7 @@ class Review extends Model
 {
     /** @use HasFactory<\Database\Factories\ReviewFactory> */
     use HasFactory;
+    use \Znck\Eloquent\Traits\BelongsToThrough;
 
     protected $fillable = [
         'product_id',
@@ -30,9 +31,9 @@ class Review extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function order(): BelongsTo
+    public function order(): \Znck\Eloquent\Relations\BelongsToThrough
     {
-        return $this->belongsTo(Order::class);
+        return $this->belongsToThrough(Order::class, OrderItem::class);
     }
 
     public function gallery(): MorphMany

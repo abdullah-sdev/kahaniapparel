@@ -67,17 +67,6 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- <div class="border rounded">
-                            <div class="py-2 px-4">
-                                <div class="font-bold">Thumbnail 2</div>
-                                <div class="">
-                                    <div class="">
-                                        <img src="{{ asset('images/products/' . ($product->thumbnail_image1 ?? 'product.png')) }}"
-                                            alt="" class="aspect-square size-[150px]">
-                                    </div>
-                                </div>
-                            </div>
-                        </div> --}}
 
                         <div class="border rounded">
                             <div class="py-2 px-4">
@@ -116,6 +105,49 @@
                                             {{ $category->name }}
                                         </div>
                                     @endforeach
+                                </div>
+                            </div>
+                        </div>
+                        <div class="border rounded">
+                            <div class="py-2 px-4">
+                                <div class="font-bold">Reviews</div>
+                                <div class=" flex flex-wrap gap-2">
+                                <table class="w-full">
+                                    <thead class="bg-gray-100 border-b">
+                                        <tr>
+                                            <th class="px-4 py-2 font-bold">ID</th>
+                                            <th class="px-4 py-2 font-bold">User</th>
+                                            <th class="px-4 py-2 font-bold">Rating</th>
+                                            <th class="px-4 py-2 font-bold">Comment</th>
+                                            <th class="px-4 py-2 font-bold">Disabled</th>
+                                            <th class="px-4 py-2 font-bold">Gallery</th>
+                                            <th class="px-4 py-2 font-bold">Order</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="bg-white">
+                                    @forelse ($product->reviews as $review)
+                                        <tr class="hover:bg-gray-100">
+                                            <td class="px-4 py-2 font-bold">{{ $review->id }}</td>
+                                            <td class="px-4 py-2 font-bold">{{ $review->user->first_name }}</td>
+                                            <td class="px-4 py-2 text-sm text-gray-600">{{ $review->rating }} / 5</td>
+                                            <td class="px-4 py-2 text-sm text-gray-600 max-w-[20ch] overflow-hidden whitespace-nowrap text-ellipsis" >{{ $review->comment }}</td>
+                                            <td class="px-4 py-2 text-sm text-gray-600">{{ $review->disabled }}</td>
+                                            <td class="px-4 py-2 text-sm text-gray-600">{{ $review->gallery->count() }}</td>
+                                            <td class="px-4 py-2 text-sm text-gray-600 max-w-[15ch]">
+                                                @forelse ($review->order->orderItems as $item)
+                                                    <div>{{ $item->product->name }} {{ $item->quantity }}</div>
+                                                @empty
+
+                                                @endforelse
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="5" class="px-4 py-2 text-center text-gray-600">No Review</td>
+                                        </tr>
+                                    @endforelse
+                                    </tbody>
+                                </table>
                                 </div>
                             </div>
                         </div>

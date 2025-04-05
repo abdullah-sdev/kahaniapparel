@@ -29,6 +29,21 @@
                                 <div class="">{{ $cargoCompany->tax_number }}</div>
                             </div>
                         </div>
+                        <div class="border rounded">
+                            <div class="py-2 px-4">
+                                <div class="font-bold">Orders</div>
+                                <div class="">
+
+                                    <ul>
+                                        @forelse ($cargoCompany->orders as $order)
+                                            <li>{{ $order->tracking_number }}</li>
+                                        @empty
+                                            <li>No orders found</li>
+                                        @endforelse
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
 
                         <div>
                             <a href="{{ route('cargo-companies.edit', $cargoCompany->id) }}"

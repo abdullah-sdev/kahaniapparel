@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
+use App\Models\CargoCompany;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -14,6 +16,12 @@ class OrderController extends Controller
     public function index()
     {
         //
+        $orders = Order::where('user_id', Auth::user()->id)->paginate();
+
+        // Auth::user()->id;
+        // dd($orders, Auth::user()->id);
+        $data = compact('orders');
+        return view('admin.orders.index', $data);
     }
 
     /**
@@ -38,6 +46,10 @@ class OrderController extends Controller
     public function show(Order $order)
     {
         //
+        if (Auth::user()->cannot('view', $order)) {
+            abort(403);
+        }
+        return view('admin.orders.show', compact('order'));
     }
 
     /**
@@ -46,6 +58,8 @@ class OrderController extends Controller
     public function edit(Order $order)
     {
         //
+        $cargoCompanies = CargoCompany::all();
+        return view('admin.orders.edit', compact('order', 'cargoCompanies'));
     }
 
     /**
