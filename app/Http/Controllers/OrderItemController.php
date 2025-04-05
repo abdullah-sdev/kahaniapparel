@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\OrderItem;
 use App\Http\Requests\StoreOrderItemRequest;
 use App\Http\Requests\UpdateOrderItemRequest;
+use App\Models\Product;
 
 class OrderItemController extends Controller
 {
@@ -14,6 +15,9 @@ class OrderItemController extends Controller
     public function index()
     {
         //
+        $orderitems = OrderItem::paginate();
+        $data = compact('orderitems');
+        return view('admin.orderItems.index')->with($data);
     }
 
     /**
@@ -22,6 +26,9 @@ class OrderItemController extends Controller
     public function create()
     {
         //
+        $products = Product::all();
+        $data = compact('products');
+        return view('admin.orderItems.create')->with($data);
     }
 
     /**
@@ -38,6 +45,7 @@ class OrderItemController extends Controller
     public function show(OrderItem $orderItem)
     {
         //
+        return view('admin.orderItems.show', compact('orderItem'));
     }
 
     /**

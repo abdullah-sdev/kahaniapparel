@@ -56,4 +56,45 @@ class Order extends Model
     {
         return $this->hasManyThrough(Review::class, OrderItem::class);
     }
+
+
+    // Scopes
+    public function scopePending($query)
+    {
+        return $query->where('payment_status', 'pending');
+    }
+
+    public function scopePaid($query)
+    {
+        return $query->where('payment_status', 'paid');
+    }
+
+    public function scopeProcessing($query)
+    {
+        return $query->where('order_status', 'processing');
+    }
+
+    public function scopeShipped($query)
+    {
+        return $query->where('order_status', 'shipped');
+    }
+
+    // Helpers
+    public function total()
+    {
+        return $this->subtotal + $this->delivery_cost;
+    }
+
+    public function markAsPaid()
+    {
+        $this->update(['payment_status' => 'paid']);
+    }
+
+    public function markAsShipped($trackingNumber)
+    {
+        $this->update([
+            'order_status' => 'shipped',
+            'tracking_number' => $trackingNumber
+        ]);
+    }
 }

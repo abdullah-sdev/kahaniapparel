@@ -31,64 +31,68 @@
                                 <form method="POST" action="{{ route('orders.update', $order) }}" class="p-5">
                                     @csrf
                                     @method('PUT')
-                                    <div class="max-w-sm pt-4">
-                                        <label for="name" class="block text-sm font-medium mb-2 dark:text-white">
-                                            Payment Status</label>
-                                        <select id="payment_status" name="payment_status"
-                                            class="py-2.5 sm:py-3 px-4 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-                                            x-data="{ paymentStatus: '{{ $order->payment_status }}' }"
-                                            :style="{
-                                                'background-color': {
-                                                    'paid': '#2e865f', // green
-                                                    'pending': '#ff9800', // orange
-                                                    'failed': '#d32f2f' // red
-                                                } [paymentStatus]
-                                            }"
-                                            @change="paymentStatus = $event.target.value">
-                                            <option value="paid"
-                                                {{ $order->payment_status == 'paid' ? 'selected' : '' }}>Paid</option>
-                                            <option value="pending"
-                                                {{ $order->payment_status == 'pending' ? 'selected' : '' }}>Pending
-                                            </option>
-                                            <option value="failed"
-                                                {{ $order->payment_status == 'failed' ? 'selected' : '' }}>Failed
-                                            </option>
-                                        </select>
-                                    </div>
 
-                                    <div class="max-w-sm pt-4">
-                                        <label for="order_status"
-                                            class="block text-sm font-medium mb-2 dark:text-white">
-                                            Order Status</label>
-                                        <select id="order_status" name="order_status"
-                                            class="py-2.5 sm:py-3 px-4 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-                                            x-data="{ statusColor: '{{ $order->order_status }}' }"
-                                            :style="{
-                                                'background-color': {
-                                                    'unshipped': '#ff9800', // orange
-                                                    'shipped': '#ffc107', // yellow
-                                                    'delivered': '#2e865f', // green
-                                                    'cancelled': '#d32f2f' // red
-                                                } [statusColor]
-                                            }"
-                                            @change="statusColor = $event.target.value">
-                                            <option value="unshipped"
-                                                {{ $order->order_status == 'unshipped' ? 'selected' : '' }}>
-                                                Unshipped
-                                            </option>
-                                            <option value="shipped"
-                                                {{ $order->order_status == 'shipped' ? 'selected' : '' }}>
-                                                Shipped
-                                            </option>
-                                            <option value="delivered"
-                                                {{ $order->order_status == 'delivered' ? 'selected' : '' }}>
-                                                Delivered
-                                            </option>
-                                            <option value="cancelled"
-                                                {{ $order->order_status == 'cancelled' ? 'selected' : '' }}>
-                                                Cancelled
-                                            </option>
-                                        </select>
+                                    <div class="grid grid-cols-2 gap-6">
+
+                                        <div class="max-w-sm pt-4">
+                                            <label for="name" class="block text-sm font-medium mb-2 dark:text-white">
+                                                Payment Status</label>
+                                            <select id="payment_status" name="payment_status"
+                                                class="py-2.5 sm:py-3 px-4 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                x-data="{ paymentStatus: '{{ $order->payment_status }}' }"
+                                                :style="{
+                                                    'background-color': {
+                                                        'paid': '#2e865f', // green
+                                                        'pending': '#ff9800', // orange
+                                                        'failed': '#d32f2f' // red
+                                                    } [paymentStatus]
+                                                }"
+                                                @change="paymentStatus = $event.target.value">
+                                                <option value="paid"
+                                                    {{ $order->payment_status == 'paid' ? 'selected' : '' }}>Paid</option>
+                                                <option value="pending"
+                                                    {{ $order->payment_status == 'pending' ? 'selected' : '' }}>Pending
+                                                </option>
+                                                <option value="failed"
+                                                    {{ $order->payment_status == 'failed' ? 'selected' : '' }}>Failed
+                                                </option>
+                                            </select>
+                                        </div>
+
+                                        <div class="max-w-sm pt-4">
+                                            <label for="order_status"
+                                                class="block text-sm font-medium mb-2 dark:text-white">
+                                                Order Status</label>
+                                            <select id="order_status" name="order_status"
+                                                class="py-2.5 sm:py-3 px-4 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                                x-data="{ statusColor: '{{ $order->order_status }}' }"
+                                                :style="{
+                                                    'background-color': {
+                                                        'unshipped': '#ff9800', // orange
+                                                        'shipped': '#ffc107', // yellow
+                                                        'delivered': '#2e865f', // green
+                                                        'cancelled': '#d32f2f' // red
+                                                    } [statusColor]
+                                                }"
+                                                @change="statusColor = $event.target.value">
+                                                <option value="unshipped"
+                                                    {{ $order->order_status == 'unshipped' ? 'selected' : '' }}>
+                                                    Unshipped
+                                                </option>
+                                                <option value="shipped"
+                                                    {{ $order->order_status == 'shipped' ? 'selected' : '' }}>
+                                                    Shipped
+                                                </option>
+                                                <option value="delivered"
+                                                    {{ $order->order_status == 'delivered' ? 'selected' : '' }}>
+                                                    Delivered
+                                                </option>
+                                                <option value="cancelled"
+                                                    {{ $order->order_status == 'cancelled' ? 'selected' : '' }}>
+                                                    Cancelled
+                                                </option>
+                                            </select>
+                                        </div>
                                     </div>
 
 
@@ -182,7 +186,7 @@
                 <div class="max-w-xl px-6 py-3">
 
                     <form action="" method="post">
-                        <div class="grid grid-cols-6 gap-6">
+                        <div class="grid grid-cols-2 gap-6">
                             <div>
                                 <label for="cargo_company_id" class="block text-sm font-medium text-gray-700">Cargo
                                     Company</label>
@@ -221,42 +225,6 @@
                 </div>
                 <div class=" bg-white sm:rounded-lg"></div>
                 <div class="max-w-xl px-6 py-3">
-
-                    {{-- <div>
-                        <div class="border p-2 ">
-                            <div class="flex flex-col space-y-1">
-                                <div><span class="font-semibold">Name:</span> {{ $order->address->name }}</div>
-                                <div><span class="font-semibold">Address 1:</span> {{ $order->address->address1 }}</div>
-                                <div><span class="font-semibold">Address 2:</span> {{ $order->address->address2 }}</div>
-                                <div><span class="font-semibold">City:</span> {{ $order->address->city }}</div>
-                                <div><span class="font-semibold">Country:</span> {{ $order->address->country }}</div>
-                                <div><span class="font-semibold">State:</span> {{ $order->address->state }}</div>
-                                <div><span class="font-semibold">Postal Code:</span> {{ $order->address->postalCode }}</div>
-                            </div>
-                         </div>
-
-                    </div>
-                    <div>
-                        @forelse ( $order->user->addresses as $address)
-                           <div class="mb-2">
-
-                            <div class="border p-2 ">
-                               <div class="flex flex-col space-y-1">
-                                   <div><span class="font-semibold">Name:</span> {{ $address->name }}</div>
-                                   <div><span class="font-semibold">Address 1:</span> {{ $address->address1 }}</div>
-                                   <div><span class="font-semibold">Address 2:</span> {{ $address->address2 }}</div>
-                                   <div><span class="font-semibold">City:</span> {{ $address->city }}</div>
-                                   <div><span class="font-semibold">Country:</span> {{ $address->country }}</div>
-                                   <div><span class="font-semibold">State:</span> {{ $address->state }}</div>
-                                   <div><span class="font-semibold">Postal Code:</span> {{ $address->postalCode }}</div>
-                               </div>
-                            </div>
-
-                        </div>
-                        @empty
-                            No Address
-                        @endforelse
-                    </div> --}}
 
                     <div>
                         <label for="address" class="block text-sm font-medium mb-2 dark:text-white">Address:</label>

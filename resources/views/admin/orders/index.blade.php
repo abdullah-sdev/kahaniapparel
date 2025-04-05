@@ -84,7 +84,16 @@
                                                 </td>
                                                 <td
                                                     class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-neutral-200">
-                                                    {{ $order->order_status }}
+                                                    {{-- {{ $order->order_status }} --}}
+
+                                                    <span class="badge px-2 py-1 rounded-md text-xs font-semibold
+                                                    @if($order->order_status === 'processing') bg-yellow-500 text-yellow-800
+                                                    @elseif($order->order_status === 'shipped') bg-blue-500 text-blue-800
+                                                    @elseif($order->order_status === 'delivered') bg-green-500 text-green-800
+                                                    @elseif($order->order_status === 'cancelled') bg-red-500 text-red-800
+                                                    @endif">
+                                                    {{ ucfirst($order->order_status) }}
+                                                </span>
                                                 </td>
                                                 <td
                                                     class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-neutral-200">
