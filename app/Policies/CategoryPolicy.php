@@ -5,7 +5,6 @@ namespace App\Policies;
 use App\Models\Category;
 use App\Models\User;
 use Auth;
-use Illuminate\Auth\Access\Response;
 
 class CategoryPolicy
 {
@@ -31,6 +30,7 @@ class CategoryPolicy
     public function create(User $user): bool
     {
         $authUser = Auth::user();
+
         return Auth::check();
     }
 
@@ -40,6 +40,7 @@ class CategoryPolicy
     public function update(User $user): bool
     {
         $authUser = Auth::user();
+
         return Auth::check();
     }
 
@@ -49,6 +50,7 @@ class CategoryPolicy
     public function delete(User $user, Category $category): bool
     {
         $authUser = Auth::user();
+
         return Auth::check();
     }
 

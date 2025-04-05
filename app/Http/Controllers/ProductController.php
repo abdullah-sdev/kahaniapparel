@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
-use App\Models\Size;
-use App\Models\Category;
-use App\Models\Color;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use App\Models\Category;
+use App\Models\Color;
+use App\Models\Product;
+use App\Models\Size;
 use Auth;
 
 class ProductController extends Controller
@@ -23,6 +23,7 @@ class ProductController extends Controller
         }
         $products = Product::paginate(10);
         $data = compact('products');
+
         return view('admin.products.index')->with($data);
     }
 
@@ -39,6 +40,7 @@ class ProductController extends Controller
         $categories = Category::all();
         $colors = Color::all();
         $data = compact('sizes', 'categories', 'colors');
+
         return view('admin.products.create')->with($data);
     }
 
@@ -54,13 +56,13 @@ class ProductController extends Controller
         // Handle image upload
         if ($request->hasFile('thumbnail_image')) {
             // Store the first image
-            $validatedData['thumbnail_image'] = time() . '-' . $request->name . '-thumbnail-1' . '.' . $request->thumbnail_image->getClientOriginalExtension();
+            $validatedData['thumbnail_image'] = time().'-'.$request->name.'-thumbnail-1'.'.'.$request->thumbnail_image->getClientOriginalExtension();
             $request->thumbnail_image->move(public_path('images/products/'), $validatedData['thumbnail_image']);
         }
 
         if ($request->hasFile('thumbnail_image1')) {
             // Store the second image
-            $validatedData['thumbnail_image1'] = time() . '-' . $request->name . '-thumbnail-2' . '.' . $request->thumbnail_image1->getClientOriginalExtension();
+            $validatedData['thumbnail_image1'] = time().'-'.$request->name.'-thumbnail-2'.'.'.$request->thumbnail_image1->getClientOriginalExtension();
             $request->thumbnail_image1->move(public_path('images/products/'), $validatedData['thumbnail_image1']);
         }
         $product = Product::create($validatedData);
@@ -93,6 +95,7 @@ class ProductController extends Controller
         $sizes = Size::all();
         $categories = Category::all();
         $colors = Color::all();
+
         return view('admin.products.edit', compact('product', 'sizes', 'categories', 'colors'));
     }
 
@@ -107,13 +110,13 @@ class ProductController extends Controller
         // Handle image upload
         if ($request->hasFile('thumbnail_image')) {
             // Store the first image
-            $validatedData['thumbnail_image'] = time() . '-' . $request->name . '-thumbnail-1' . '.' . $request->thumbnail_image->extension();
+            $validatedData['thumbnail_image'] = time().'-'.$request->name.'-thumbnail-1'.'.'.$request->thumbnail_image->extension();
             $request->thumbnail_image->move(public_path('images/products/'), $validatedData['thumbnail_image']);
         }
 
         if ($request->hasFile('thumbnail_image1')) {
             // Store the second image
-            $validatedData['thumbnail_image1'] = time() . '-' . $request->name . '-thumbnail-2' . '.' . $request->thumbnail_image1->extension();
+            $validatedData['thumbnail_image1'] = time().'-'.$request->name.'-thumbnail-2'.'.'.$request->thumbnail_image1->extension();
             $request->thumbnail_image1->move(public_path('images/products/'), $validatedData['thumbnail_image1']);
         }
         // dd($validatedData);
@@ -131,14 +134,15 @@ class ProductController extends Controller
         //
         // Delete associated images from storage
         if ($product->thumbnail_image) {
-            \File::delete(public_path('images/products/' . $product->thumbnail_image));
+            \File::delete(public_path('images/products/'.$product->thumbnail_image));
         }
         if ($product->thumbnail_image1) {
-            \File::delete(public_path('images/products/' . $product->thumbnail_image1));
+            \File::delete(public_path('images/products/'.$product->thumbnail_image1));
         }
 
         // Delete the product from the database
         $product->delete();
+
         return redirect()->route('products.index')->with('success', 'Product deleted successfully!');
 
     }

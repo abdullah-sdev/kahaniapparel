@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\OrderItem;
 use App\Http\Requests\StoreOrderItemRequest;
 use App\Http\Requests\UpdateOrderItemRequest;
+use App\Models\OrderItem;
 use App\Models\Product;
 
 class OrderItemController extends Controller
@@ -17,6 +17,7 @@ class OrderItemController extends Controller
         //
         $orderitems = OrderItem::paginate();
         $data = compact('orderitems');
+
         return view('admin.orderItems.index')->with($data);
     }
 
@@ -28,6 +29,7 @@ class OrderItemController extends Controller
         //
         $products = Product::all();
         $data = compact('products');
+
         return view('admin.orderItems.create')->with($data);
     }
 

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Color;
 use App\Http\Requests\StoreColorRequest;
 use App\Http\Requests\UpdateColorRequest;
+use App\Models\Color;
 use Auth;
 
 class ColorController extends Controller
@@ -20,6 +20,7 @@ class ColorController extends Controller
         }
         $colors = Color::paginate(10);
         $data = compact('colors');
+
         return view('admin.colors.index', $data);
     }
 
@@ -32,6 +33,7 @@ class ColorController extends Controller
         if (Auth::user()->cannot('create', Color::class)) {
             abort(403);
         }
+
         return view('admin.colors.create');
     }
 
@@ -45,6 +47,7 @@ class ColorController extends Controller
             abort(403);
         }
         Color::create($request->validated());
+
         return redirect()->route('colors.index')->with('success', 'Color created successfully.');
     }
 
@@ -57,6 +60,7 @@ class ColorController extends Controller
         if (Auth::user()->cannot('view', $color)) {
             abort(403);
         }
+
         return view('admin.colors.show', compact('color'));
     }
 
@@ -69,6 +73,7 @@ class ColorController extends Controller
         if (Auth::user()->cannot('update', $color)) {
             abort(403);
         }
+
         return view('admin.colors.edit', compact('color'));
     }
 
@@ -82,6 +87,7 @@ class ColorController extends Controller
             abort(403);
         }
         $color->update($request->validated());
+
         return redirect()->route('colors.index')->with('success', 'Color updated successfully.');
 
     }

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CargoCompany;
 use App\Http\Requests\StoreCargoCompanyRequest;
 use App\Http\Requests\UpdateCargoCompanyRequest;
+use App\Models\CargoCompany;
 use Illuminate\Support\Facades\Auth;
 
 class CargoCompanyController extends Controller
@@ -20,6 +20,7 @@ class CargoCompanyController extends Controller
         }
         $cargoCompanies = CargoCompany::paginate(10);
         $data = compact('cargoCompanies');
+
         return view('admin.cargocompanies.index')->with($data);
     }
 
@@ -32,6 +33,7 @@ class CargoCompanyController extends Controller
         if (Auth::user()->cannot('create', CargoCompany::class)) {
             abort(403);
         }
+
         return view('admin.cargocompanies.create');
     }
 
@@ -70,7 +72,8 @@ class CargoCompanyController extends Controller
         if (Auth::user()->cannot('update', $cargoCompany)) {
             abort(403);
         }
-         return view('admin.cargocompanies.edit', compact('cargoCompany'));
+
+        return view('admin.cargocompanies.edit', compact('cargoCompany'));
     }
 
     /**
@@ -83,6 +86,7 @@ class CargoCompanyController extends Controller
             abort(403);
         }
         $cargoCompany->update($request->validated());
+
         return redirect()->route('cargo-companies.index')->with('success', 'Cargo Company updated successfully');
     }
 
@@ -93,6 +97,7 @@ class CargoCompanyController extends Controller
     {
         //
         $cargoCompany->delete();
+
         return redirect()->route('cargo-companies.index')->with('success', 'Cargo Company deleted successfully');
     }
 }

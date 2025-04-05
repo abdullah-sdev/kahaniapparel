@@ -5,7 +5,6 @@ namespace App\Policies;
 use App\Models\Color;
 use App\Models\User;
 use Auth;
-use Illuminate\Auth\Access\Response;
 
 class ColorPolicy
 {
@@ -15,6 +14,7 @@ class ColorPolicy
     public function viewAny(User $user): bool
     {
         $authUser = Auth::user();
+
         return Auth::check();
     }
 
@@ -24,6 +24,7 @@ class ColorPolicy
     public function view(User $user, Color $color): bool
     {
         $authUser = Auth::user();
+
         return Auth::check();
     }
 
@@ -33,6 +34,7 @@ class ColorPolicy
     public function create(User $user): bool
     {
         $authUser = Auth::user();
+
         return Auth::check();
     }
 
@@ -42,6 +44,7 @@ class ColorPolicy
     public function update(User $user): bool
     {
         $authUser = Auth::user();
+
         return Auth::check();
     }
 
@@ -51,6 +54,7 @@ class ColorPolicy
     public function delete(User $user, Color $color): bool
     {
         $authUser = Auth::user();
+
         return Auth::check();
     }
 
@@ -60,6 +64,7 @@ class ColorPolicy
     public function restore(User $user, Color $color): bool
     {
         $authUser = Auth::user();
+
         return Auth::check();
     }
 
@@ -69,6 +74,7 @@ class ColorPolicy
     public function forceDelete(User $user, Color $color): bool
     {
         $authUser = Auth::user();
+
         return Auth::check();
     }
 }

@@ -26,6 +26,7 @@ class OrderFactory extends Factory
         $addressId = Address::where('user_id', $selectedUserId)->pluck('id')->toArray();
         $discountId = Discount::pluck('id')->toArray();
         $cargoCompanyId = CargoCompany::pluck('id')->toArray();
+
         return [
             //
             'user_id' => $selectedUserId,
@@ -46,7 +47,7 @@ class OrderFactory extends Factory
         return $this->afterCreating(function ($order) use ($count) {
             OrderItem::factory()->count($count)->create([
                 'order_id' => $order->id,
-                'user_id' => $order->user_id
+                'user_id' => $order->user_id,
             ]);
         });
     }

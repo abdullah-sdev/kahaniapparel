@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Address;
 use App\Http\Requests\StoreAddressRequest;
 use App\Http\Requests\UpdateAddressRequest;
+use App\Models\Address;
 use Illuminate\Support\Facades\Auth;
 
 class AddressController extends Controller
@@ -20,6 +20,7 @@ class AddressController extends Controller
         }
         $addresses = Address::with('user')->paginate(10);
         $data = compact('addresses');
+
         return view('admin.address.index')->with($data);
     }
 
@@ -32,6 +33,7 @@ class AddressController extends Controller
         if (Auth::user()->cannot('create', Address::class)) {
             abort(403);
         }
+
         return view('admin.address.create');
     }
 
@@ -45,6 +47,7 @@ class AddressController extends Controller
             abort(403);
         }
         Address::create($request->validated());
+
         return redirect()->route('addresses.index')->with('success', 'Address created successfully');
     }
 
@@ -57,6 +60,7 @@ class AddressController extends Controller
         if (Auth::user()->cannot('view', $address)) {
             abort(403);
         }
+
         return view('admin.address.show', compact('address'));
     }
 
@@ -69,6 +73,7 @@ class AddressController extends Controller
         if (Auth::user()->cannot('update', $address)) {
             abort(403);
         }
+
         return view('admin.address.edit', compact('address'));
     }
 
@@ -82,6 +87,7 @@ class AddressController extends Controller
             abort(403);
         }
         $address->update($request->validated());
+
         return redirect()->route('addresses.index')->with('success', 'Address updated successfully');
     }
 
@@ -95,6 +101,7 @@ class AddressController extends Controller
             abort(403);
         }
         Address::destroy($address->id);
+
         return redirect()->route('addresses.index')->with('success', 'Address deleted successfully');
     }
 }

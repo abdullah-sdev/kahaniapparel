@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Order;
 use App\Models\OrderItem;
-use App\Models\Review;
 use Illuminate\Database\Seeder;
 
 class OrderSeeder extends Seeder
@@ -16,16 +15,13 @@ class OrderSeeder extends Seeder
     {
         //
         Order::factory()
-        ->has(
-            OrderItem::factory()
-                ->count(rand(1, 10))
-                ->withReviews()
-           )
-        ->count(100)
-        ->create();
-
-
-
+            ->has(
+                OrderItem::factory()
+                    ->count(rand(1, 10))
+                    ->withReviews()
+            )
+            ->count(100)
+            ->create();
 
     }
 }

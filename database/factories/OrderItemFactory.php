@@ -5,8 +5,8 @@ namespace Database\Factories;
 use App\Models\Color;
 use App\Models\Order;
 use App\Models\Product;
-use App\Models\Size;
 use App\Models\Review;
+use App\Models\Size;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -43,12 +43,12 @@ class OrderItemFactory extends Factory
         $color = Color::inRandomOrder()->first()->name; // Get a random color name
 
         return [
-                    'order_id' => $orderId,
-                    'product_id' => $productId->id,
-                    'price' => $productId->discounted_price,
-                    'quantity' => $this->faker->numberBetween(1, 5),
-                    'product_attributes' => json_encode(['size' => $this->faker->randomElement(['S', 'M', 'L']), 'color' => $this->faker->safeColorName()]),
-                ];
+            'order_id' => $orderId,
+            'product_id' => $productId->id,
+            'price' => $productId->discounted_price,
+            'quantity' => $this->faker->numberBetween(1, 5),
+            'product_attributes' => json_encode(['size' => $this->faker->randomElement(['S', 'M', 'L']), 'color' => $this->faker->safeColorName()]),
+        ];
     }
 
     public function withReviews(): static
@@ -76,7 +76,6 @@ class OrderItemFactory extends Factory
     //         return [];
     //     });
     // }
-
 
     // public function withReviews(): static
     // {

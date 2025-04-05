@@ -23,7 +23,6 @@ class Address extends Model
         'postalCode',
     ];
 
-
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

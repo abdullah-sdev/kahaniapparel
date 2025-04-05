@@ -30,7 +30,6 @@ class DatabaseSeeder extends Seeder
             // ReviewSeeder::class,
         ]);
 
-
         // User::factory()->create([
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',

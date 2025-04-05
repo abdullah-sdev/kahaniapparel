@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreOrderRequest extends FormRequest
@@ -24,7 +24,7 @@ class StoreOrderRequest extends FormRequest
     {
         return [
             // Address selection (either existing or new)
-            'address_id' => 'required_without:new_address|exists:addresses,id,user_id,'. Auth::user()->id,
+            'address_id' => 'required_without:new_address|exists:addresses,id,user_id,'.Auth::user()->id,
 
             // New address fields (only required if address_id not provided)
             // 'new_address' => 'required_without:address_id|array',

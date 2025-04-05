@@ -2,11 +2,11 @@
 
 namespace Database\Factories;
 
-use App\Models\Gallery;
-use App\Models\Color;
-use App\Models\Size;
 use App\Models\Category;
+use App\Models\Color;
+use App\Models\Gallery;
 use App\Models\Product;
+use App\Models\Size;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -35,7 +35,6 @@ class ProductFactory extends Factory
         ];
     }
 
-
     public function withGallery(): self
     {
         return $this->state(function (array $attributes) {
@@ -53,6 +52,4 @@ class ProductFactory extends Factory
             $product->categories()->attach(Category::inRandomOrder()->take(3)->pluck('id'));
         });
     }
-
-
 }

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
+use App\Models\Category;
 use Auth;
 
 class CategoryController extends Controller
@@ -17,6 +17,7 @@ class CategoryController extends Controller
         //
         $categories = Category::paginate(10);
         $data = compact('categories');
+
         return view('admin.categories.index')->with($data);
     }
 
@@ -29,6 +30,7 @@ class CategoryController extends Controller
         if (Auth::user()->cannot('create', Category::class)) {
             abort(403);
         }
+
         return view('admin.categories.create');
     }
 
@@ -42,6 +44,7 @@ class CategoryController extends Controller
             abort(403);
         }
         Category::create($request->validated());
+
         return redirect()->route('categories.index')->with('success', 'Category created successfully');
     }
 
@@ -60,11 +63,12 @@ class CategoryController extends Controller
     public function edit(Category $category)
     {
         //
-         // dd(Auth::user()->first_name);
-         if (Auth::user()->cannot('update', $category)) {
+        // dd(Auth::user()->first_name);
+        if (Auth::user()->cannot('update', $category)) {
             abort(403);
         }
-         return view('admin.categories.edit', compact('category'));
+
+        return view('admin.categories.edit', compact('category'));
     }
 
     /**
@@ -77,6 +81,7 @@ class CategoryController extends Controller
             abort(403);
         }
         $category->update($request->validated());
+
         return redirect()->route('categories.index')->with('success', 'Category updated successfully');
     }
 
@@ -90,6 +95,7 @@ class CategoryController extends Controller
             abort(403);
         }
         $category->delete();
+
         return redirect()->route('categories.index')->with('success', 'Category deleted successfully');
     }
 }

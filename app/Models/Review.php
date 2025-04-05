@@ -11,6 +11,7 @@ class Review extends Model
 {
     /** @use HasFactory<\Database\Factories\ReviewFactory> */
     use HasFactory;
+
     use \Znck\Eloquent\Traits\BelongsToThrough;
 
     protected $fillable = [

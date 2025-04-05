@@ -18,6 +18,7 @@ class AddressFactory extends Factory
     public function definition(): array
     {
         $userID = User::pluck('id');
+
         return [
             //
             'user_id' => $userID->random(),

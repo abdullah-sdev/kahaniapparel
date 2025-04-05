@@ -188,160 +188,190 @@
                                 </div>
                             </div> --}}
                             <!-- Address Selection -->
-<div class="bg-white rounded-lg shadow p-6">
-    <h2 class="text-lg font-semibold mb-4 text-blue-700 border-b pb-2">Shipping Address</h2>
+                            <div class="bg-white rounded-lg shadow p-6">
+                                <h2 class="text-lg font-semibold mb-4 text-blue-700 border-b pb-2">Shipping Address</h2>
 
-    <div class="space-y-4">
-        <h3 class="font-medium text-gray-700">Select Address</h3>
+                                <div class="space-y-4">
+                                    <h3 class="font-medium text-gray-700">Select Address</h3>
 
-        <!-- Validation Error for Address Selection -->
-        @error('address_id', 'new_address')
-            <div class="text-red-600 text-sm mb-2">{{ $message }}</div>
-        @enderror
+                                    <!-- Validation Error for Address Selection -->
+                                    @error('address_id', 'new_address')
+                                        <div class="text-red-600 text-sm mb-2">{{ $message }}</div>
+                                    @enderror
 
-        <div class="space-y-3">
-            @foreach ($addresses as $address)
-                <label class="flex items-start p-4 border rounded-lg hover:border-blue-400 cursor-pointer
+                                    <div class="space-y-3">
+                                        @foreach ($addresses as $address)
+                                            <label
+                                                class="flex items-start p-4 border rounded-lg hover:border-blue-400 cursor-pointer
                     @error('address_id') border-red-500 @enderror">
-                    <input type="radio" name="address_id" value="{{ $address->id }}"
-                        class="mt-1 h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500"
-                        {{ $address->is_default ? 'checked' : '' }}>
-                    <div class="ml-3">
-                        <div class="flex items-center">
-                            <span class="block font-medium text-gray-900">{{ $address->name }}</span>
-                            @if ($address->is_default)
-                                <span class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                                    Default
-                                </span>
-                            @endif
-                        </div>
-                        <div class="text-sm text-gray-500 mt-1">
-                            <div>{{ $address->address1 }}</div>
-                            @if ($address->address2)
-                                <div>{{ $address->address2 }}</div>
-                            @endif
-                            <div>{{ $address->city }}, {{ $address->state }} {{ $address->postalCode }}</div>
-                            <div>{{ $address->country }}</div>
-                            <div>Phone: {{ $user->phone }}</div>
-                        </div>
-                    </div>
-                </label>
-            @endforeach
-        </div>
+                                                <input type="radio" name="address_id" value="{{ $address->id }}"
+                                                    class="mt-1 h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500"
+                                                    {{ $address->is_default ? 'checked' : '' }}>
+                                                <div class="ml-3">
+                                                    <div class="flex items-center">
+                                                        <span
+                                                            class="block font-medium text-gray-900">{{ $address->name }}</span>
+                                                        @if ($address->is_default)
+                                                            <span
+                                                                class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                                                Default
+                                                            </span>
+                                                        @endif
+                                                    </div>
+                                                    <div class="text-sm text-gray-500 mt-1">
+                                                        <div>{{ $address->address1 }}</div>
+                                                        @if ($address->address2)
+                                                            <div>{{ $address->address2 }}</div>
+                                                        @endif
+                                                        <div>{{ $address->city }}, {{ $address->state }}
+                                                            {{ $address->postalCode }}</div>
+                                                        <div>{{ $address->country }}</div>
+                                                        <div>Phone: {{ $user->phone }}</div>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        @endforeach
+                                    </div>
 
-        <!-- Add New Address Toggle -->
-        <div x-data="{ open: false }" class="pt-2">
-            <button @click="open = !open" type="button"
-                class="flex items-center text-sm font-medium text-blue-600 hover:text-blue-800">
-                <svg x-show="!open" class="h-5 w-5 mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
-                </svg>
-                <svg x-show="open" class="h-5 w-5 mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M5 10a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1z" clip-rule="evenodd" />
-                </svg>
-                Add New Address
-            </button>
+                                    <!-- Add New Address Toggle -->
+                                    <div x-data="{ open: false }" class="pt-2">
+                                        <button @click="open = !open" type="button"
+                                            class="flex items-center text-sm font-medium text-blue-600 hover:text-blue-800">
+                                            <svg x-show="!open" class="h-5 w-5 mr-1" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd"
+                                                    d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                                                    clip-rule="evenodd" />
+                                            </svg>
+                                            <svg x-show="open" class="h-5 w-5 mr-1" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd"
+                                                    d="M5 10a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1z"
+                                                    clip-rule="evenodd" />
+                                            </svg>
+                                            Add New Address
+                                        </button>
 
-            <!-- New Address Form -->
-            <div x-show="open" x-transition class="mt-4 p-4 border border-gray-200 rounded-lg bg-gray-50">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <!-- Full Name -->
-                    <div>
-                        <label for="full_name" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
-                        <input type="text" id="full_name" name="new_address[full_name]"
-                            class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 @error('new_address.full_name') border-red-500 @enderror"
-                            value="{{ old('new_address.full_name') }}">
-                        @error('new_address.full_name')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
+                                        <!-- New Address Form -->
+                                        <div x-show="open" x-transition
+                                            class="mt-4 p-4 border border-gray-200 rounded-lg bg-gray-50">
+                                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                <!-- Full Name -->
+                                                <div>
+                                                    <label for="full_name"
+                                                        class="block text-sm font-medium text-gray-700 mb-1">Full
+                                                        Name</label>
+                                                    <input type="text" id="full_name" name="new_address[full_name]"
+                                                        class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 @error('new_address.full_name') border-red-500 @enderror"
+                                                        value="{{ old('new_address.full_name') }}">
+                                                    @error('new_address.full_name')
+                                                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                                    @enderror
+                                                </div>
 
-                    <!-- Phone -->
-                    <div>
-                        <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
-                        <input type="tel" id="phone" name="new_address[phone]"
-                            class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 @error('new_address.phone') border-red-500 @enderror"
-                            value="{{ old('new_address.phone') }}">
-                        @error('new_address.phone')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
+                                                <!-- Phone -->
+                                                <div>
+                                                    <label for="phone"
+                                                        class="block text-sm font-medium text-gray-700 mb-1">Phone
+                                                        Number</label>
+                                                    <input type="tel" id="phone" name="new_address[phone]"
+                                                        class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 @error('new_address.phone') border-red-500 @enderror"
+                                                        value="{{ old('new_address.phone') }}">
+                                                    @error('new_address.phone')
+                                                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                                    @enderror
+                                                </div>
 
-                    <!-- Address Line 1 -->
-                    <div class="md:col-span-2">
-                        <label for="address_line_1" class="block text-sm font-medium text-gray-700 mb-1">Address Line 1</label>
-                        <input type="text" id="address_line_1" name="new_address[address_line_1]"
-                            class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 @error('new_address.address_line_1') border-red-500 @enderror"
-                            value="{{ old('new_address.address_line_1') }}">
-                        @error('new_address.address_line_1')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
+                                                <!-- Address Line 1 -->
+                                                <div class="md:col-span-2">
+                                                    <label for="address_line_1"
+                                                        class="block text-sm font-medium text-gray-700 mb-1">Address
+                                                        Line 1</label>
+                                                    <input type="text" id="address_line_1"
+                                                        name="new_address[address_line_1]"
+                                                        class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 @error('new_address.address_line_1') border-red-500 @enderror"
+                                                        value="{{ old('new_address.address_line_1') }}">
+                                                    @error('new_address.address_line_1')
+                                                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                                    @enderror
+                                                </div>
 
-                    <!-- Address Line 2 -->
-                    <div class="md:col-span-2">
-                        <label for="address_line_2" class="block text-sm font-medium text-gray-700 mb-1">Address Line 2 (Optional)</label>
-                        <input type="text" id="address_line_2" name="new_address[address_line_2]"
-                            class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                            value="{{ old('new_address.address_line_2') }}">
-                    </div>
+                                                <!-- Address Line 2 -->
+                                                <div class="md:col-span-2">
+                                                    <label for="address_line_2"
+                                                        class="block text-sm font-medium text-gray-700 mb-1">Address
+                                                        Line 2 (Optional)</label>
+                                                    <input type="text" id="address_line_2"
+                                                        name="new_address[address_line_2]"
+                                                        class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                                                        value="{{ old('new_address.address_line_2') }}">
+                                                </div>
 
-                    <!-- City -->
-                    <div>
-                        <label for="city" class="block text-sm font-medium text-gray-700 mb-1">City</label>
-                        <input type="text" id="city" name="new_address[city]"
-                            class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 @error('new_address.city') border-red-500 @enderror"
-                            value="{{ old('new_address.city') }}">
-                        @error('new_address.city')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
+                                                <!-- City -->
+                                                <div>
+                                                    <label for="city"
+                                                        class="block text-sm font-medium text-gray-700 mb-1">City</label>
+                                                    <input type="text" id="city" name="new_address[city]"
+                                                        class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 @error('new_address.city') border-red-500 @enderror"
+                                                        value="{{ old('new_address.city') }}">
+                                                    @error('new_address.city')
+                                                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                                    @enderror
+                                                </div>
 
-                    <!-- State -->
-                    <div>
-                        <label for="state" class="block text-sm font-medium text-gray-700 mb-1">State/Province</label>
-                        <input type="text" id="state" name="new_address[state]"
-                            class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 @error('new_address.state') border-red-500 @enderror"
-                            value="{{ old('new_address.state') }}">
-                        @error('new_address.state')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
+                                                <!-- State -->
+                                                <div>
+                                                    <label for="state"
+                                                        class="block text-sm font-medium text-gray-700 mb-1">State/Province</label>
+                                                    <input type="text" id="state" name="new_address[state]"
+                                                        class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 @error('new_address.state') border-red-500 @enderror"
+                                                        value="{{ old('new_address.state') }}">
+                                                    @error('new_address.state')
+                                                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                                    @enderror
+                                                </div>
 
-                    <!-- Postal Code -->
-                    <div>
-                        <label for="postal_code" class="block text-sm font-medium text-gray-700 mb-1">Postal Code</label>
-                        <input type="text" id="postal_code" name="new_address[postal_code]"
-                            class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 @error('new_address.postal_code') border-red-500 @enderror"
-                            value="{{ old('new_address.postal_code') }}">
-                        @error('new_address.postal_code')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
+                                                <!-- Postal Code -->
+                                                <div>
+                                                    <label for="postal_code"
+                                                        class="block text-sm font-medium text-gray-700 mb-1">Postal
+                                                        Code</label>
+                                                    <input type="text" id="postal_code"
+                                                        name="new_address[postal_code]"
+                                                        class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 @error('new_address.postal_code') border-red-500 @enderror"
+                                                        value="{{ old('new_address.postal_code') }}">
+                                                    @error('new_address.postal_code')
+                                                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                                    @enderror
+                                                </div>
 
-                    <!-- Country -->
-                    <div>
-                        <label for="country" class="block text-sm font-medium text-gray-700 mb-1">Country</label>
-                        <input type="text" id="country" name="new_address[country]"
-                            class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 @error('new_address.country') border-red-500 @enderror"
-                            value="{{ old('new_address.country') }}">
-                        @error('new_address.country')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
+                                                <!-- Country -->
+                                                <div>
+                                                    <label for="country"
+                                                        class="block text-sm font-medium text-gray-700 mb-1">Country</label>
+                                                    <input type="text" id="country" name="new_address[country]"
+                                                        class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 @error('new_address.country') border-red-500 @enderror"
+                                                        value="{{ old('new_address.country') }}">
+                                                    @error('new_address.country')
+                                                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                                    @enderror
+                                                </div>
 
-                    <!-- Default Address Checkbox -->
-                    <div class="flex items-center">
-                        <input type="checkbox" id="is_default" name="new_address[is_default]" value="1"
-                            class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                            {{ old('new_address.is_default') ? 'checked' : '' }}>
-                        <label for="is_default" class="ml-2 block text-sm text-gray-700">Set as default address</label>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+                                                <!-- Default Address Checkbox -->
+                                                <div class="flex items-center">
+                                                    <input type="checkbox" id="is_default"
+                                                        name="new_address[is_default]" value="1"
+                                                        class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                                                        {{ old('new_address.is_default') ? 'checked' : '' }}>
+                                                    <label for="is_default"
+                                                        class="ml-2 block text-sm text-gray-700">Set as default
+                                                        address</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
                             <!-- Order Items -->
                             <div class="bg-white rounded-lg shadow p-6">
@@ -781,7 +811,7 @@
                                 const shippingSelect = document.getElementById('cargo_company_id');
                                 const shippingOption = shippingSelect.options[shippingSelect.selectedIndex];
                                 const shippingCost = shippingOption ? parseFloat(shippingOption.getAttribute('data-price')) || 0 :
-                                0;
+                                    0;
 
                                 // Get discount
                                 const discountSelect = document.getElementById('discount_id');

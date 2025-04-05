@@ -37,6 +37,7 @@ class Order extends Model
     {
         return $this->hasOne(Discount::class, 'id', 'discount_id');
     }
+
     public function address(): HasOne
     {
         return $this->hasOne(Address::class, 'id', 'address_id');
@@ -56,7 +57,6 @@ class Order extends Model
     {
         return $this->hasManyThrough(Review::class, OrderItem::class);
     }
-
 
     // Scopes
     public function scopePending($query)
@@ -94,7 +94,7 @@ class Order extends Model
     {
         $this->update([
             'order_status' => 'shipped',
-            'tracking_number' => $trackingNumber
+            'tracking_number' => $trackingNumber,
         ]);
     }
 }

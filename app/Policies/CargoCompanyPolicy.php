@@ -38,6 +38,7 @@ class CargoCompanyPolicy
     public function update(User $user): bool
     {
         $authUser = Auth::user();
+
         // dd($authUser);
         return Auth::check();
     }

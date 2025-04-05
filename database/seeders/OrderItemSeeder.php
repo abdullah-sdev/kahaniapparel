@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class OrderItemSeeder extends Seeder
@@ -19,12 +18,11 @@ class OrderItemSeeder extends Seeder
         $orderIds = Order::pluck('id')->toArray();
         $productIds = Product::pluck('id')->toArray();
 
-         // Create 10 order items with reviews using the factory
-         OrderItem::factory()
-         ->count(rand(10, 20)) // Number of order items to create
-         ->withReviews() // This will add reviews to the order items
-         ->create(); // Create and persist the order items
-
+        // Create 10 order items with reviews using the factory
+        OrderItem::factory()
+            ->count(rand(10, 20)) // Number of order items to create
+            ->withReviews() // This will add reviews to the order items
+            ->create(); // Create and persist the order items
 
         // OrderItem::factory()
         //     ->count(rand(100, 200))
@@ -35,7 +33,6 @@ class OrderItemSeeder extends Seeder
         //         $orderItem->save();
         //         $orderItem->withReviews()->saveMany(Review::factory()->count(rand(1, 5))->make());
         //     });
-
 
         // OrderItem::factory()
         // ->count(rand(100, 200))

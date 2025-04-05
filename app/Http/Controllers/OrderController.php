@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Order;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 use App\Models\Address;
 use App\Models\CargoCompany;
 use App\Models\Discount;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -25,6 +25,7 @@ class OrderController extends Controller
         // Auth::user()->id;
         // dd($orders, Auth::user()->id);
         $data = compact('orders');
+
         return view('admin.orders.index', $data);
     }
 
@@ -42,8 +43,8 @@ class OrderController extends Controller
             ->orWhereNull('expires_at')
             ->get();
 
-            // dump($user->toArray());
-            // die();
+        // dump($user->toArray());
+        // die();
         return view('admin.orders.create', compact('users', 'addresses', 'products', 'cargoCompanies', 'discounts'));
     }
 
@@ -55,8 +56,7 @@ class OrderController extends Controller
         //
         $validated = $request->validated();
 
-
-        dd($validated, $request->all());
+        // dd($validated, $request->all());
 
         // Calculate subtotal
         $subtotal = 0;
@@ -119,7 +119,6 @@ class OrderController extends Controller
             ->with('success', 'Payment processed successfully!');
     }
 
-
     /**
      * Display the specified resource.
      */
@@ -141,6 +140,7 @@ class OrderController extends Controller
     {
         //
         $cargoCompanies = CargoCompany::all();
+
         return view('admin.orders.edit', compact('order', 'cargoCompanies'));
     }
 

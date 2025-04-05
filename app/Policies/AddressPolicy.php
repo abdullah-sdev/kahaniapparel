@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
-use App\Models\User;
 use App\Models\Address;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class AddressPolicy
@@ -32,7 +32,7 @@ class AddressPolicy
      */
     public function create(User $user): bool
     {
-        return  Auth::user()->id == $user->id;
+        return Auth::user()->id == $user->id;
     }
 
     /**

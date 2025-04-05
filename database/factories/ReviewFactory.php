@@ -32,7 +32,7 @@ class ReviewFactory extends Factory
             'product_id' => Product::inRandomOrder()->first()->id, // Randomly associate with a product
             'user_id' => User::inRandomOrder()->first()->id, // Randomly associate with a user
             'comment' => $this->faker->paragraph,
-            'rating' => rand(1,5),
+            'rating' => rand(1, 5),
         ];
     }
 }

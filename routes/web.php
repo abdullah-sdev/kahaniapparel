@@ -4,11 +4,11 @@ use App\Http\Controllers\AddressController;
 use App\Http\Controllers\CargoCompanyController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ColorController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderItemController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\OrderController;
-use App\Http\Controllers\OrderItemController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
