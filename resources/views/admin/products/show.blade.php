@@ -1,4 +1,4 @@
-<x-app-layout>
+{{-- <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Product:') }}
@@ -158,6 +158,75 @@
                         </div>
                     </div>
 
+                </div>
+            </div>
+        </div>
+    </div>
+</x-app-layout> --}}
+<x-app-layout>
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 bg-white border-b border-gray-200">
+                    <div class="md:flex md:items-start md:space-x-6">
+                        <div class="mb-4 md:mb-0 md:w-1/2">
+                            {{-- Product Image Gallery --}}
+                            <div class="relative">
+                                {{-- @if ($product->galleries->isNotEmpty())
+                                    <img src="{{ asset('storage/' . $product->galleries->first()->image_path) }}" alt="{{ $product->name }}" class="w-full rounded-md shadow-lg">
+
+                                    @if ($product->galleries->count() > 1)
+                                        <div class="mt-4 grid grid-cols-3 gap-2">
+                                            @foreach ($product->galleries->skip(1) as $galleryImage)
+                                                <img src="{{ asset('storage/' . $galleryImage->image_path) }}" alt="{{ $product->name }} - Additional Image" class="w-full h-24 object-cover rounded-md cursor-pointer shadow-sm hover:opacity-75 transition duration-300">
+                                            @endforeach
+                                        </div>
+                                    @endif
+                                @else
+                                    <img src="{{ asset('storage/' . $product->thumbnail_image) }}" alt="{{ $product->name }}" class="w-full rounded-md shadow-lg">
+                                @endif --}}
+                            </div>
+                        </div>
+
+                        <div class="md:w-1/2">
+                            <h1 class="text-2xl font-bold text-gray-800 mb-2">{{ $product->name }}</h1>
+
+                            @if ($product->discounted_price)
+                                <div class="flex items-center mb-2">
+                                    <span class="text-gray-500 line-through">${{ number_format($product->actual_price, 2) }}</span>
+                                    <span class="ml-2 text-xl font-semibold text-green-500">${{ number_format($product->discounted_price, 2) }}</span>
+                                </div>
+                            @else
+                                <p class="text-xl font-semibold text-gray-800 mb-2">${{ number_format($product->actual_price, 2) }}</p>
+                            @endif
+
+                            <p class="text-gray-700 mb-4">{{ $product->description }}</p>
+
+                            <div class="mb-4">
+                                <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
+                                    Stock: {{ $product->is_in_stock ? 'In Stock' : 'Out of Stock' }}
+                                </span>
+                                @if ($product->is_enable)
+                                    <span class="inline-block bg-green-200 rounded-full px-3 py-1 text-sm font-semibold text-green-700 mr-2">
+                                        Enabled
+                                    </span>
+                                @else
+                                    <span class="inline-block bg-red-200 rounded-full px-3 py-1 text-sm font-semibold text-red-700 mr-2">
+                                        Disabled
+                                    </span>
+                                @endif
+                            </div>
+
+                            <div class="flex items-center space-x-4">
+                                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                                    Add to Cart
+                                </button>
+                                <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                                    Add to Wishlist
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

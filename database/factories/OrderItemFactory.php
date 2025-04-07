@@ -47,7 +47,7 @@ class OrderItemFactory extends Factory
             'product_id' => $productId->id,
             'price' => $productId->discounted_price,
             'quantity' => $this->faker->numberBetween(1, 5),
-            'product_attributes' => json_encode(['size' => $this->faker->randomElement(['S', 'M', 'L']), 'color' => $this->faker->safeColorName()]),
+            'product_attributes' => ['size' => $size, 'color' => $color],
         ];
     }
 

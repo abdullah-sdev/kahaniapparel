@@ -37,7 +37,7 @@ class OrderController extends Controller
         //
         $users = User::where('id', Auth::user()->id)->get();
         $addresses = Address::where('user_id', Auth::user()->id)->get();
-        $products = Product::all();
+        $products = Product::with('colors', 'sizes')->get();
         $cargoCompanies = CargoCompany::all();
         $discounts = Discount::where('expires_at', '>', now())
             ->orWhereNull('expires_at')
@@ -56,47 +56,44 @@ class OrderController extends Controller
         //
         $validated = $request->validated();
 
-        // dd($validated, $request->all());
+        $defaultAttributes = [
+            "size" => "M",
+            "color" => "yellow"
+        ];
 
-        // Calculate subtotal
-        $subtotal = 0;
-        $items = [];
-
-        foreach ($validated->items as $item) {
-            $product = Product::find($item->product_id);
-            $price = $product->price;
-            $quantity = $item->quantity;
-
-            $items[] = [
-                'product_id' => $product->id,
-                'price' => $price,
-                'quantity' => $quantity,
-                'product_attributes' => $item['attributes'] ?? null,
+        $items = collect($validated['items'])->map(function ($item) use ($defaultAttributes) {
+            $product = Product::find($item['product_id']);
+            return [
+                'product_id' => $item['product_id'],
+                'price' => $product ? $product->discounted_price : 0,
+                'quantity' => $item['quantity'],
+                'product_attributes' => $item['attributes'] ?? $defaultAttributes,
             ];
-
-            $subtotal += $price * $quantity;
-        }
-
+        });
+        $subtotal = $items->sum(fn($item) => $item['price'] * $item['quantity']);
         // Get delivery cost (example: fixed $5 or from cargo company)
-        $cargoCompany = CargoCompany::first(); // Or get from request
-        $deliveryCost = $cargoCompany ? $cargoCompany->base_price : 5.00;
+        $cargoCompany = CargoCompany::find($validated['cargo_company_id']);
+        $deliveryCost = $cargoCompany?->base_price ?? 5.00;
+
+        // dd($items, $subtotal, $deliveryCost);
+
 
         // Create order
         $order = Order::create([
             'user_id' => Auth::id(),
-            'address_id' => $validated['address_id'],
+            'address_id' => $validated['address_id'], //  ?? $this->createNewAddress($validated['new_address'] ?? []),
             'payment_status' => 'pending',
             'order_status' => 'processing',
+            // 'tracking_number' => $validated['tracking_number'],
             'payment_type' => $validated['payment_type'],
             'cargo_company_id' => $cargoCompany->id ?? null,
+            'discount_id' => $validated['discount_id'] ?? null,
             'subtotal' => $subtotal,
             'delivery_cost' => $deliveryCost,
         ]);
 
         // Add order items
-        foreach ($items as $item) {
-            $order->items()->create($item);
-        }
+        $order->orderItems()->createMany($items->toArray());
 
         // Handle payment based on type
         if ($validated['payment_type'] === 'credit_card') {
