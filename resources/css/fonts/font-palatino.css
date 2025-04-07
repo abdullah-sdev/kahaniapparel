@@ -1,0 +1,29 @@
+/* Palatino */
+@font-face {
+    font-family: "Palatino";
+    src: url("../../fonts/Palatino-Linotype/pala.ttf") format("truetype"); /* normal */
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Palatino";
+    src: url("../../fonts/Palatino-Linotype/palab.ttf") format("truetype"); /* bold */
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Palatino";
+    src: url("../../fonts/Palatino-Linotype/palabi.ttf") format("truetype"); /* bold-italic */
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Palatino";
+    src: url("../../fonts/Palatino-Linotype/palai.ttf") format("truetype"); /* italic */
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+  }

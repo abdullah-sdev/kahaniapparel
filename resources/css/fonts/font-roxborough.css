@@ -1,0 +1,124 @@
+
+/* Roxborough */
+@font-face {
+    font-family: "Roxborough";
+    src: url("../../fonts/RoxboroughCF/RoxboroughCF-Bold.otf") format("opentype"); /* bold */
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Roxborough";
+    src: url("../../fonts/RoxboroughCF/RoxboroughCF-BoldItalic.otf")
+      format("opentype"); /* bold-italic */
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Roxborough";
+    src: url("../../fonts/RoxboroughCF/RoxboroughCF-DemiBold.otf") format("opentype"); /* demi-bold */
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Roxborough";
+    src: url("../../fonts/RoxboroughCF/RoxboroughCF-DemiBoldItalic.otf")
+      format("opentype"); /* demi-bold-italic */
+    font-weight: 600;
+    font-style: italic;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Roxborough";
+    src: url("../../fonts/RoxboroughCF/RoxboroughCF-ExtraBold.otf")
+      format("opentype"); /* extra-bold */
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Roxborough";
+    src: url("../../fonts/RoxboroughCF/RoxboroughCF-ExtraBoldItalic.otf")
+      format("opentype"); /* extra-bold-italic */
+    font-weight: 800;
+    font-style: italic;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Roxborough";
+    src: url("../../fonts/RoxboroughCF/RoxboroughCF-Heavy.otf") format("opentype"); /* heavy */
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Roxborough";
+    src: url("../../fonts/RoxboroughCF/RoxboroughCF-HeavyItalic.otf")
+      format("opentype"); /* heavy-italic */
+    font-weight: 900;
+    font-style: italic;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Roxborough";
+    src: url("../../fonts/RoxboroughCF/RoxboroughCF-Light.otf") format("opentype"); /* light */
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Roxborough";
+    src: url("../../fonts/RoxboroughCF/RoxboroughCF-LightItalic.otf")
+      format("opentype"); /* light-italic */
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Roxborough";
+    src: url("../../fonts/RoxboroughCF/RoxboroughCF-Medium.otf") format("opentype"); /* medium */
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Roxborough";
+    src: url("../../fonts/RoxboroughCF/RoxboroughCF-MediumItalic.otf")
+      format("opentype"); /* medium-italic */
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Roxborough";
+    src: url("../../fonts/RoxboroughCF/RoxboroughCF-Regular.otf") format("opentype"); /* regular */
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Roxborough";
+    src: url("../../fonts/RoxboroughCF/RoxboroughCF-RegularItalic.otf")
+      format("opentype"); /* regular-italic */
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Roxborough";
+    src: url("../../fonts/RoxboroughCF/RoxboroughCF-Thin.otf") format("opentype"); /* thin */
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Roxborough";
+    src: url("../../fonts/RoxboroughCF/RoxboroughCF-ThinItalic.otf")
+      format("opentype"); /* thin-italic */
+    font-weight: 100;
+    font-style: italic;
+    font-display: swap;
+  }
+  
