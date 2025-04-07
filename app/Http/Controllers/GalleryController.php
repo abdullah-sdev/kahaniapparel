@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Gallery;
 use App\Http\Requests\StoreGalleryRequest;
 use App\Http\Requests\UpdateGalleryRequest;
+use App\Models\Gallery;
 
 class GalleryController extends Controller
 {

@@ -2,8 +2,13 @@
 
 namespace Database\Factories;
 
+use App\Models\Category;
+use App\Models\Color;
 use App\Models\Gallery;
+use App\Models\Product;
+use App\Models\Size;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Product>
@@ -17,9 +22,12 @@ class ProductFactory extends Factory
      */
     public function definition(): array
     {
+        $name = $this->faker->unique()->sentence(3);
+        $slug = Str::slug($name);
         return [
             //
-            'name' => $this->faker->unique()->word(),
+            'name' => $name,
+            'slug' => $slug,
             'actual_price' => $this->faker->numberBetween(1000, 10000),
             'discounted_price' => $this->faker->numberBetween(1, 9999),
             'description' => $this->faker->paragraph(),
@@ -31,13 +39,21 @@ class ProductFactory extends Factory
         ];
     }
 
-
     public function withGallery(): self
     {
         return $this->state(function (array $attributes) {
             return [
                 'gallery' => Gallery::factory()->count(3)->make(),
             ];
+        });
+    }
+
+    public function withColorsSizesCategory(): self
+    {
+        return $this->afterCreating(function (Product $product) {
+            $product->colors()->attach(Color::inRandomOrder()->take(3)->pluck('id'));
+            $product->sizes()->attach(Size::inRandomOrder()->take(3)->pluck('id'));
+            $product->categories()->attach(Category::inRandomOrder()->take(3)->pluck('id'));
         });
     }
 }

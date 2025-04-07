@@ -57,8 +57,6 @@ class User extends Authenticatable
 
     /**
      * Get all of the addresses for the User
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function addresses(): HasMany
     {
@@ -78,5 +76,10 @@ class User extends Authenticatable
     public function reviews(): HasMany
     {
         return $this->HasMany(Review::class);
+    }
+
+    public function fullname()
+    {
+        return $this->first_name.' '.$this->last_name;
     }
 }

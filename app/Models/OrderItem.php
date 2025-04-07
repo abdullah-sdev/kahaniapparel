@@ -21,6 +21,10 @@ class OrderItem extends Model
         'product_attributes',
     ];
 
+    protected $casts = [
+        'product_attributes' => 'array',
+    ];
+
     public function order(): BelongsTo
     {
         return $this->BelongsTo(Order::class);
@@ -39,5 +43,20 @@ class OrderItem extends Model
     public function user(): HasOneThrough
     {
         return $this->hasOneThrough(User::class, Order::class, 'order_id', 'user_id', 'id');
+    }
+
+    // Helpers
+    public function total()
+    {
+        return $this->price * $this->quantity;
+    }
+
+    public function getAttribute($key)
+    {
+        if (array_key_exists($key, $this->product_attributes ?? [])) {
+            return $this->product_attributes[$key];
+        }
+
+        return parent::getAttribute($key);
     }
 }

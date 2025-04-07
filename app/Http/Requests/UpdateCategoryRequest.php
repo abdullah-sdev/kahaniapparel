@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Category;
+use Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateCategoryRequest extends FormRequest
@@ -11,7 +13,8 @@ class UpdateCategoryRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        // return false;
+        return Auth::user()->can('update', Category::class);
     }
 
     /**
@@ -23,6 +26,7 @@ class UpdateCategoryRequest extends FormRequest
     {
         return [
             //
+            'name' => 'required|string|max:255',
         ];
     }
 }

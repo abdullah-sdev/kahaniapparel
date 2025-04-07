@@ -2,6 +2,12 @@
 
 use App\Enums\RoleEnum;
 use App\Http\Controllers\AddressController;
+use App\Http\Controllers\CargoCompanyController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ColorController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderItemController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -21,7 +27,13 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('users', UserController::class)
     ->middleware('role:'. RoleEnum::ADMIN->value);
-    Route::resource('address', AddressController::class);
+    Route::resource('addresses', AddressController::class);
+    Route::resource('cargo-companies', CargoCompanyController::class);
+    Route::resource('categories', CategoryController::class);
+    Route::resource('colors', ColorController::class);
+    Route::resource('products', ProductController::class);
+    Route::resource('orders', OrderController::class);
+    Route::resource('order-items', OrderItemController::class);
 });
 
 require __DIR__.'/auth.php';

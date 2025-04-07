@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Models\CargoCompany;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class UpdateCargoCompanyRequest extends FormRequest
 {
@@ -11,7 +13,9 @@ class UpdateCargoCompanyRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        // authcheck and admin in future
+        return Auth::user()->can('update', CargoCompany::class);
+        // return Auth::check();
     }
 
     /**
@@ -23,6 +27,9 @@ class UpdateCargoCompanyRequest extends FormRequest
     {
         return [
             //
+            'name' => ['required', 'string', 'max:255'],
+            'code' => ['required', 'string', 'max:255'],
+            'tax_number' => ['required', 'string', 'max:255'],
         ];
     }
 }

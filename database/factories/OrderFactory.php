@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Address;
 use App\Models\CargoCompany;
 use App\Models\Discount;
 use App\Models\OrderItem;
@@ -21,11 +22,15 @@ class OrderFactory extends Factory
     public function definition(): array
     {
         $userId = User::pluck('id')->toArray();
+        $selectedUserId = $this->faker->randomElement($userId);
+        $addressId = Address::where('user_id', $selectedUserId)->pluck('id')->toArray();
         $discountId = Discount::pluck('id')->toArray();
         $cargoCompanyId = CargoCompany::pluck('id')->toArray();
+
         return [
             //
-            'user_id' => $this->faker->randomElement($userId),
+            'user_id' => $selectedUserId,
+            'address_id' => $this->faker->randomElement($addressId),
             'payment_status' => $this->faker->randomElement(['pending', 'paid', 'failed']),
             'order_status' => $this->faker->randomElement(['processing', 'shipped', 'delivered', 'cancelled']),
             'payment_type' => $this->faker->randomElement(['cash', 'credit_card']),
@@ -39,8 +44,11 @@ class OrderFactory extends Factory
 
     public function withOrderItems(int $count)
     {
-        return $this->has(OrderItem::factory()->count($count), [
-            'order_id' => fn(array $attributes) => $attributes['id']
-        ]);
+        return $this->afterCreating(function ($order) use ($count) {
+            OrderItem::factory()->count($count)->create([
+                'order_id' => $order->id,
+                'user_id' => $order->user_id,
+            ]);
+        });
     }
 }

@@ -26,19 +26,30 @@ class Product extends Model
         'is_enable',
     ];
 
+    protected $casts = [
+        'is_in_stock' => 'boolean',
+        'is_enable' => 'boolean',
+    ];
+
+    protected $attributes = [
+        'clicks' => 0,
+        'is_in_stock' => true,
+        'is_enable' => true,
+    ];
+
     public function categories(): belongsToMany
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(Category::class, 'product_categories');
     }
 
     public function sizes(): belongsToMany
     {
-        return $this->belongsToMany(Size::class);
+        return $this->belongsToMany(Size::class, 'product_sizes');
     }
 
     public function colors(): BelongsToMany
     {
-        return $this->belongsToMany(Color::class);
+        return $this->belongsToMany(Color::class, 'product_colors', 'product_id', 'color_id');
     }
 
     public function reviews(): HasMany

@@ -4,7 +4,7 @@ namespace App\Policies;
 
 use App\Models\OrderItem;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
+use Illuminate\Support\Facades\Auth;
 
 class OrderItemPolicy
 {
@@ -21,7 +21,7 @@ class OrderItemPolicy
      */
     public function view(User $user, OrderItem $orderItem): bool
     {
-        return false;
+        return Auth::user()->id == $orderItem->order->user_id;
     }
 
     /**

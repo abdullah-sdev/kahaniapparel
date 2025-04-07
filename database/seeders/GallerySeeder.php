@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\Gallery;
 use App\Models\Product;
 use App\Models\Review;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class GallerySeeder extends Seeder

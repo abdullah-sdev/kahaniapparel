@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Address;
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
@@ -16,8 +15,8 @@ class UserSeeder extends Seeder
     {
         //
         User::factory()
-        ->has(Address::factory()->count(3))
-        ->count(50)
-        ->create();
+            ->has(Address::factory()->count(3))
+            ->count(50)
+            ->create();
     }
 }

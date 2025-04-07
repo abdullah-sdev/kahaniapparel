@@ -24,7 +24,6 @@ class Discount extends Model
         'value',
     ];
 
-
     public function orders(): HasMany
     {
         return $this->hasMany(User::class);

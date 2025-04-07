@@ -17,6 +17,7 @@ class Order extends Model
 
     protected $fillable = [
         'user_id',
+        'address_id',
         'payment_status',
         'tracking_number',
         'order_status',
@@ -27,14 +28,19 @@ class Order extends Model
         'delivery_cost',
     ];
 
-    public function cargo_company(): HasOne
+    public function cargoCompany(): BelongsTo
     {
-        return $this->hasOne(CargoCompany::class);
+        return $this->belongsTo(CargoCompany::class, 'cargo_company_id');
     }
 
     public function discount(): HasOne
     {
         return $this->hasOne(Discount::class, 'id', 'discount_id');
+    }
+
+    public function address(): HasOne
+    {
+        return $this->hasOne(Address::class, 'id', 'address_id');
     }
 
     public function user(): BelongsTo
@@ -51,4 +57,57 @@ class Order extends Model
     {
         return $this->hasManyThrough(Review::class, OrderItem::class);
     }
+
+    // Scopes
+    public function scopePending($query)
+    {
+        return $query->where('payment_status', 'pending');
+    }
+
+    public function scopePaid($query)
+    {
+        return $query->where('payment_status', 'paid');
+    }
+
+    public function scopeProcessing($query)
+    {
+        return $query->where('order_status', 'processing');
+    }
+
+    public function scopeShipped($query)
+    {
+        return $query->where('order_status', 'shipped');
+    }
+
+    // Helpers
+    public function total()
+    {
+        return $this->subtotal + $this->delivery_cost;
+    }
+
+    public function markAsPaid()
+    {
+        $this->update(['payment_status' => 'paid']);
+    }
+
+    public function markAsShipped($trackingNumber)
+    {
+        $this->update([
+            'order_status' => 'shipped',
+            'tracking_number' => $trackingNumber,
+        ]);
+    }
+
+
+    public function getStatusBadgeClasses(): string
+{
+    $classes = [
+        'processing' => 'bg-yellow-500 text-yellow-800',
+        'shipped' => 'bg-blue-500 text-blue-800',
+        'delivered' => 'bg-green-500 text-green-800',
+        'cancelled' => 'bg-red-500 text-red-800',
+    ];
+
+    return $classes[$this->order_status] ?? 'bg-gray-500 text-gray-800';
+}
 }

@@ -48,11 +48,8 @@ class UserFactory extends Factory
         ]);
     }
 
-
     /**
      * Create a user with an address.
-     *
-     * @return static
      */
     public function withAddress(): static
     {

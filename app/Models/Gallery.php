@@ -19,9 +19,9 @@ class Gallery extends Model
         'description',
     ];
 
-     // Define the polymorphic relationship
-     public function imageable() : MorphTo
-     {
-         return $this->morphTo();
-     }
+    // Define the polymorphic relationship
+    public function imageable(): MorphTo
+    {
+        return $this->morphTo();
+    }
 }
