@@ -153,7 +153,7 @@
                         </div>
 
                         <div>
-                            <a href="{{ route('products.edit', $product->id) }}"
+                            <a href="{{ route('admin.products.edit', $product->id) }}"
                                 class="text-blue-600 hover:text-blue-700">Edit</a>
                         </div>
                     </div>

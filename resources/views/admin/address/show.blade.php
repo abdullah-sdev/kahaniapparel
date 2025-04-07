@@ -54,7 +54,7 @@
                             </div>
                         </div>
                         <div>
-                            <a href="{{ route('addresses.edit', $address->id) }}"
+                            <a href="{{ route('admin.addresses.edit', $address->id) }}"
                                 class="text-blue-600 hover:text-blue-700">Edit</a>
                         </div>
                     </div>

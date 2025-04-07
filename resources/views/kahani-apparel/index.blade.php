@@ -18,7 +18,29 @@
                     <div class="p-5 md:p-10">
                         <h3 class="text-3xl font-bold mt-2 mb-8 text-center font-roxborough">Our Products</h3>
                         <div class="products | grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 grid-cols-2 gap-8 font-semibold">
+
+                            @forelse ($categories as $category)
                             <div class="prod-card | mx-auto">
+                                <a href="{{ route('products') }}?{{ $category->name }}">
+                                    <div
+                                    class="prod-img | aspect-square max-h-[248px] overflow-hidden rounded-3xl bg-slate-300">
+                                    <img src="{{ asset('kahani-apparel/assets/products/Tshirt/flower.png') }}"
+                                        alt="">
+                                </div>
+                                <div class="prod-name | text-center mt-4 text-white/80 font-roxborough ">
+                                    <p class="pb-1 items-center mx-auto w-fit relative">
+                                        {{ $category->name }}
+                                        <span
+                                            class="absolute top-full left-1/2 transform -translate-x-1/2 w-3/4 border-b border-white/60"></span>
+                                    </p>
+                                </div>
+                                </a>
+                            </div>
+                            @empty
+                                None Found
+                            @endforelse
+
+                            {{-- <div class="prod-card | mx-auto">
                                 <div
                                     class="prod-img | aspect-square max-h-[248px] overflow-hidden rounded-3xl bg-slate-300">
                                     <img src="{{ asset('kahani-apparel/assets/products/Tshirt/flower.png') }}"
@@ -79,7 +101,7 @@
                                             class="absolute top-full left-1/2 transform -translate-x-1/2 w-3/4 border-b border-white/60"></span>
                                     </p>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                     <hr class="border-t-2 border-slate-200/25 w-[80%] mx-auto">

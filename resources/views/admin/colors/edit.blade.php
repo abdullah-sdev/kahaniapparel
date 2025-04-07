@@ -26,7 +26,7 @@
                     <div class="-m-1.5 overflow-x-auto">
                         <div class="p-1.5 min-w-full inline-block align-middle">
                             <div class="overflow-hidden">
-                                <form method="POST" action="{{ route('colors.update', $color) }}" class="p-5">
+                                <form method="POST" action="{{ route('admin.colors.update', $color) }}" class="p-5">
                                     @csrf
                                     @method('PUT')
 

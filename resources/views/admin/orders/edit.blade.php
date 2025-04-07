@@ -28,7 +28,7 @@
                             <div class="overflow-hidden">
                                 <p class="px-5 pt-5 text-2xl font-bold mb-5 dark:text-white">Change Order Status</p>
                                 <p class="px-5">Order ID: {{ $order->id }}</p>
-                                <form method="POST" action="{{ route('orders.update', $order) }}" class="p-5">
+                                <form method="POST" action="{{ route('admin.orders.update', $order) }}" class="p-5">
                                     @csrf
                                     @method('PUT')
 
@@ -145,7 +145,7 @@
                                             {{ $orderItem->quantity }}
                                         </td>
                                         <td class="px-6 py-4 text-sm font-medium text-gray-900 dark:text-white">
-                                            <form {{-- action="{{ route('order-items.destroy', $orderItem) }}" --}} class="inline-block"
+                                            <form {{-- action="{{ route('admin.order-items.destroy', $orderItem) }}" --}} class="inline-block"
                                                 onsubmit="return confirm('Are you sure?')" method="post">
                                                 @csrf
                                                 @method('DELETE')

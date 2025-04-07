@@ -46,7 +46,7 @@
                         </div>
 
                         <div>
-                            <a href="{{ route('cargo-companies.edit', $cargoCompany->id) }}"
+                            <a href="{{ route('admin.cargo-companies.edit', $cargoCompany->id) }}"
                                 class="text-blue-600 hover:text-blue-700">Edit</a>
                         </div>
                     </div>

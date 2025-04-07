@@ -5,6 +5,7 @@ use App\Http\Controllers\AddressController;
 use App\Http\Controllers\CargoCompanyController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ColorController;
+use App\Http\Controllers\KahaniStoreController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderItemController;
 use App\Http\Controllers\ProductController;
@@ -16,9 +17,13 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::view('/', 'kahani-apparel.index')->name('home');
-Route::view('/products', 'kahani-apparel.product')->name('products');
-Route::view('/product', 'kahani-apparel.product-view')->name('product');
+// Route::view('/', 'kahani-apparel.index')->name('home');
+// Route::view('/products', 'kahani-apparel.product')->name('products');
+// Route::view('/product', 'kahani-apparel.product-view')->name('product');
+
+Route::get('/', [KahaniStoreController::class, 'index'])->name('home');
+Route::get('/products', [KahaniStoreController::class, 'products'])->name('products');
+Route::get('/product', [KahaniStoreController::class, 'product'])->name('product');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -29,15 +34,16 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::resource('users', UserController::class)
-    ->middleware('role:'. RoleEnum::ADMIN->value);
-    Route::resource('addresses', AddressController::class);
-    Route::resource('cargo-companies', CargoCompanyController::class);
-    Route::resource('categories', CategoryController::class);
-    Route::resource('colors', ColorController::class);
-    Route::resource('products', ProductController::class);
-    Route::resource('orders', OrderController::class);
-    Route::resource('order-items', OrderItemController::class);
+    Route::prefix('admin')->middleware(['role:' . RoleEnum::ADMIN->value])->name('admin.')->group(function () {
+        Route::resource('users', UserController::class);
+        Route::resource('categories', CategoryController::class);
+        Route::resource('colors', ColorController::class);
+        Route::resource('products', ProductController::class);
+        Route::resource('addresses', AddressController::class);
+        Route::resource('cargo-companies', CargoCompanyController::class);
+        Route::resource('orders', OrderController::class);
+        Route::resource('order-items', OrderItemController::class);
+    });
 });
 
 require __DIR__ . '/auth.php';

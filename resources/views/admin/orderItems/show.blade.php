@@ -31,7 +31,7 @@
                         </div>
 
                         <div>
-                            <a href="{{ route('order-items.edit', $orderItem->id) }}"
+                            <a href="{{ route('admin.order-items.edit', $orderItem->id) }}"
                                 class="text-blue-600 hover:text-blue-700">Edit</a>
                         </div>
                     </div>

@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             UserSeeder::class,  // is with Address
+            UserRolesAndPermissionsSeeder::class,
             // AddressSeeder::class,
             // GallerySeeder::class,
             ColorSeeder::class,

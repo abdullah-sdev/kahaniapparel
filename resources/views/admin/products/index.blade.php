@@ -8,7 +8,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="flex justify-end mb-4">
-                <a href="{{ route('products.create') }}"
+                <a href="{{ route('admin.products.create') }}"
                     class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">
                     Create
                     +
@@ -100,11 +100,11 @@
                                                 <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
                                                     @can('update', $product)
                                                         <a class="inline-block p-2 text-sm font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                                                            href="{{ route('products.show', $product->id) }}">Show</a>
+                                                            href="{{ route('admin.products.show', $product->id) }}">Show</a>
                                                     @endcan
                                                     @can('delete', $product)
                                                         <form class="inline-block"
-                                                            action="{{ route('products.destroy', $product->id) }}"
+                                                            action="{{ route('admin.products.destroy', $product->id) }}"
                                                             method="post">
                                                             @csrf
                                                             @method('delete')

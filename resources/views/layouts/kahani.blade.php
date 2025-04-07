@@ -25,15 +25,38 @@
         <header class="">
             <div class="container mx-auto max-w-[1200px]" x-data="{ open: false }">
                 <div class="flex justify-between items-center border-b border-gray-200 p-4">
-                    <div class="font-bold hidden sm:block">
-                        {{-- Login Register --}}
-                        <button
-                            class="button border-gray-400 hover:gray-100 hover:text-gray-100 hover:border-0 hover:bg-bblue text-gray-300 border px-2 transition-all duration-100 rounded text-[20px] font-normal">Login</button>
-                        <button
-                            class="button border-gray-400 hover:gray-100 hover:text-gray-100 hover:border-0 hover:bg-bblue text-gray-300 border px-2 transition-all duration-100 rounded text-[20px] font-normal">Register</button>
+                    <div class="font-bold hidden sm:block gap-2">
+                        {{-- @hasrole(\App\Enums\RoleEnum::ADMIN)
+                            <div class="font-semibold text-white">{{ Auth::user()->name }}</div>
+                        @endhasrole --}}
+                        @role(\App\Enums\RoleEnum::ADMIN->value)
+                            <div class="font-roxborough font-thin text-white text-[17px] ">
+
+                                <a class="text-bblue hover:underline inline-flex align-middle"
+                                href="{{ route('dashboard') }}">
+                                    <div><span class="material-icons text-[22px] text-white">person</span></div>
+                                    <div class="ml-2">{{ Auth::user()->fullname() }}</div>
+                                </a>
+                            </div>
+                        @endrole
+                        @guest
+                            {{-- Login Register --}}
+                            <a href="{{ route('login') }}"
+                                class="button border-gray-400 hover:gray-100 hover:text-gray-100 hover:border-0 hover:bg-bblue text-gray-300 border px-2 transition-all duration-100 rounded text-[20px] font-normal">
+                                Login
+                            </a>
+                            <a href="{{ route('register') }}"
+                                class="button border-gray-400 hover:gray-100 hover:text-gray-100 hover:border-0 hover:bg-bblue text-gray-300 border px-2 transition-all duration-100 rounded text-[20px] font-normal">
+                                Register
+                            </a>
+
+                        @endguest
+
+
                     </div>
-                    <div><a href="{{ route('home') }}"><img src="{{ asset('kahani-apparel/assets/Logos/logo_white.png') }}"
-                                class="h-[70px]" alt=""></a>
+                    <div><a href="{{ route('home') }}"><img
+                                src="{{ asset('kahani-apparel/assets/Logos/logo_white.png') }}" class="h-[70px]"
+                                alt=""></a>
                     </div>
                     <div class="flex justify-between items-center gap-2 ">
                         <div class="cart-utility">
@@ -94,7 +117,8 @@
                     </ul>
                 </div>
                 <!-- Mobile Navigation -->
-                <div class="nav-head sm:hidden" x-show="open" x-transition.duration.500ms x-cloak x-trap.inert.noscroll="open" x-on:keydown.esc.window="open = false">
+                <div class="nav-head sm:hidden" x-show="open" x-transition.duration.500ms x-cloak
+                    x-trap.inert.noscroll="open" x-on:keydown.esc.window="open = false">
                     <ul
                         class="flex flex-col sm:flex-row items-center sm:justify-between max-w-[1000px] mx-auto px-4 min-h-screen sm:min-h-fit absolute bg-black sm:static w-full gap-6 py-6 sm:py-0">
                         <li><a href="{{ route('home') }}"
@@ -122,8 +146,7 @@
             </div>
 
         </header>
-        <div
-            class=""
+        <div class=""
             style="background: url('{{ asset('kahani-apparel/assets/backgrounds/bg-2.svg') }}'); background-size: 768px; background-repeat: repeat;">
             @yield('content')
         </div>

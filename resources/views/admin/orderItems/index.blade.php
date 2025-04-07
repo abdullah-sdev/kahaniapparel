@@ -8,7 +8,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="flex justify-end mb-4">
-                <a href="{{ route('order-items.create') }}"
+                <a href="{{ route('admin.order-items.create') }}"
                     class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">
                     Create
                     +
@@ -67,7 +67,7 @@
                                                    @endforelse
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-neutral-200">
-                                                    <a href="{{ route('order-items.show', $orderitem->id) }}">
+                                                    <a href="{{ route('admin.order-items.show', $orderitem->id) }}">
                                                         View
                                                     </a>
                                                 </td>

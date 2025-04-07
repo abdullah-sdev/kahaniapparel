@@ -22,7 +22,7 @@
                                 <div class="font-bold">Products</div>
                                 <div class="">
                                     @forelse ($category->products as $product)
-                                        <div><a href="{{ route('products.show', $product->id) }}">{{ $product->name }}</a></div>
+                                        <div><a href="{{ route('admin.products.show', $product->id) }}">{{ $product->name }}</a></div>
                                     @empty
                                         No Products
                                     @endforelse
@@ -31,7 +31,7 @@
                         </div>
 
                         <div>
-                            <a href="{{ route('categories.edit', $category->id) }}"
+                            <a href="{{ route('admin.categories.edit', $category->id) }}"
                                 class="text-blue-600 hover:text-blue-700">Edit</a>
                         </div>
                     </div>

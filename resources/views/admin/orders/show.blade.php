@@ -113,7 +113,7 @@
                                         @endif
 
                                         <div class="flex justify-between">
-                                            <a href="{{ route('orders.index') }}"
+                                            <a href="{{ route('admin.orders.index') }}"
                                                 class="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600">Back
                                                 to Orders</a>
 
@@ -218,7 +218,7 @@
 
 
                         <div>
-                            <a href="{{ route('orders.edit', $order->id) }}"
+                            <a href="{{ route('admin.orders.edit', $order->id) }}"
                                 class="text-blue-600 hover:text-blue-700">Edit</a>
                         </div>
                     </div> --}}

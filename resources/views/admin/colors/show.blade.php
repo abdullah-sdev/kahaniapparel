@@ -29,7 +29,7 @@
                         </div>
 
                         <div>
-                            <a href="{{ route('colors.edit', $color->id) }}"
+                            <a href="{{ route('admin.colors.edit', $color->id) }}"
                                 class="text-blue-600 hover:text-blue-700">Edit</a>
                         </div>
                     </div>
