@@ -123,7 +123,7 @@ class OrderController extends Controller
         if (Auth::user()->cannot('view', $order)) {
             abort(403);
         }
-        $order->load([ 'address', 'cargoCompany', 'discount']);
+        $order->load(['address', 'cargoCompany', 'discount']);
 
         // dd($order);
         return view('admin.orders.show', compact('order'));

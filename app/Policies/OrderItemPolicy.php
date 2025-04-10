@@ -68,5 +68,4 @@ class OrderItemPolicy
     {
         return Auth::check() && Auth::user()->id == $orderItem->order->user_id;
     }
-
 }

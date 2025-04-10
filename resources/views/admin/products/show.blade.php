@@ -177,7 +177,7 @@
                                     @if ($product->gallery->count() > 1)
                                         <div class="mt-4 grid grid-cols-3 gap-2">
                                             @foreach ($product->gallery->skip(1) as $galleryImage)
-                                                <img src="{{  $galleryImage->image_path }}" alt="{{ $product->name }} - Additional Image" class="w-full h-24 object-cover rounded-md cursor-pointer shadow-sm hover:opacity-75 transition duration-300 w-5">
+                                                <img src="{{  $galleryImage->image_path }}" alt="{{ $product->name }} - Additional Image" class="w-full h-24 object-cover rounded-md cursor-pointer shadow-sm hover:opacity-75 transition duration-300">
                                             @endforeach
                                         </div>
                                     @endif

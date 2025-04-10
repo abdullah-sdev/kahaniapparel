@@ -9,7 +9,6 @@ use App\Models\CargoCompany;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
@@ -24,7 +23,6 @@ class ProductController extends Controller
         if (Auth::user()->cannot('viewCart', Order::class)) {
             return redirect()->back()->with('error', 'Add product to cart first.');
         }
-
 
         // get cartItems
         $order = Order::where('user_id', Auth::user()->id)->where('order_status', 'processing')->firstOrFail();
@@ -44,7 +42,6 @@ class ProductController extends Controller
             if (Auth::check()) {
                 $user = Auth::user();
                 $cargoCompany = CargoCompany::first();
-
 
                 if (Auth::user()->cannot('addToCart', Order::class)) {
                     return redirect()->back()->with('error', 'You are not allowed to add to cart.');
@@ -93,6 +90,7 @@ class ProductController extends Controller
 
         // return $orderItem;
     }
+
     public function remove_from_cart(OrderItem $orderItem)
     {
         if (Auth::user()->cannot('removeFromCart', $orderItem)) {
@@ -102,12 +100,14 @@ class ProductController extends Controller
         // dd($orderItem->order->orderItems()->count());
         if ($orderItem->order->orderItems()->count() === 1) {
             $orderItem->order()->delete();
+
             return redirect()->route('kahani.home')->with('success', 'Product removed from cart.');
         } else {
             $orderItem->delete();
         }
 
         $orderItem->delete();
+
         return redirect()->back()->with('success', 'Product removed from cart.');
     }
 

@@ -3,7 +3,6 @@
 namespace App\Policies;
 
 use App\Models\Order;
-use App\Models\OrderItem;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
@@ -69,12 +68,11 @@ class OrderPolicy
     {
         // dd($order->user->id);
 
-        return Auth::check() &&  Auth::user()->orders()->where('order_status', 'processing')->exists();
+        return Auth::check() && Auth::user()->orders()->where('order_status', 'processing')->exists();
     }
 
     public function addToCart(User $user): bool
     {
         return Auth::check();
     }
-
 }
