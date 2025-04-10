@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
 use App\Enums\RoleEnum;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -56,7 +56,7 @@ class UserFactory extends Factory
         return $this->has(AddressFactory::new(), 'address');
     }
 
-    public function configure() : static
+    public function configure(): static
     {
         return $this->afterCreating(function (User $user) {
             $user->assignRole([RoleEnum::CUSTOMER]);

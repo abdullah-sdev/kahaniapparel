@@ -98,16 +98,15 @@ class Order extends Model
         ]);
     }
 
-
     public function getStatusBadgeClasses(): string
-{
-    $classes = [
-        'processing' => 'bg-yellow-500 text-yellow-800',
-        'shipped' => 'bg-blue-500 text-blue-800',
-        'delivered' => 'bg-green-500 text-green-800',
-        'cancelled' => 'bg-red-500 text-red-800',
-    ];
+    {
+        $classes = [
+            'processing' => 'bg-yellow-500 text-yellow-800',
+            'shipped' => 'bg-blue-500 text-blue-800',
+            'delivered' => 'bg-green-500 text-green-800',
+            'cancelled' => 'bg-red-500 text-red-800',
+        ];
 
-    return $classes[$this->order_status] ?? 'bg-gray-500 text-gray-800';
-}
+        return $classes[$this->order_status] ?? 'bg-gray-500 text-gray-800';
+    }
 }

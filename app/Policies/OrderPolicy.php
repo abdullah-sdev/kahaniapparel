@@ -3,8 +3,9 @@
 namespace App\Policies;
 
 use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\User;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class OrderPolicy
 {
@@ -45,7 +46,7 @@ class OrderPolicy
      */
     public function delete(User $user, Order $order): bool
     {
-        return false;
+        return Auth::user()->id == $order->user_id;
     }
 
     /**
@@ -63,4 +64,17 @@ class OrderPolicy
     {
         return false;
     }
+
+    public function viewCart(): bool
+    {
+        // dd($order->user->id);
+
+        return Auth::check() &&  Auth::user()->orders()->where('order_status', 'processing')->exists();
+    }
+
+    public function addToCart(User $user): bool
+    {
+        return Auth::check();
+    }
+
 }

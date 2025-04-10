@@ -47,7 +47,7 @@ class CargoCompanyController extends Controller
             abort(403);
         }
         CargoCompany::create($request->validated());
-        redirect()->route('cargo-companies.index')->with('success', 'Cargo Company created successfully');
+        redirect()->route('admin.cargo-companies.index')->with('success', 'Cargo Company created successfully');
     }
 
     /**
@@ -87,7 +87,7 @@ class CargoCompanyController extends Controller
         }
         $cargoCompany->update($request->validated());
 
-        return redirect()->route('cargo-companies.index')->with('success', 'Cargo Company updated successfully');
+        return redirect()->route('admin.cargo-companies.index')->with('success', 'Cargo Company updated successfully');
     }
 
     /**
@@ -98,6 +98,6 @@ class CargoCompanyController extends Controller
         //
         $cargoCompany->delete();
 
-        return redirect()->route('cargo-companies.index')->with('success', 'Cargo Company deleted successfully');
+        return redirect()->route('admin.cargo-companies.index')->with('success', 'Cargo Company deleted successfully');
     }
 }

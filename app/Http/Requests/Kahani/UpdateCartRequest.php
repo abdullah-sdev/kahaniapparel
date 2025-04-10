@@ -1,20 +1,19 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Kahani;
 
-use App\Models\Category;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class UpdateCategoryRequest extends FormRequest
+class UpdateCartRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        // return false;
-        return Auth::user()->can('update', Category::class);
+        // return Auth::check();
+        return true;
     }
 
     /**
@@ -26,7 +25,11 @@ class UpdateCategoryRequest extends FormRequest
     {
         return [
             //
-            'name' => 'required|string|max:255',
+            'product_id' => 'required|exists:products,id',
+            'selectedSize' => 'required|exists:sizes,id',
+            'selectedColor' => 'required|exists:colors,id',
+            'quantity' => 'required|integer|min:1',
+            'action' => 'required|in:Add to Cart,Buy Now',
         ];
     }
 }

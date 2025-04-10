@@ -5,7 +5,8 @@ use App\Http\Controllers\AddressController;
 use App\Http\Controllers\CargoCompanyController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ColorController;
-use App\Http\Controllers\KahaniStoreController;
+use App\Http\Controllers\Kahani\HomeController as KahaniHomeController;
+use App\Http\Controllers\Kahani\ProductController as KahaniProductController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderItemController;
 use App\Http\Controllers\ProductController;
@@ -21,9 +22,25 @@ use Illuminate\Support\Facades\Route;
 // Route::view('/products', 'kahani-apparel.product')->name('products');
 // Route::view('/product', 'kahani-apparel.product-view')->name('product');
 
-Route::get('/', [KahaniStoreController::class, 'index'])->name('home');
-Route::get('/products', [KahaniStoreController::class, 'products'])->name('products');
-Route::get('/product', [KahaniStoreController::class, 'product'])->name('product');
+Route::prefix('/')->name('kahani.')->group(function () {
+    Route::get('/', [KahaniHomeController::class, 'index'])->name('home');
+    Route::get('/products', [KahaniHomeController::class, 'products'])->name('products');
+    Route::get('/product/{product}', [KahaniHomeController::class, 'product'])->name('product');
+
+    Route::get('/cart', [KahaniProductController::class, 'cart'])->name('cart');
+
+    Route::get('/checkout', [KahaniProductController::class, 'checkout'])->name('checkout');
+
+    Route::get('/panel', [KahaniHomeController::class, 'panel'])->name('panel')->middleware(['auth', 'role:'.RoleEnum::ADMIN->value.'|'.RoleEnum::CUSTOMER->value]);
+});
+
+Route::post('/cart', [KahaniProductController::class, 'store_to_cart'])->name('store_to_cart');
+
+Route::delete('/cart/remove/{orderItem}', [KahaniProductController::class, 'remove_from_cart'])->name('remove_from_cart');
+
+Route::post('/cart/add', [KahaniProductController::class, 'add'])->name('cart.add');
+
+// Route::get('product-view2', [KahaniProductController::class, 'productview2']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -34,7 +51,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::prefix('admin')->middleware(['role:' . RoleEnum::ADMIN->value])->name('admin.')->group(function () {
+    Route::prefix('admin')->middleware(['role:'.RoleEnum::ADMIN->value])->name('admin.')->group(function () {
         Route::resource('users', UserController::class);
         Route::resource('categories', CategoryController::class);
         Route::resource('colors', ColorController::class);
@@ -46,4 +63,4 @@ Route::middleware('auth')->group(function () {
     });
 });
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';

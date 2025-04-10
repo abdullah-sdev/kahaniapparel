@@ -63,4 +63,10 @@ class OrderItemPolicy
     {
         return false;
     }
+
+    public function removeFromCart(User $user, OrderItem $orderItem): bool
+    {
+        return Auth::check() && Auth::user()->id == $orderItem->order->user_id;
+    }
+
 }

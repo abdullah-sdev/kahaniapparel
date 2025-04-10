@@ -81,7 +81,7 @@
                                                 </td>
                                                 <td
                                                     class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-neutral-200 ">
-                                                    <img src="{{ @asset('/images/products/') . '/' .$product->thumbnail_image }}" alt="" class="h-12">
+                                                    <img src="{{  $product->thumbnail_image }}" alt="" class="h-12">
                                                 </td>
                                                 <td
                                                     class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-neutral-200 ">
@@ -89,11 +89,11 @@
                                                 </td>
                                                 <td
                                                     class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-neutral-200 ">
-                                                    {{ $product->is_enable }}
+                                                    {{ $product->is_enable ? 'Enabled' : 'Disabled' }}
                                                 </td>
                                                 <td
                                                     class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-neutral-200 ">
-                                                    {{ $product->is_in_stock }}
+                                                    {{ $product->is_in_stock ? 'In Stock' : 'Out of Stock' }}
                                                 </td>
 
 

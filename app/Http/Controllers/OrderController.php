@@ -43,8 +43,6 @@ class OrderController extends Controller
             ->orWhereNull('expires_at')
             ->get();
 
-        // dump($user->toArray());
-        // die();
         return view('admin.orders.create', compact('users', 'addresses', 'products', 'cargoCompanies', 'discounts'));
     }
 
@@ -57,12 +55,13 @@ class OrderController extends Controller
         $validated = $request->validated();
 
         $defaultAttributes = [
-            "size" => "M",
-            "color" => "yellow"
+            'size' => 'M',
+            'color' => 'yellow',
         ];
 
         $items = collect($validated['items'])->map(function ($item) use ($defaultAttributes) {
             $product = Product::find($item['product_id']);
+
             return [
                 'product_id' => $item['product_id'],
                 'price' => $product ? $product->discounted_price : 0,
@@ -70,13 +69,12 @@ class OrderController extends Controller
                 'product_attributes' => $item['attributes'] ?? $defaultAttributes,
             ];
         });
-        $subtotal = $items->sum(fn($item) => $item['price'] * $item['quantity']);
+        $subtotal = $items->sum(fn ($item) => $item['price'] * $item['quantity']);
         // Get delivery cost (example: fixed $5 or from cargo company)
         $cargoCompany = CargoCompany::find($validated['cargo_company_id']);
         $deliveryCost = $cargoCompany?->base_price ?? 5.00;
 
         // dd($items, $subtotal, $deliveryCost);
-
 
         // Create order
         $order = Order::create([
@@ -100,7 +98,7 @@ class OrderController extends Controller
             return $this->processCreditCardPayment($order);
         }
 
-        return redirect()->route('orders.show', $order)
+        return redirect()->route('admin.orders.show', $order)
             ->with('success', 'Order placed successfully!');
     }
 
@@ -112,7 +110,7 @@ class OrderController extends Controller
         // After successful payment:
         $order->markAsPaid();
 
-        return redirect()->route('orders.show', $order)
+        return redirect()->route('admin.orders.show', $order)
             ->with('success', 'Payment processed successfully!');
     }
 
@@ -125,8 +123,9 @@ class OrderController extends Controller
         if (Auth::user()->cannot('view', $order)) {
             abort(403);
         }
-        // $order->load(['items.product', 'address', 'cargoCompany', 'discount']);
+        $order->load([ 'address', 'cargoCompany', 'discount']);
 
+        // dd($order);
         return view('admin.orders.show', compact('order'));
     }
 
@@ -155,5 +154,8 @@ class OrderController extends Controller
     public function destroy(Order $order)
     {
         //
+        $order->delete();
+
+        return redirect()->route('admin.orders.index')->with('success', 'Order deleted successfully!');
     }
 }

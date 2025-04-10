@@ -2,9 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
 use App\Enums\RoleEnum;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -31,7 +30,6 @@ class UserRolesAndPermissionsSeeder extends Seeder
         // $adminRole->givePermissionTo([$permission1, $permission2, $permission3, $permission4]);
         // $customerRole->givePermissionTo([$permission2, $permission3]);
 
-
         $users = User::all();
         foreach ($users as $user) {
             // You can assign roles based on some condition here
@@ -39,8 +37,8 @@ class UserRolesAndPermissionsSeeder extends Seeder
         }
 
         // Assign roles to specific users
-        $user1 = User::find(1); // Example: user with ID 1
-        $user1->syncRoles([RoleEnum::ADMIN]);
+        // $user1 = User::find(1); // Example: user with ID 1
+        // $user1->syncRoles([RoleEnum::ADMIN]);
 
     }
 }

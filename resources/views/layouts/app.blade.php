@@ -36,7 +36,7 @@
     </div>
 
     <!-- Toast Notification Container -->
-    <div x-data="toastNotifications()" x-init="init()" @notify.window="show($event.detail)"
+    <div x-data="toastNotifications()" @notify.window="show($event.detail)"
         class="fixed inset-0 flex flex-col items-end justify-start px-4 py-6 pointer-events-none sm:p-6 sm:items-start sm:justify-end z-50 space-y-4">
         <template x-for="(toast, index) in toasts" :key="index">
             <div x-transition:enter="transform ease-out duration-300 transition"

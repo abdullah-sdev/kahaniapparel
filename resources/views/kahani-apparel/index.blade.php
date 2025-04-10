@@ -21,10 +21,10 @@
 
                             @forelse ($categories as $category)
                             <div class="prod-card | mx-auto">
-                                <a href="{{ route('products') }}?{{ $category->name }}">
+                                <a href="{{ route('kahani.products') }}?{{ $category->slug }}">
                                     <div
                                     class="prod-img | aspect-square max-h-[248px] overflow-hidden rounded-3xl bg-slate-300">
-                                    <img src="{{ asset('kahani-apparel/assets/products/Tshirt/flower.png') }}"
+                                    <img src="{{ $category->image }}"
                                         alt="">
                                 </div>
                                 <div class="prod-name | text-center mt-4 text-white/80 font-roxborough ">
@@ -140,7 +140,23 @@
                                 <!-- Additional required wrapper -->
                                 <div class="swiper-wrapper">
                                     <!-- Slides -->
+                                    @forelse ($products as $product)
                                     <div class="swiper-slide">
+                                        <div class="prod-card | place-items-center">
+                                            <div
+                                                class="prod-img |  aspect-square max-h-[248px] overflow-hidden rounded-t-xl bg-slate-300">
+                                                <a href="{{ route('kahani.product', $product->slug) }}">
+                                                    <img src="{{ $product->thumbnail_image }}"
+                                                        alt="">
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @empty
+                                        no products
+                                    @endforelse
+
+                                    {{-- <div class="swiper-slide">
                                         <div class="prod-card | place-items-center">
                                             <div
                                                 class="prod-img |  aspect-square max-h-[248px] overflow-hidden rounded-t-xl bg-slate-300">
@@ -189,7 +205,7 @@
 
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 {{-- <!-- If we need pagination -->
                                 <div class="swiper-pagination"></div>

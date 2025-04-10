@@ -1,4 +1,4 @@
-{{-- <x-app-layout>
+<x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Product:') }}
@@ -134,11 +134,11 @@
                                             <td class="px-4 py-2 text-sm text-gray-600">{{ $review->disabled }}</td>
                                             <td class="px-4 py-2 text-sm text-gray-600">{{ $review->gallery->count() }}</td>
                                             <td class="px-4 py-2 text-sm text-gray-600 max-w-[15ch]">
-                                                @forelse ($review->order->orderItems as $item)
+                                                {{-- @forelse ($review->order->orderItems as $item)
                                                     <div>{{ $item->product->name }} {{ $item->quantity }}</div>
                                                 @empty
 
-                                                @endforelse
+                                                @endforelse --}}
                                             </td>
                                         </tr>
                                     @empty
@@ -162,29 +162,28 @@
             </div>
         </div>
     </div>
-</x-app-layout> --}}
-<x-app-layout>
+</x-app-layout>
+{{-- <x-app-layout>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     <div class="md:flex md:items-start md:space-x-6">
                         <div class="mb-4 md:mb-0 md:w-1/2">
-                            {{-- Product Image Gallery --}}
                             <div class="relative">
-                                {{-- @if ($product->galleries->isNotEmpty())
-                                    <img src="{{ asset('storage/' . $product->galleries->first()->image_path) }}" alt="{{ $product->name }}" class="w-full rounded-md shadow-lg">
+                                @if ($product->gallery->isNotEmpty())
+                                    <img src="{{  $product->gallery->first()->image_path }}" alt="{{ $product->name }}" class="w-full rounded-md shadow-lg">
 
-                                    @if ($product->galleries->count() > 1)
+                                    @if ($product->gallery->count() > 1)
                                         <div class="mt-4 grid grid-cols-3 gap-2">
-                                            @foreach ($product->galleries->skip(1) as $galleryImage)
-                                                <img src="{{ asset('storage/' . $galleryImage->image_path) }}" alt="{{ $product->name }} - Additional Image" class="w-full h-24 object-cover rounded-md cursor-pointer shadow-sm hover:opacity-75 transition duration-300">
+                                            @foreach ($product->gallery->skip(1) as $galleryImage)
+                                                <img src="{{  $galleryImage->image_path }}" alt="{{ $product->name }} - Additional Image" class="w-full h-24 object-cover rounded-md cursor-pointer shadow-sm hover:opacity-75 transition duration-300 w-5">
                                             @endforeach
                                         </div>
                                     @endif
                                 @else
                                     <img src="{{ asset('storage/' . $product->thumbnail_image) }}" alt="{{ $product->name }}" class="w-full rounded-md shadow-lg">
-                                @endif --}}
+                                @endif
                             </div>
                         </div>
 
@@ -231,4 +230,4 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+</x-app-layout> --}}

@@ -19,6 +19,22 @@
                         </div>
                         <div class="border rounded">
                             <div class="py-2 px-4">
+                                <div class="font-bold">Slug</div>
+                                <div class="">
+                                    {{ $category->slug }}
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="border rounded">
+                            <div class="py-2 px-4">
+                                <div class="font-bold">Image</div>
+                                <div class="">{{ $category->image }}</div>
+                                <img src="{{ $category->image }}" alt="" class="w-32">
+                            </div>
+                        </div>
+                        <div class="border rounded">
+                            <div class="py-2 px-4">
                                 <div class="font-bold">Products</div>
                                 <div class="">
                                     @forelse ($category->products as $product)

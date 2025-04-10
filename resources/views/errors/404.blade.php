@@ -32,7 +32,7 @@
                     </div>
                 </div>
                 <div class="text-center mt-10">
-                    <a href="{{ route('home') }}" class="text-white inline-block bg-bblue px-5 py-2 rounded-full">
+                    <a href="{{ route('kahani.home') }}" class="text-white inline-block bg-bblue px-5 py-2 rounded-full">
                         Back to
                         <img src="{{ asset('kahani-apparel/assets/Logos/logo_white.png') }}" class="inline-block ml-2 h-[40px]" alt="">
                     </a>

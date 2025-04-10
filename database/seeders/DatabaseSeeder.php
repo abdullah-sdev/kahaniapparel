@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\RoleEnum;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -15,8 +16,8 @@ class DatabaseSeeder extends Seeder
     {
 
         $this->call([
-            UserSeeder::class,  // is with Address
             UserRolesAndPermissionsSeeder::class,
+            UserSeeder::class,  // is with Address
             // AddressSeeder::class,
             // GallerySeeder::class,
             ColorSeeder::class,
@@ -30,6 +31,10 @@ class DatabaseSeeder extends Seeder
             // OrderItemSeeder::class,
             // ReviewSeeder::class,
         ]);
+
+        // Assign roles to specific users
+        $user1 = User::find(1); // Example: user with ID 1
+        $user1->syncRoles([RoleEnum::ADMIN]);
 
         // User::factory()->create([
         //     'name' => 'Test User',

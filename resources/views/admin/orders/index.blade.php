@@ -24,6 +24,10 @@
                                         <tr>
                                             <th scope="col"
                                                 class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
+                                                order_id
+                                            </th>
+                                            <th scope="col"
+                                                class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
                                                 user_id
                                             </th>
                                             <th scope="col"
@@ -70,6 +74,10 @@
 
                                         @forelse ($orders as $order)
                                             <tr class="hover:bg-gray-100 dark:hover:bg-neutral-700">
+                                                <td
+                                                    class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-neutral-200">
+                                                    {{ $order->id }}
+                                                </td>
                                                 <td
                                                     class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-neutral-200">
                                                     {{ $order->user->first_name }}

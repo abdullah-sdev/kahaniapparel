@@ -19,7 +19,8 @@ class CategoryFactory extends Factory
     {
         $name = $this->faker->unique()->word();
         $slug = Str::slug($name);
-        $image = 'https://placehold.co/600x400/orange/white?text='.$name;
+        $image = 'https://placehold.co/500/black/white?font=playfair-display&text='.$name;
+
         return [
             //
             'name' => $name,

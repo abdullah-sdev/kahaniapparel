@@ -8,11 +8,20 @@
 
 @layer utilities {
     .font-body {
-        font:  normal 500 clamp(1rem, 1.25rem, 0.5rem + 1vw)/1.5 Palatino, serif;
+        font:  normal clamp(1rem, 1.25rem, 0.5rem + 1vw)/1.5 Palatino, serif;
     }
     .font-heading {
         font: normal 700 clamp(1.5rem, 1.2rem + 1.5vw, 2.5rem) / 1.2 Roxborough,
             serif;
     }
     /* Add others similarly */
+}
+
+@layer components {
+    /* .btn-primary {
+        @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded;
+    } */
+     /* .font-body {
+        @apply font-palatino, font-normal, ;
+     } */
 }

@@ -21,7 +21,7 @@
 </head>
 
 <body>
-    <div class="main bg-black font-body text-white relative" id="main">
+    <div class="main bg-black font-body text-white relative min-h-screen" id="main">
         <header class="">
             <div class="container mx-auto max-w-[1200px]" x-data="{ open: false }">
                 <div class="flex justify-between items-center border-b border-gray-200 p-4">
@@ -30,44 +30,105 @@
                             <div class="font-semibold text-white">{{ Auth::user()->name }}</div>
                         @endhasrole --}}
                         @role(\App\Enums\RoleEnum::ADMIN->value)
-                            <div class="font-roxborough font-thin text-white text-[17px] ">
-
-                                <a class="text-bblue hover:underline inline-flex align-middle"
-                                href="{{ route('dashboard') }}">
+                            <div class="font-roxborough font-thin text-white text-[17px] relative" x-data="{ open: false }" x-cloak>
+                                <button @click="open = !open" class="text-bblue hover:underline inline-flex align-middle">
                                     <div><span class="material-icons text-[22px] text-white">person</span></div>
                                     <div class="ml-2">{{ Auth::user()->fullname() }}</div>
-                                </a>
+                                </button>
+
+                                <ul x-show="open" @click.outside="open = false"
+                                    class="absolute right-0 mt-2 max-w-48 bg-white rounded-md shadow-lg py-1">
+
+                                    <li>
+                                        <a href="{{ route('dashboard') }}"
+                                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                            {{ __('Super Admin') }}
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="{{ route('kahani.panel') }}"
+                                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                            {{ __('Dashboard') }}
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="{{ route('logout') }}"
+                                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                            onclick="event.preventDefault();
+                                            document.getElementById('logout-form').submit();">
+                                            {{ __('Logout') }}
+                                        </a>
+                                    </li>
+                                </ul>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
+                                    @csrf
+                                </form>
+                            </div>
+                        @endrole
+
+                        @role(\App\Enums\RoleEnum::CUSTOMER->value)
+                            <div class="font-roxborough font-thin text-white text-[17px] relative" x-data="{ open: false }" x-cloak>
+                                <button @click="open = !open" class="text-bblue hover:underline inline-flex align-middle">
+                                    <div><span class="material-icons text-[22px] text-white">person</span></div>
+                                    <div class="ml-2">{{ Auth::user()->fullname() }}</div>
+                                </button>
+                                <ul x-show="open" @click.outside="open = false"
+                                    class="absolute right-0 mt-2 max-w-48 bg-white rounded-md shadow-lg py-1">
+                                    <li>
+                                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                            {{ __('Dashboard') }}
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="{{ route('logout') }}"
+                                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                            onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();">
+                                            {{ __('Logout') }}
+                                        </a>
+                                    </li>
+                                </ul>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
+                                    @csrf
+                                </form>
                             </div>
                         @endrole
                         @guest
-                            {{-- Login Register --}}
-                            <a href="{{ route('login') }}"
-                                class="button border-gray-400 hover:gray-100 hover:text-gray-100 hover:border-0 hover:bg-bblue text-gray-300 border px-2 transition-all duration-100 rounded text-[20px] font-normal">
-                                Login
-                            </a>
-                            <a href="{{ route('register') }}"
-                                class="button border-gray-400 hover:gray-100 hover:text-gray-100 hover:border-0 hover:bg-bblue text-gray-300 border px-2 transition-all duration-100 rounded text-[20px] font-normal">
-                                Register
-                            </a>
+                            <div class="flex gap-2 flex-wrap">
+                                <a href="{{ route('login') }}"
+                                    class="inline-block button border-gray-400 hover:gray-100 hover:text-gray-100 hover:border-0 hover:bg-bblue text-gray-300 border px-2 transition-all duration-100 rounded text-[20px] font-normal">
+                                    Login
+                                </a>
+                                <a href="{{ route('register') }}"
+                                    class="inline-block button border-gray-400 hover:gray-100 hover:text-gray-100 hover:border-0 hover:bg-bblue text-gray-300 border px-2 transition-all duration-100 rounded text-[20px] font-normal">
+                                    Register
+                                </a>
+                            </div>
 
                         @endguest
 
 
                     </div>
-                    <div><a href="{{ route('home') }}"><img
-                                src="{{ asset('kahani-apparel/assets/Logos/logo_white.png') }}" class="h-[70px]"
-                                alt=""></a>
+                    <div>
+                        <a href="{{ route('kahani.home') }}">
+                            <img src="{{ asset('kahani-apparel/assets/Logos/logo_white.png') }}" class="h-[70px]"
+                                alt="">
+                        </a>
                     </div>
                     <div class="flex justify-between items-center gap-2 ">
                         <div class="cart-utility">
-                            <div
-                                class="px-2 py-2 flex items-center rounded-full bg-white hover:bg-gray-300 transition-all duration-100">
+                            <a href="{{ route('kahani.cart') }}">
+                                <div
+                                    class="px-2 py-2 flex items-center rounded-full bg-white hover:bg-gray-300 transition-all duration-100">
 
-                                <img src="{{ asset('kahani-apparel/assets/icons/Cart.png') }}" class="w-[20px]"
-                                    alt="">
+                                    <img src="{{ asset('kahani-apparel/assets/icons/Cart.png') }}" class="w-[20px]"
+                                        alt="">
 
-                            </div>
-
+                                </div>
+                            </a>
                         </div>
                         <div class="search-utility hidden sm:inline-block">
                             <input type="search" placeholder="Search here..."
@@ -94,10 +155,10 @@
                 <div class="nav-head hidden sm:block">
                     <ul
                         class="flex flex-col sm:flex-row items-center sm:justify-between max-w-[1000px] mx-auto px-4 min-h-screen sm:min-h-fit absolute bg-black sm:static w-full gap-6 py-6 sm:py-0">
-                        <li><a href="{{ route('home') }}"
+                        <li><a href="{{ route('kahani.home') }}"
                                 class="font-roxborough font-black p-2 text-gray-200 hover:text-bblue inline-block transition-all duration-100">Home</a>
                         </li>
-                        <li><a href="{{ route('products') }}"
+                        <li><a href="{{ route('kahani.products') }}"
                                 class="font-roxborough font-black p-2 text-gray-200 hover:text-bblue inline-block transition-all duration-100">Shop</a>
                         </li>
                         <li><a href="#"
@@ -121,18 +182,29 @@
                     x-trap.inert.noscroll="open" x-on:keydown.esc.window="open = false">
                     <ul
                         class="flex flex-col sm:flex-row items-center sm:justify-between max-w-[1000px] mx-auto px-4 min-h-screen sm:min-h-fit absolute bg-black sm:static w-full gap-6 py-6 sm:py-0">
-                        <li><a href="{{ route('home') }}"
-                                class="font-roxborough font-black p-2 text-gray-200 hover:text-bblue inline-block transition-all duration-100">Home</a>
+                        <li><a href="{{ route('kahani.home') }}"
+                                class="font-roxborough font-black p-2 text-gray-200 hover:text-bblue inline-block transition-all duration-100">
+                                Home
+                            </a>
                         </li>
-                        <li><a href="{{ route('products') }}"
-                                class="font-roxborough font-black p-2 text-gray-200 hover:text-bblue inline-block transition-all duration-100">Shop</a>
+                        <li><a href="{{ route('kahani.products') }}"
+                                class="font-roxborough font-black p-2 text-gray-200 hover:text-bblue inline-block transition-all duration-100">
+                                Shop
+                            </a>
                         </li>
                         <li><a href="#"
-                                class="font-roxborough font-black p-2 text-gray-200 hover:text-bblue inline-block transition-all duration-100">About
-                                Us</a></li>
-                        <li><a href="#"
-                                class="font-roxborough font-black p-2 text-gray-200 hover:text-bblue inline-block transition-all duration-100">Contact
-                                Us</a></li>
+                                class="font-roxborough font-black p-2 text-gray-200 hover:text-bblue inline-block transition-all duration-100">
+                                About
+                                Us
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#"
+                                class="font-roxborough font-black p-2 text-gray-200 hover:text-bblue inline-block transition-all duration-100">
+                                Contact
+                                Us
+                            </a>
+                        </li>
                         <li class="sm:hidden">
                             <div class="font-bold p-2">
                                 <button
@@ -157,7 +229,8 @@
                     <div class="">
                         <div class="mx-auto max-w-[1100px] border-b border-white/50 p-2">
                             <ul class="flex justify-center gap-4 text-[18px] flex-col md:flex-row items-center">
-                                <li><a class="text-white/70 hover:text-white" href="#">Home</a></li>
+                                <li><a class="text-white/70 hover:text-white"
+                                        href="{{ route('kahani.home') }}">Home</a></li>
                                 <li><a class="text-white/70 hover:text-white" href="#">FAQ</a></li>
                                 <li><a class="text-white/70 hover:text-white" href="#">Privacy Policy</a></li>
                                 <li><a class="text-white/70 hover:text-white" href="#">Delivery Policy</a></li>
@@ -252,6 +325,203 @@
 
 
     {{-- <script src="assets/script.js"></script> --}}
+
+    <!-- Toast Notification Container -->
+    <div x-data="toastNotifications()" @notify.window="show($event.detail)"
+        class="fixed inset-0 flex flex-col items-end justify-start px-4 py-6 pointer-events-none sm:p-6 sm:items-start sm:justify-end z-50 space-y-4">
+        <template x-for="(toast, index) in toasts" :key="index">
+            <div x-transition:enter="transform ease-out duration-300 transition"
+                x-transition:enter-start="translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2"
+                x-transition:enter-end="translate-y-0 opacity-100 sm:translate-x-0"
+                x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100"
+                x-transition:leave-end="opacity-0"
+                class="max-w-sm w-full bg-white shadow-lg rounded-lg pointer-events-auto overflow-hidden"
+                :class="{
+                    'ring-2 ring-green-500': toast.type === 'success',
+                    'ring-2 ring-red-500': toast.type === 'error',
+                    'ring-2 ring-blue-500': toast.type === 'info',
+                    'ring-2 ring-yellow-500': toast.type === 'warning'
+                }">
+                <div class="p-4">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0">
+                            <template x-if="toast.type === 'success'">
+                                <svg class="h-6 w-6 text-green-400" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </template>
+                            <template x-if="toast.type === 'error'">
+                                <svg class="h-6 w-6 text-red-400" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </template>
+                            <template x-if="toast.type === 'info'">
+                                <svg class="h-6 w-6 text-blue-400" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </template>
+                            <template x-if="toast.type === 'warning'">
+                                <svg class="h-6 w-6 text-yellow-400" xmlns="http://www.w3.org/2000/svg"
+                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                </svg>
+                            </template>
+                        </div>
+                        <div class="ml-3 w-0 flex-1 pt-0.5">
+                            <p x-text="toast.title" class="text-sm font-medium text-gray-900"></p>
+                            <p x-text="toast.message" class="mt-1 text-sm text-gray-500"></p>
+                        </div>
+                        <div class="ml-4 flex-shrink-0 flex">
+                            <button @click="remove(toast.id)"
+                                class="bg-white rounded-md inline-flex text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                <span class="sr-only">Close</span>
+                                <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                                    fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-50 px-4 py-3 flex items-center justify-between">
+                    <div class="w-full bg-gray-200 rounded-full h-1.5">
+                        <div class="bg-green-600 h-1.5 rounded-full"
+                            :class="{
+                                'bg-green-600': toast.type === 'success',
+                                'bg-red-600': toast.type === 'error',
+                                'bg-blue-600': toast.type === 'info',
+                                'bg-yellow-600': toast.type === 'warning'
+                            }"
+                            x-bind:style="`width: ${toast.progress}%`"></div>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </div>
+
+    <script>
+        function toastNotifications() {
+            // console.log('toastNotifications called');
+            return {
+                toasts: [],
+                init() {
+                    // console.log('toasts array:', this.toasts);
+                    // Check for Laravel session messages
+                    @if (session()->has('success'))
+                        this.show({
+                            type: 'success',
+                            title: 'Success',
+                            message: '{{ session('success') }}'
+                        });
+                    @endif
+
+                    @if (session()->has('error'))
+                        this.show({
+                            type: 'error',
+                            title: 'Error',
+                            message: '{{ session('error') }}'
+                        });
+                    @endif
+
+                    @if (session()->has('warning'))
+                        this.show({
+                            type: 'warning',
+                            title: 'Warning',
+                            message: '{{ session('warning') }}'
+                        });
+                    @endif
+
+                    @if (session()->has('info'))
+                        this.show({
+                            type: 'info',
+                            title: 'Info',
+                            message: '{{ session('info') }}'
+                        });
+                    @endif
+
+                    // Check for validation errors
+                    @if ($errors->any())
+                        this.show({
+                            type: 'error',
+                            title: 'Validation Error',
+                            message: 'Please check the form for errors'
+                        });
+                    @endif
+                },
+                show(toast) {
+                    const id = Date.now();
+                    // const existingToast = this.toasts.find(t => t.id === id);
+                    // if (existingToast) {
+                    //     return; // toast already exists, do not add again
+                    // }
+                    const newToast = {
+                        id,
+                        type: toast.type || 'info',
+                        title: toast.title || this.getDefaultTitle(toast.type),
+                        message: toast.message || '',
+                        progress: 100,
+                        timeout: null
+                    };
+                    // console.log('show(toast) called');
+                    // Start progress bar countdown
+                    newToast.timeout = setInterval(() => {
+                        newToast.progress -= 1;
+
+                        if (newToast.progress <= 0) {
+                            this.remove(id);
+                        }
+                    }, 50);
+
+                    this.toasts.push(newToast);
+
+                    // Auto-remove after 5 seconds
+                    setTimeout(() => {
+                        this.remove(id);
+                    }, 5000);
+                },
+                remove(id) {
+                    const toastIndex = this.toasts.findIndex(t => t.id === id);
+                    if (toastIndex >= 0) {
+                        clearInterval(this.toasts[toastIndex].timeout);
+                        this.toasts.splice(toastIndex, 1);
+                    }
+                },
+                getDefaultTitle(type) {
+                    switch (type) {
+                        case 'success':
+                            return 'Success';
+                        case 'error':
+                            return 'Error';
+                        case 'warning':
+                            return 'Warning';
+                        default:
+                            return 'Info';
+                    }
+                }
+            }
+        }
+
+        // Helper function to dispatch notifications from anywhere
+        window.notify = function(type, title, message) {
+            window.dispatchEvent(new CustomEvent('notify', {
+                detail: {
+                    type,
+                    title,
+                    message
+                }
+            }));
+            // console.log('notify called');
+        };
+    </script>
 </body>
 
 </html>

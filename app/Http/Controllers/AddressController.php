@@ -48,7 +48,7 @@ class AddressController extends Controller
         }
         Address::create($request->validated());
 
-        return redirect()->route('addresses.index')->with('success', 'Address created successfully');
+        return redirect()->route('admin.addresses.index')->with('success', 'Address created successfully');
     }
 
     /**
@@ -88,7 +88,7 @@ class AddressController extends Controller
         }
         $address->update($request->validated());
 
-        return redirect()->route('addresses.index')->with('success', 'Address updated successfully');
+        return redirect()->route('admin.addresses.index')->with('success', 'Address updated successfully');
     }
 
     /**
@@ -102,6 +102,6 @@ class AddressController extends Controller
         }
         Address::destroy($address->id);
 
-        return redirect()->route('addresses.index')->with('success', 'Address deleted successfully');
+        return redirect()->route('admin.addresses.index')->with('success', 'Address deleted successfully');
     }
 }

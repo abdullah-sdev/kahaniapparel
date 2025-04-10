@@ -48,7 +48,7 @@ class ColorController extends Controller
         }
         Color::create($request->validated());
 
-        return redirect()->route('colors.index')->with('success', 'Color created successfully.');
+        return redirect()->route('admin.colors.index')->with('success', 'Color created successfully.');
     }
 
     /**
@@ -88,7 +88,7 @@ class ColorController extends Controller
         }
         $color->update($request->validated());
 
-        return redirect()->route('colors.index')->with('success', 'Color updated successfully.');
+        return redirect()->route('admin.colors.index')->with('success', 'Color updated successfully.');
 
     }
 

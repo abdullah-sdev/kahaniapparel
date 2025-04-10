@@ -73,7 +73,7 @@ class ProductController extends Controller
         $product->categories()->sync($request->category_id);
         // dd($request->all());
 
-        return redirect()->route('products.index')->with('success', 'Product created successfully!');
+        return redirect()->route('admin.products.index')->with('success', 'Product created successfully!');
     }
 
     /**
@@ -123,7 +123,7 @@ class ProductController extends Controller
         // Update the product in the database
         $product->update($validatedData);
 
-        return redirect()->route('products.index')->with('success', 'Product updated successfully!');
+        return redirect()->route('admin.products.index')->with('success', 'Product updated successfully!');
     }
 
     /**
@@ -143,7 +143,7 @@ class ProductController extends Controller
         // Delete the product from the database
         $product->delete();
 
-        return redirect()->route('products.index')->with('success', 'Product deleted successfully!');
+        return redirect()->route('admin.products.index')->with('success', 'Product deleted successfully!');
 
     }
 }

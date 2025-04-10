@@ -40,7 +40,7 @@
                         <x-nav-link :href="route('admin.order-items.index')" :active="request()->routeIs('admin.order-items.*')">
                             {{ __('OrderItems') }}
                         </x-nav-link>
-                        <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
+                        <x-nav-link :href="route('kahani.home')" :active="request()->routeIs('kahani.home')">
                             {{ __('Kahani Store') }}
                         </x-nav-link>
                     @endrole

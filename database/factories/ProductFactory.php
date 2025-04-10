@@ -24,6 +24,8 @@ class ProductFactory extends Factory
     {
         $name = $this->faker->unique()->sentence(3);
         $slug = Str::slug($name);
+        $image = 'https://placehold.co/500/gray/white?font=playfair-display&text='.$slug;
+
         return [
             //
             'name' => $name,
@@ -31,8 +33,8 @@ class ProductFactory extends Factory
             'actual_price' => $this->faker->numberBetween(1000, 10000),
             'discounted_price' => $this->faker->numberBetween(1, 9999),
             'description' => $this->faker->paragraph(),
-            'thumbnail_image' => $this->faker->imageUrl(),
-            'thumbnail_image1' => $this->faker->imageUrl(),
+            'thumbnail_image' => $image.'1',
+            'thumbnail_image1' => $image.'2',
             'clicks' => $this->faker->numberBetween(0, 100),
             'is_in_stock' => $this->faker->boolean(),
             'is_enable' => $this->faker->boolean(),

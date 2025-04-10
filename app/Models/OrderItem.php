@@ -51,12 +51,12 @@ class OrderItem extends Model
         return $this->price * $this->quantity;
     }
 
-    public function getAttribute($key)
-    {
-        if (array_key_exists($key, $this->product_attributes ?? [])) {
-            return $this->product_attributes[$key];
-        }
+    // public function getAttribute($key)
+    // {
+    //     if (array_key_exists($key, $this->product_attributes ?? [])) {
+    //         return $this->product_attributes[$key];
+    //     }
 
-        return parent::getAttribute($key);
-    }
+    //     return parent::getAttribute($key);
+    // }
 }
