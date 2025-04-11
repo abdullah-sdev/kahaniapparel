@@ -30,7 +30,7 @@ class ProductFactory extends Factory
             //
             'name' => $name,
             'slug' => $slug,
-            'actual_price' => $this->faker->numberBetween(1000, 10000),
+            'actual_price' => $this->faker->numberBetween(10000, 100000),
             'discounted_price' => $this->faker->numberBetween(1, 9999),
             'description' => $this->faker->paragraph(),
             'thumbnail_image' => $image.'1',

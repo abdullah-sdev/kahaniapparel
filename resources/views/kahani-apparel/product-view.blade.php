@@ -65,7 +65,8 @@
                         </div>
                         (1)
                     </div>
-                    <p class="text-white/60 mb-4">Rs. {{ number_format($product->actual_price, 2) }} PKR</p>
+                    <p class="text-sm text-white/60 line-through">Rs. {{ number_format($product->actual_price, 2) }} PKR</p>
+                    <p class="mb-4">Rs. {{ number_format($product->discounted_price, 2) }} PKR</p>
                     <form action="{{ route('store_to_cart') }}" method="POST">
                         @csrf
                         <div>
@@ -76,12 +77,12 @@
                             <div x-data="{ selectedSize: '' }" class="rounded-lg shadow-lg">
                                 <h2 class="text-lg font-bold mb-1">Select Size</h2>
                                 <div class="grid grid-cols-2 md:grid-cols-5 gap-4 text-[16px] font-thin text-white/80">
-                                    <template x-for="size in @js($product->sizes)" :key="size.id">
+                                    <template x-for="size in @js($product->sizes)" :key="size.name">
                                         <div>
-                                            <input type="radio" :id="`size-${size.id}`" :value="size.id"
+                                            <input type="radio" :id="`size-${size.id}`" :value="size.name"
                                                 x-model.number="selectedSize" class="hidden">
                                             <label :for="`size-${size.id}`"
-                                                :class="{ 'bg-blue-500 text-white': selectedSize === size.id }"
+                                                :class="{ 'bg-blue-500 text-white': selectedSize === size.name }"
                                                 class="block text-center px-2 py-1 border border-bblue rounded-lg cursor-pointer hover:bg-bblue hover:text-white transition-colors">
                                                 <span x-text="size.name"></span>
                                             </label>
@@ -100,12 +101,12 @@
                             <div x-data="{ selectedColor: '' }" class="rounded-lg shadow-lg mt-4">
                                 <h2 class="text-lg font-semibold mb-1">Select Color</h2>
                                 <div class="grid grid-cols-3 md:grid-cols-5 gap-4 text-[16px] font-thin text-white/80">
-                                    <template x-for="color in @js($product->colors)" :key="color.id">
+                                    <template x-for="color in @js($product->colors)" :key="color.name">
                                         <div>
-                                            <input type="radio" :id="`color-${color.id}`" :value="color.id"
+                                            <input type="radio" :id="`color-${color.id}`" :value="color.name"
                                                 x-model.number="selectedColor" class="hidden">
                                             <label :for="`color-${color.id}`"
-                                                :class="{ 'bg-blue-500 text-white': selectedColor === color.id }"
+                                                :class="{ 'bg-blue-500 text-white': selectedColor === color.name }"
                                                 class="block text-center px-2 py-1 border border-bblue rounded-lg cursor-pointer hover:bg-bblue hover:text-white transition-colors">
                                                 <span x-text="color.name"></span>
                                             </label>
@@ -129,7 +130,8 @@
                                         <input type="hidden" name="quantity" :value="quantity">
 
                                         <!-- Display Quantity -->
-                                        <div class="flex items-center justify-center text-2xl font-bold" x-text="quantity"></div>
+                                        <div class="flex items-center justify-center text-2xl font-bold" x-text="quantity">
+                                        </div>
 
                                         <!-- Increase Button -->
                                         <button type="button" @click="quantity < 10 ? quantity++ : quantity = 10"

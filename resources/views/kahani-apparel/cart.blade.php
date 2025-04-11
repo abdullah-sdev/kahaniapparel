@@ -32,30 +32,33 @@
                                     {{-- {{ $item }} --}}
                                     <div class="bg-white text-black p-2 flex align-middle gap-3 font-body rounded-lg">
                                         <div class="flex items-center">
-                                            <input type="checkbox" name="" id="" class="mr-2">
+                                            <input type="checkbox" name="order[{{ $order->id }}][{{ $item->id }}]" id="" class="mr-2" checked>
                                         </div>
                                         <div class="w-[70px] aspect-square"><img src="{{ $item->product->thumbnail_image }}"
                                                 alt="" class="w-full h-full object-cover"></div>
                                         <div class="flex flex-col justify-between grow">
                                             <div class="">
-                                                {{ $item->product->name ?? '' }}
+                                                {{ $item->product->name ?? '' }} ( {{ $item->quantity }} )
                                             </div>
                                             <div class="text-sm text-gray-400">
                                                 <div>Item Description .....</div>
-                                                {{-- @php
-                                                    $product_attributes = json_decode(
-                                                        json_encode($item->product_attributes),
-                                                        true,
-                                                    );
-                                                @endphp --}}
-                                                <div>Item Color: {{ $product_attributes['color'] ?? 'N/A' }}</div>
-                                                <div>Item Size: {{ $product_attributes['size'] ?? 'N/A' }}</div>
+                                                <div class="">
+                                                    @forelse ($item->product_attributes as $key => $attributes)
+                                                        <div>{{ $key }} : {{ $attributes }}</div>
+                                                    @empty
+                                                        no Attributes
+                                                    @endforelse
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="flex flex-col justify-between grow">
-                                            <div class="text-gray-600 text-lg font-normal">Rs. {{ $item->price }}/-</div>
+                                            <div class="text-gray-600 text-lg font-normal">
+                                                <div class="text-gray-600 text-lg font-normal">Rs. {{ $item->total() }}/-</div>
+                                                <div class="text-gray-600 text-sm font-normal">Rs. {{ $item->price }}/-</div>
+                                            </div>
+
                                             <div class="text-[12px] flex gap-2 text-gray-400">
-                                                <div class="wishlist | ">
+                                                <div class="wishlist | hover:text-red-500">
                                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                         viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
                                                         class="size-6">
@@ -65,11 +68,12 @@
 
                                                 </div>
                                                 <div class="trash | ">
-                                                    <form action="{{ route('remove_from_cart', $item->id) }}" method="post">
+                                                    <form action="{{ route('remove_from_cart', $item->id) }}"
+                                                        method="post">
                                                         @csrf
                                                         @method('DELETE')
 
-                                                        <button type="submit">
+                                                        <button type="submit" class="hover:text-red-500">
                                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                                 viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
                                                                 class="size-6">
@@ -210,11 +214,12 @@
                                     <div class="p-2 text-[14px]">
                                         <div class="flex justify-between">
                                             <div>Sub Total (0 items)</div>
-                                            <div>Rs. 0</div>
+                                            <div>Rs. {{ $order->calculateSubTotal() }}</div>
+
                                         </div>
                                         <div class="flex justify-between">
                                             <div>Shipping Fee</div>
-                                            <div>Rs. 0</div>
+                                            <div>Rs. {{ $order->delivery_cost ?? '0' }}</div>
                                         </div>
                                         <div class="">
                                             <div class="grid grid-cols-12 gap-2 py-2">
@@ -233,7 +238,7 @@
                                         </div>
                                         <div class="flex justify-between">
                                             <div>Total</div>
-                                            <div>Rs. 0</div>
+                                            <div>Rs. {{ $order->total() }}</div>
                                         </div>
 
                                     </div>

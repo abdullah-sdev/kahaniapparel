@@ -65,7 +65,11 @@ class ProductController extends Controller
                         // 'delivery_cost' => 0
                     ]
                 );
+
                 $product = Product::findOrFail($request->validated()['product_id']);
+                // $product->load('productAttributes');
+                // dd($product);
+
                 $orderItem = $order->orderItems()->create([
                     'product_id' => $product->id,
                     'price' => $product->discounted_price,

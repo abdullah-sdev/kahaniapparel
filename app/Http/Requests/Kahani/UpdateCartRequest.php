@@ -26,8 +26,8 @@ class UpdateCartRequest extends FormRequest
         return [
             //
             'product_id' => 'required|exists:products,id',
-            'selectedSize' => 'required|exists:sizes,id',
-            'selectedColor' => 'required|exists:colors,id',
+            'selectedSize' => 'required|exists:sizes,name',
+            'selectedColor' => 'required|exists:colors,name',
             'quantity' => 'required|integer|min:1',
             'action' => 'required|in:Add to Cart,Buy Now',
         ];

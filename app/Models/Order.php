@@ -82,7 +82,14 @@ class Order extends Model
     // Helpers
     public function total()
     {
-        return $this->subtotal + $this->delivery_cost;
+        return $this->calculateSubTotal() + $this->delivery_cost;
+    }
+
+    public function calculateSubTotal()
+    {
+        return $this->orderItems->sum(function ($item) {
+            return $item->price * $item->quantity;
+        });
     }
 
     public function markAsPaid()
