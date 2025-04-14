@@ -30,7 +30,8 @@
                             <div class="font-semibold text-white">{{ Auth::user()->name }}</div>
                         @endhasrole --}}
                         @role(\App\Enums\RoleEnum::ADMIN->value)
-                            <div class="font-roxborough font-thin text-white text-[17px] relative" x-data="{ open: false }" x-cloak>
+                            <div class="font-roxborough font-thin text-white text-[17px] relative" x-data="{ open: false }"
+                                x-cloak>
                                 <button @click="open = !open" class="text-bblue hover:underline inline-flex align-middle">
                                     <div><span class="material-icons text-[22px] text-white">person</span></div>
                                     <div class="ml-2">{{ Auth::user()->fullname() }}</div>
@@ -69,7 +70,8 @@
                         @endrole
 
                         @role(\App\Enums\RoleEnum::CUSTOMER->value)
-                            <div class="font-roxborough font-thin text-white text-[17px] relative" x-data="{ open: false }" x-cloak>
+                            <div class="font-roxborough font-thin text-white text-[17px] relative" x-data="{ open: false }"
+                                x-cloak>
                                 <button @click="open = !open" class="text-bblue hover:underline inline-flex align-middle">
                                     <div><span class="material-icons text-[22px] text-white">person</span></div>
                                     <div class="ml-2">{{ Auth::user()->fullname() }}</div>
@@ -155,39 +157,14 @@
                 <div class="nav-head hidden sm:block">
                     <ul
                         class="flex flex-col sm:flex-row items-center sm:justify-between max-w-[1000px] mx-auto px-4 min-h-screen sm:min-h-fit absolute bg-black sm:static w-full gap-6 py-6 sm:py-0">
-                        <li><a href="{{ route('kahani.home') }}"
-                                class="font-roxborough font-black p-2 text-gray-200 hover:text-bblue inline-block transition-all duration-100">Home</a>
-                        </li>
-                        <li><a href="{{ route('kahani.products') }}"
-                                class="font-roxborough font-black p-2 text-gray-200 hover:text-bblue inline-block transition-all duration-100">Shop</a>
-                        </li>
-                        <li><a href="#"
-                                class="font-roxborough font-black p-2 text-gray-200 hover:text-bblue inline-block transition-all duration-100">About
-                                Us</a></li>
-                        <li><a href="#"
-                                class="font-roxborough font-black p-2 text-gray-200 hover:text-bblue inline-block transition-all duration-100">Contact
-                                Us</a></li>
-                        <li class="sm:hidden">
-                            <div class="font-bold p-2">
-                                <button
-                                    class="button border-gray-400 hover:gray-100 hover:text-gray-100 hover:border-0 hover:bg-bblue text-gray-300 border px-2 transition-all duration-100 rounded text-[20px] font-normal">Login</button>
-                                <button
-                                    class="button border-gray-400 hover:gray-100 hover:text-gray-100 hover:border-0 hover:bg-bblue text-gray-300 border px-2 transition-all duration-100 rounded text-[20px] font-normal">Register</button>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <!-- Mobile Navigation -->
-                <div class="nav-head sm:hidden" x-show="open" x-transition.duration.500ms x-cloak
-                    x-trap.inert.noscroll="open" x-on:keydown.esc.window="open = false">
-                    <ul
-                        class="flex flex-col sm:flex-row items-center sm:justify-between max-w-[1000px] mx-auto px-4 min-h-screen sm:min-h-fit absolute bg-black sm:static w-full gap-6 py-6 sm:py-0">
-                        <li><a href="{{ route('kahani.home') }}"
+                        <li>
+                            <a href="{{ route('kahani.home') }}"
                                 class="font-roxborough font-black p-2 text-gray-200 hover:text-bblue inline-block transition-all duration-100">
                                 Home
                             </a>
                         </li>
-                        <li><a href="{{ route('kahani.products') }}"
+                        <li>
+                            <a href="{{ route('kahani.products') }}"
                                 class="font-roxborough font-black p-2 text-gray-200 hover:text-bblue inline-block transition-all duration-100">
                                 Shop
                             </a>
@@ -208,9 +185,58 @@
                         <li class="sm:hidden">
                             <div class="font-bold p-2">
                                 <button
-                                    class="button border-gray-400 hover:gray-100 hover:text-gray-100 hover:border-0 hover:bg-bblue text-gray-300 border px-2 transition-all duration-100 rounded text-[20px] font-normal">Login</button>
+                                    class="button border-gray-400 hover:gray-100 hover:text-gray-100 hover:border-0 hover:bg-bblue text-gray-300 border px-2 transition-all duration-100 rounded text-[20px] font-normal">
+                                    Login
+                                </button>
                                 <button
-                                    class="button border-gray-400 hover:gray-100 hover:text-gray-100 hover:border-0 hover:bg-bblue text-gray-300 border px-2 transition-all duration-100 rounded text-[20px] font-normal">Register</button>
+                                    class="button border-gray-400 hover:gray-100 hover:text-gray-100 hover:border-0 hover:bg-bblue text-gray-300 border px-2 transition-all duration-100 rounded text-[20px] font-normal">
+                                    Register
+                                </button>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Mobile Navigation -->
+                <div class="nav-head sm:hidden" x-show="open" x-transition.duration.500ms x-cloak
+                    x-trap.inert.noscroll="open" x-on:keydown.esc.window="open = false">
+                    <ul
+                        class="flex flex-col sm:flex-row items-center sm:justify-between max-w-[1000px] mx-auto px-4 min-h-screen sm:min-h-fit absolute bg-black sm:static w-full gap-6 py-6 sm:py-0">
+                        <li>
+                            <a href="{{ route('kahani.home') }}"
+                                class="font-roxborough font-black p-2 text-gray-200 hover:text-bblue inline-block transition-all duration-100">
+                                Home
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('kahani.products') }}"
+                                class="font-roxborough font-black p-2 text-gray-200 hover:text-bblue inline-block transition-all duration-100">
+                                Shop
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#"
+                                class="font-roxborough font-black p-2 text-gray-200 hover:text-bblue inline-block transition-all duration-100">
+                                About
+                                Us
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#"
+                                class="font-roxborough font-black p-2 text-gray-200 hover:text-bblue inline-block transition-all duration-100">
+                                Contact
+                                Us
+                            </a>
+                        </li>
+                        <li class="sm:hidden">
+                            <div class="font-bold p-2">
+                                <button
+                                    class="button border-gray-400 hover:gray-100 hover:text-gray-100 hover:border-0 hover:bg-bblue text-gray-300 border px-2 transition-all duration-100 rounded text-[20px] font-normal">
+                                    Login
+                                </button>
+                                <button
+                                    class="button border-gray-400 hover:gray-100 hover:text-gray-100 hover:border-0 hover:bg-bblue text-gray-300 border px-2 transition-all duration-100 rounded text-[20px] font-normal">
+                                    Register
+                                </button>
                             </div>
                         </li>
                     </ul>
@@ -462,7 +488,6 @@
                                 message: '{{ $errorsingle }}'
                             })
                         @empty
-
                         @endforelse
                     @endif
                 },
