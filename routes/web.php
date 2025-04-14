@@ -34,11 +34,16 @@ Route::prefix('/')->name('kahani.')->group(function () {
     Route::get('/panel', [KahaniHomeController::class, 'panel'])->name('panel')->middleware(['auth', 'role:'.RoleEnum::ADMIN->value.'|'.RoleEnum::CUSTOMER->value]);
 });
 
+Route::post('/proceed-to-checkout/{order}', [KahaniProductController::class, 'proceedToCheckout'])->name('proceedToCheckout');
+
 Route::post('/cart', [KahaniProductController::class, 'store_to_cart'])->name('store_to_cart');
 
 Route::delete('/cart/remove/{orderItem}', [KahaniProductController::class, 'remove_from_cart'])->name('remove_from_cart');
 
 Route::post('/cart/add', [KahaniProductController::class, 'add'])->name('cart.add');
+
+Route::post('/apply-coupon', [KahaniProductController::class, 'coupon_apply'])->name('coupon.apply');
+Route::post('/remove-coupon', [KahaniProductController::class, 'coupon_remove'])->name('coupon.remove');
 
 // Route::get('product-view2', [KahaniProductController::class, 'productview2']);
 

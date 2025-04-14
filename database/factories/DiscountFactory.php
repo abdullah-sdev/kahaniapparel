@@ -22,11 +22,11 @@ class DiscountFactory extends Factory
             'code' => $this->faker->unique()->regexify('[A-Z0-9]{8}'),
             'start_date' => $this->faker->dateTimeBetween('-1 year', 'now'),
             'end_date' => $this->faker->dateTimeBetween('now', '+1 year'),
-            'usage_limit' => $this->faker->numberBetween(1, 100),
-            'usage_count' => $this->faker->numberBetween(0, 100),
+            'usage_limit' => $this->faker->numberBetween(70, 100),
+            'usage_count' => $this->faker->numberBetween(0, 80),
             'status' => $this->faker->randomElement(['active', 'inactive']),
             'type' => $this->faker->randomElement(['percentage', 'amount']),
-            'value' => $this->faker->randomFloat(1, 100),
+            'value' => $this->faker->numberBetween(1, 100),
         ];
     }
 }

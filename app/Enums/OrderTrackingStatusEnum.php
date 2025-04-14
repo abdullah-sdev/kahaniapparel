@@ -14,8 +14,6 @@ enum OrderTrackingStatusEnum: string
     case DELIVERED = 'delivered';
     case RETURNED = 'returned';
 
-
-
     // case DRAFT = 'draft';
     // case ABANDONED = 'abandoned';
     // case FAILED = 'Failed';

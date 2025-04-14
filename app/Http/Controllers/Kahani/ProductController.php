@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Kahani\UpdateCartRequest as KahaniUpdateCartRequest;
 use App\Models\Address;
 use App\Models\CargoCompany;
+use App\Models\Discount;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
@@ -115,11 +117,62 @@ class ProductController extends Controller
         return redirect()->back()->with('success', 'Product removed from cart.');
     }
 
+    public function proceedToCheckout(Request $request)
+    {
+        // dd($request->all());
+        return redirect()->route('kahani.checkout');
+    }
+
     public function checkout()
     {
         $user = Auth::user();
         $addresses = Auth::user() ? Address::where('user_id', Auth::user()->id)->get() : [];
 
-        return view('kahani-apparel.checkout', compact('addresses', 'user'));
+        $order = Order::where('user_id', Auth::user()->id)
+            ->where('order_status', 'processing')
+            ->firstOrFail();
+
+        $order->load('orderItems.product');
+
+        // dd($order);
+        return view('kahani-apparel.checkout', compact('addresses', 'user', 'order'));
     }
+
+    public function coupon_apply(Request $request)
+    {
+        // dd($request->all());
+
+        $order = Order::where('user_id', Auth::user()->id)
+            ->where('order_status', 'processing')
+            ->firstOrFail();
+
+        if ($order->discount_id) {
+            return back()
+                ->with('error', 'Coupon already applied.');
+        }
+
+        $coupon = Discount::where('code', $request->coupon)->first();
+
+        if (! $coupon || ! $coupon->isValid() || $coupon->isExpired() || ! $coupon->isActive() || $coupon->isUsed()) {
+            return back()->with('error', 'Invalid or expired coupon.');
+        }
+
+        $order->discount_id = $coupon->id;
+        $order->save();
+
+        return back()->with('success', 'Coupon applied successfully!');
+    }
+
+    public function coupon_remove(Request $request)
+    {
+        $order = Order::where('user_id', Auth::user()->id)
+            ->where('order_status', 'processing')
+            ->firstOrFail();
+
+        $order->discount_id = null;
+        $order->save();
+
+        return back()->with('success', 'Coupon removed successfully!');
+    }
+
 }

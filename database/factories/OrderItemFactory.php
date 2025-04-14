@@ -48,6 +48,7 @@ class OrderItemFactory extends Factory
             'price' => $productId->discounted_price,
             'quantity' => $this->faker->numberBetween(1, 5),
             'product_attributes' => ['size' => $size, 'color' => $color],
+            'checkout_status' => 1,
         ];
     }
 

@@ -19,6 +19,7 @@ class OrderItem extends Model
         'price',
         'quantity',
         'product_attributes',
+        'checkout_status',
     ];
 
     protected $casts = [

@@ -134,6 +134,9 @@
             <x-responsive-nav-link :href="route('admin.order-items.index')" :active="request()->routeIs('admin.order-items.*')">
                 {{ __('Order Items') }}
             </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('kahani.home')" :active="request()->routeIs('kahani.home')">
+                {{ __('Kahani Store') }}
+            </x-responsive-nav-link>
         </div>
 
         <!-- Responsive Settings Options -->

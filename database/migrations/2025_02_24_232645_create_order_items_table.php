@@ -18,6 +18,7 @@ return new class extends Migration
             $table->decimal('price', 10, 2);
             $table->integer('quantity');
             $table->json('product_attributes')->nullable();
+            $table->boolean('checkout_status')->default(0);
 
             // LandingPageID
 

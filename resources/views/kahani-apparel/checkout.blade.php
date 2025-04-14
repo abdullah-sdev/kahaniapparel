@@ -25,7 +25,7 @@
         <section class="checkout">
             <div class="container | mx-auto max-w-[1200px] p-10 md:p-20">
                 <div class=" mb-8">
-                    <form action="" method="post">
+                    <form action="{{ route('proceedToCheckout', $order) }}" method="post">
                         @csrf
 
                         <div class="font-normal grid grid-cols-12 gap-4">
@@ -78,7 +78,7 @@
                                                 <div class="text-red-600 text-sm mb-2">{{ $message }}</div>
                                             @enderror --}}
 
-                                            <div class="space-y-3">
+                                            {{-- <div class="space-y-3">
                                                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
 
                                                     @foreach ($addresses as $address)
@@ -113,7 +113,53 @@
                                                     @endforeach
 
                                                 </div>
+                                            </div> --}}
+                                            <div class="swiper addressSwiper">
+                                                <div class="swiper-wrapper">
+                                                    @foreach ($addresses as $address)
+                                                        <div class="swiper-slide">
+                                                            <label
+                                                                class="flex flex-col h-full p-4 border rounded-lg hover:border-blue-400 cursor-pointer space-y-2 @error('address_id') border-red-500 @enderror">
+                                                                <div class="flex items-start">
+                                                                    <input type="radio" name="address_id"
+                                                                        value="{{ $address->id }}"
+                                                                        class="mt-1 h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500"
+                                                                        {{ $address->is_default ? 'checked' : '' }}>
+                                                                    <div class="ml-3">
+                                                                        <div class="flex items-center">
+                                                                            <span
+                                                                                class="block font-medium text-white">{{ $address->name }}</span>
+                                                                            @if ($address->is_default)
+                                                                                <span
+                                                                                    class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                                                                    Default
+                                                                                </span>
+                                                                            @endif
+                                                                        </div>
+                                                                        <div class="text-sm text-white mt-1">
+                                                                            <div>{{ $address->address1 }}</div>
+                                                                            @if ($address->address2)
+                                                                                <div>{{ $address->address2 }}</div>
+                                                                            @endif
+                                                                            <div>{{ $address->city }}, {{ $address->state }}
+                                                                                {{ $address->postalCode }}</div>
+                                                                            <div>{{ $address->country }}</div>
+                                                                            <div>Phone: {{ $user->phone }}</div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </label>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+
+                                                <!-- Swiper navigation -->
+                                                <div class="flex justify-between mt-4 text-white">
+                                                    <div class="swiper-button-prev"></div>
+                                                    <div class="swiper-button-next"></div>
+                                                </div>
                                             </div>
+
 
                                             <!-- Add New Address Toggle -->
                                             <div x-data="{ open: false }" class="pt-2">
@@ -322,7 +368,29 @@
                                     </div>
                                     <div>
                                         <div class="overflow-y-scroll h-60  flex flex-col gap-2">
-                                            <div class="flex flex-row gap-2 text-[12px] bg-gray-300 rounded-lg p-2">
+                                            @forelse ($order->orderItems as $item)
+                                                <div class="flex flex-row gap-2 text-[12px] bg-gray-300 rounded-lg p-2">
+                                                    <div class="w-[70px] aspect-square">
+                                                        <img src="{{ $item->product->thumbnail_image }}"
+                                                            alt="Placeholder Image">
+                                                    </div>
+                                                    <div class="flex flex-col justify-between">
+                                                        <div class="flex flex-col">
+                                                            <div>
+                                                                {{ $item->product->name }}
+                                                            </div>
+                                                            <div>
+                                                                {{ $item->quantity }}
+                                                            </div>
+                                                        </div>
+                                                        <div>
+                                                            Rs. {{ $item->total() }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @empty
+                                            @endforelse
+                                            {{-- <div class="flex flex-row gap-2 text-[12px] bg-gray-300 rounded-lg p-2">
                                                 <div class="w-[70px] aspect-square">
                                                     <img src="https://placehold.co/150/black/white?font=playfair-display&text=eius-et-tempore-magni1"
                                                         alt="Placeholder Image">
@@ -378,57 +446,134 @@
                                                         1200 PKR
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                         </div>
                                     </div>
                                     <div>
                                         <div class="mt-2">Order Summary</div>
                                         <div class="p-2 text-[14px]">
                                             <div class="flex justify-between">
-                                                <div>Sub Total (0 items)</div>
-                                                <div>Rs. 0</div>
+                                                <div>Sub Total ({{ $order->orderItems()->count() }} items)</div>
+                                                <div>Rs. {{ $order->calculateSubTotal() }}</div>
+
                                             </div>
                                             <div class="flex justify-between">
                                                 <div>Shipping Fee</div>
-                                                <div>Rs. 0</div>
+                                                <div>Rs. {{ $order->delivery_cost ?? '0' }}</div>
                                             </div>
-                                            <div class="">
-                                                <div class="grid grid-cols-12 gap-2 py-2">
-                                                    <div class="col-span-8">
-                                                        <input type="text" name="coupon" id="coupon"
-                                                            class="w-full rounded-md border border-black bg-white py-1 px-3 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                                                            placeholder="Enter Voucher Code">
+                                            <div class="mt-4">
+
+                                                @if ($order->discount_id == null)
+
+
+                                                        <div class="grid grid-cols-12 gap-2 py-2">
+                                                            <div class="col-span-8">
+                                                                <input type="text" name="coupon" id="coupon" form="apply-discount"
+                                                                    class="w-full rounded-md border border-black bg-white py-1 px-3 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                                                                    placeholder="Enter Voucher Code">
+                                                            </div>
+                                                            <div class="col-span-4">
+                                                                <button type="submit"
+                                                                form="apply-discount"
+                                                                    class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-1 bg-bblue text-base font-medium text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                                                    Apply
+                                                                </button>
+                                                            </div>
+                                                        </div>
+
+                                                @else
+                                                    <div class="flex justify-between px-2">
+                                                        <div>Discount Code</div>
+                                                        <div>{{ $order->discount->code }}</div>
                                                     </div>
-                                                    <div class="col-span-4">
-                                                        <button type="submit"
-                                                            class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-1 bg-bblue text-base font-medium text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                                                            Apply
+                                                    <div class="flex justify-between px-2">
+                                                        <div>Discounted For</div>
+                                                        @if ($order->discount->type == 'percentage')
+                                                            {{ $order->discount->value }}%
+                                                        @else
+                                                            Rs. {{ $order->discount->value }}
+                                                        @endif
+                                                    </div>
+                                                    <div class="flex mt-2">
+
+                                                        <button type="submit" form="remove-discount"
+                                                            class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-2 rounded-lg shadow-md transition duration-200 ease-in-out flex items-center gap-2">
+                                                            Remove Code
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
+                                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                                    stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                            </svg>
+
                                                         </button>
                                                     </div>
-                                                </div>
+                                                @endif
+
                                             </div>
-                                            <div class="flex justify-between">
+                                            <div class="flex justify-between mt-4">
                                                 <div>Total</div>
-                                                <div>Rs. 0</div>
+                                                <div>Rs. {{ $order->total() }}</div>
                                             </div>
 
                                         </div>
                                         <div>
-                                            <button type="submit"
-                                                class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                                Place Order
-                                            </button>
+                                            <form action="{{ route('proceedToCheckout', $order) }}" method="post"
+                                                id="checkout-form">
+                                                @csrf
+                                                <button type="submit"
+                                                    class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-bblue text-base font-normal text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                                    Proceed To Checkout
+                                                </button>
+                                            </form>
 
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
 
                     </form>
+                    @if ($order->discount_id == null)
+                        <form action="{{ route('coupon.apply') }}" method="post" id="apply-discount">
+                            @csrf
+                        </form>
+                    @else
+                        <form action="{{ route('coupon.remove') }}" method="post" id="remove-discount">
+                            @csrf
+                        </form>
+                    @endif
+
+
+
                 </div>
 
             </div>
         </section>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                new Swiper('.addressSwiper', {
+                    slidesPerView: 1.2,
+                    spaceBetween: 15,
+                    breakpoints: {
+                        640: {
+                            slidesPerView: 1.2,
+                        },
+                        768: {
+                            slidesPerView: 1.5,
+                        },
+                        1024: {
+                            slidesPerView: 2.5,
+                        },
+                    },
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev',
+                    },
+                    grabCursor: true
+                });
+            });
+        </script>
+
     </main>
 @endsection

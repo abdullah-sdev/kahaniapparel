@@ -28,4 +28,24 @@ class Discount extends Model
     {
         return $this->hasMany(User::class);
     }
+
+    public function isExpired(): bool
+    {
+        return $this->end_date < now();
+    }
+
+    public function isValid(): bool
+    {
+        return $this->start_date <= now() && $this->end_date >= now();
+    }
+
+    public function isActive(): bool
+    {
+        return $this->status === 'active';
+    }
+
+    public function isUsed(): bool
+    {
+        return $this->usage_count >= $this->usage_limit;
+    }
 }

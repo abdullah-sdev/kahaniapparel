@@ -82,7 +82,17 @@ class Order extends Model
     // Helpers
     public function total()
     {
-        return $this->calculateSubTotal() + $this->delivery_cost;
+        $discountedAmount = 0;
+
+        if ($this->discount_id) {
+            $discount = Discount::find($this->discount_id);
+
+            $discount->type == 'percentage' ?
+                $discountedAmount = $this->calculateSubTotal() * ($discount->value / 100) :
+                $discountedAmount = $discount->value;
+        }
+
+        return $this->calculateSubTotal() + $this->delivery_cost - $discountedAmount;
     }
 
     public function calculateSubTotal()

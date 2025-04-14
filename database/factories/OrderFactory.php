@@ -24,7 +24,11 @@ class OrderFactory extends Factory
         $userId = User::pluck('id')->toArray();
         $selectedUserId = $this->faker->randomElement($userId);
         $addressId = Address::where('user_id', $selectedUserId)->pluck('id')->toArray();
-        $discountId = Discount::pluck('id')->toArray();
+        $discountId = Discount::whereColumn('usage_limit', '>', 'usage_count')
+            ->where('status', 'active')
+            ->where('end_date', '>=', now())
+            ->pluck('id')
+            ->toArray();
         $cargoCompanyId = CargoCompany::pluck('id')->toArray();
 
         return [

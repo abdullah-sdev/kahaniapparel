@@ -450,11 +450,20 @@
 
                     // Check for validation errors
                     @if ($errors->any())
-                        this.show({
-                            type: 'error',
-                            title: 'Validation Error',
-                            message: 'Please check the form for errors'
-                        });
+                        // this.show({
+                        //     type: 'error',
+                        //     title: 'Validation Error',
+                        //     message: 'Please check the form for errors'
+                        // });
+                        @forelse ($errors->all() as $errorsingle)
+                            this.show({
+                                type: 'error',
+                                title: 'Error',
+                                message: '{{ $errorsingle }}'
+                            })
+                        @empty
+
+                        @endforelse
                     @endif
                 },
                 show(toast) {
