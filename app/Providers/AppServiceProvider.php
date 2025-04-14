@@ -21,7 +21,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         //
-        //env local then prevent lazy loading
+        // env local then prevent lazy loading
         if (app()->environment('local')) {
             Model::preventLazyLoading();
         }

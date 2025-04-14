@@ -58,9 +58,26 @@
                                                     {{ $user->dateOfBirth->format('F j, Y') }}</td>
                                                 <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
                                                     <button type="button"
-                                                        class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 focus:outline-hidden focus:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:text-blue-400">Edit</button>
-                                                    <button type="button"
-                                                        class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-red-600 hover:text-red-800 focus:outline-hidden focus:text-red-800 disabled:opacity-50 disabled:pointer-events-none dark:text-red-500 dark:hover:text-red-400 dark:focus:text-red-400">Delete</button>
+                                                        class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 focus:outline-hidden focus:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:text-blue-400">
+                                                        Edit
+                                                    </button>
+                                                    @can('delete', $user)
+                                                        {{-- {{ $user->id }} --}}
+                                                        <form action="{{ route('admin.users.destroy', ['user' => $user]) }}"
+                                                            class="inline-block"
+                                                            method="post">
+
+                                                            {{-- <form action="{{ route('admin.users.destroy', ['user' => $user->id]) }}" method="POST"> --}}
+                                                            @csrf
+                                                            @method('delete')
+                                                            <button type="submit"
+                                                                onclick="return confirm('Are you sure you want to delete this user?')"
+                                                                class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-red-600 hover:text-red-800 focus:outline-hidden focus:text-red-800 disabled:opacity-50 disabled:pointer-events-none dark:text-red-500 dark:hover:text-red-400 dark:focus:text-red-400">
+                                                                Delete
+                                                            </button>
+                                                        </form>
+                                                    @endcan
+
                                                 </td>
                                             </tr>
 

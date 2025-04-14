@@ -18,19 +18,22 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-// Route::view('/', 'kahani-apparel.index')->name('home');
 // Route::view('/products', 'kahani-apparel.product')->name('products');
 // Route::view('/product', 'kahani-apparel.product-view')->name('product');
 
 Route::prefix('/')->name('kahani.')->group(function () {
     Route::get('/', [KahaniHomeController::class, 'index'])->name('home');
-    Route::get('/products', [KahaniHomeController::class, 'products'])->name('products');
-    Route::get('/product/{product}', [KahaniHomeController::class, 'product'])->name('product');
+    // Route::view('/about', 'kahani-apparel.about')->name('about');
+    Route::get('/about', [KahaniHomeController::class, 'about'])->name('about');
+    Route::get('/privacy-policy', [KahaniHomeController::class, 'privacypolicy'])->name('privacypolicy');
+Route::get('/contact', [KahaniHomeController::class, 'contact'])->name('contact');
 
+    Route::get('/faq', [KahaniHomeController::class, 'faq'])->name('faq');
+    Route::get('/shop', [KahaniHomeController::class, 'products'])->name('products');
+    Route::get('shop/{category}', [KahaniHomeController::class, 'category'])->name('category');
+    Route::get('shop/products/{product}', [KahaniHomeController::class, 'product'])->name('product');
     Route::get('/cart', [KahaniProductController::class, 'cart'])->name('cart');
-
     Route::get('/checkout', [KahaniProductController::class, 'checkout'])->name('checkout');
-
     Route::get('/panel', [KahaniHomeController::class, 'panel'])->name('panel')->middleware(['auth', 'role:'.RoleEnum::ADMIN->value.'|'.RoleEnum::CUSTOMER->value]);
 });
 

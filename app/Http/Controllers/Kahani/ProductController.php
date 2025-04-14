@@ -174,5 +174,4 @@ class ProductController extends Controller
 
         return back()->with('success', 'Coupon removed successfully!');
     }
-
 }

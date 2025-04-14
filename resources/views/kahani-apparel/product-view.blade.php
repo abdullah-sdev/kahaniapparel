@@ -217,78 +217,30 @@
             </div>
             <div>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div class="prod-card | mx-auto">
-                        <a href="{{ route('kahani.products') }}?" class="grid grid-cols-1 gap-4">
-                            <div class="prod-img | aspect-square max-h-[248px] overflow-hidden rounded-3xl bg-slate-300">
-                                <img src="https://placehold.co/500/black/white?font=playfair-display&text=Goku-2"
-                                    alt="">
-                            </div>
-                            <div class="prod-name | text-center mt-4 text-white/80 font-roxborough ">
-                                <p class=" items-center  w-fit relative">
-                                    Goku 2
-                                    <span
-                                        class="absolute top-full left-1/2 transform -translate-x-1/2 w-3/4 border-b border-white/60"></span>
-                                </p>
-                                <p class="text-white/60 text-base text-left mt-2">
-                                    Rs. 1,200.00/- PKR
-                                </p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="prod-card | mx-auto">
-                        <a href="{{ route('kahani.products') }}?" class="grid grid-cols-1 gap-4">
-                            <div class="prod-img | aspect-square max-h-[248px] overflow-hidden rounded-3xl bg-slate-300">
-                                <img src="https://placehold.co/500/black/white?font=playfair-display&text=Goku-2"
-                                    alt="">
-                            </div>
-                            <div class="prod-name | text-center mt-4 text-white/80 font-roxborough ">
-                                <p class=" items-center  w-fit relative">
-                                    Goku 2
-                                    <span
-                                        class="absolute top-full left-1/2 transform -translate-x-1/2 w-3/4 border-b border-white/60"></span>
-                                </p>
-                                <p class="text-white/60 text-base text-left mt-2">
-                                    Rs. 1,200.00/- PKR
-                                </p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="prod-card | mx-auto">
-                        <a href="{{ route('kahani.products') }}?" class="grid grid-cols-1 gap-4">
-                            <div class="prod-img | aspect-square max-h-[248px] overflow-hidden rounded-3xl bg-slate-300">
-                                <img src="https://placehold.co/500/black/white?font=playfair-display&text=Goku-2"
-                                    alt="">
-                            </div>
-                            <div class="prod-name | text-center mt-4 text-white/80 font-roxborough ">
-                                <p class=" items-center  w-fit relative">
-                                    Goku 2
-                                    <span
-                                        class="absolute top-full left-1/2 transform -translate-x-1/2 w-3/4 border-b border-white/60"></span>
-                                </p>
-                                <p class="text-white/60 text-base text-left mt-2">
-                                    Rs. 1,200.00/- PKR
-                                </p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="prod-card | mx-auto">
-                        <a href="{{ route('kahani.products') }}?" class="grid grid-cols-1 gap-4">
-                            <div class="prod-img | aspect-square max-h-[248px] overflow-hidden rounded-3xl bg-slate-300">
-                                <img src="https://placehold.co/500/black/white?font=playfair-display&text=Goku-2"
-                                    alt="">
-                            </div>
-                            <div class="prod-name | text-center mt-4 text-white/80 font-roxborough ">
-                                <p class=" items-center  w-fit relative">
-                                    Goku 2
-                                    <span
-                                        class="absolute top-full left-1/2 transform -translate-x-1/2 w-3/4 border-b border-white/60"></span>
-                                </p>
-                                <p class="text-white/60 text-base text-left mt-2">
-                                    Rs. 1,200.00/- PKR
-                                </p>
-                            </div>
-                        </a>
-                    </div>
+                    @forelse ($relatedProducts as $relate)
+                        <div class="prod-card | mx-auto">
+                            <a href="{{ route('kahani.products') }}?" class="grid grid-cols-1 gap-4">
+                                <div
+                                    class="prod-img | aspect-square max-h-[248px] overflow-hidden rounded-3xl bg-slate-300">
+                                    <img src="{{ $relate->thumbnail_image }}"
+                                        alt="">
+                                </div>
+                                <div class="prod-name | text-center mt-4 text-white/80 font-roxborough ">
+                                    <p class=" items-center  w-fit relative">
+                                        {{ $relate->name }}
+                                        <span
+                                            class="absolute top-full left-1/2 transform -translate-x-1/2 w-3/4 border-b border-white/60"></span>
+                                    </p>
+                                    <p class="text-white/60 text-base text-left mt-2">
+                                        Rs. {{ $relate->discounted_price }}/- PKR
+                                    </p>
+                                </div>
+                            </a>
+                        </div>
+                    @empty
+                        No Related Products
+                    @endforelse
+
 
                 </div>
             </div>

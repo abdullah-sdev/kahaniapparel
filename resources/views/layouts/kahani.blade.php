@@ -26,9 +26,7 @@
             <div class="container mx-auto max-w-[1200px]" x-data="{ open: false }">
                 <div class="flex justify-between items-center border-b border-gray-200 p-4">
                     <div class="font-bold hidden sm:block gap-2">
-                        {{-- @hasrole(\App\Enums\RoleEnum::ADMIN)
-                            <div class="font-semibold text-white">{{ Auth::user()->name }}</div>
-                        @endhasrole --}}
+
                         @role(\App\Enums\RoleEnum::ADMIN->value)
                             <div class="font-roxborough font-thin text-white text-[17px] relative" x-data="{ open: false }"
                                 x-cloak>
@@ -164,19 +162,88 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('kahani.products') }}"
+                            {{-- <a href="{{ route('kahani.products') }}"
                                 class="font-roxborough font-black p-2 text-gray-200 hover:text-bblue inline-block transition-all duration-100">
                                 Shop
-                            </a>
+                            </a> --}}
+
+                            <!-- Dropdown menu -->
+                            <div x-data="{ open: false }" x-cloak class="relative z-10">
+                                <button @click="open = !open" @click.away="open = false"
+                                    class="font-roxborough font-black p-2 text-gray-200 hover:text-bblue inline-block transition-all duration-100 ">
+                                    Shop
+                                </button>
+                                <ul x-show="open" x-transition:enter="transition ease-out duration-200"
+                                    x-transition:enter-start="transform opacity-0 scale-95"
+                                    x-transition:enter-end="transform opacity-100 scale-100"
+                                    x-transition:leave="transition ease-in duration-75"
+                                    x-transition:leave-start="transform opacity-100 scale-100"
+                                    x-transition:leave-end="transform opacity-0 scale-95"
+                                    class="absolute bg-white shadow-md rounded-lg py-2 w-48 mt-2">
+
+                                    <li>
+                                        <a href="{{ route('kahani.products') }}"
+                                            class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                            View All
+                                        </a>
+
+
+                                    </li>
+                                    @forelse ($categories as $category)
+                                        <li>
+                                            <a href="{{ route('kahani.category', $category->slug) }}"
+                                                class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                                {{ $category->name }}
+                                            </a>
+                                        </li>
+
+                                    @empty
+                                    @endforelse
+
+                                </ul>
+                            </div>
                         </li>
-                        <li><a href="#"
+                        {{-- <li>
+                            <!-- Dropdown menu -->
+                            <div x-data="{ open: false }" class="relative">
+                                <button @click="open = !open"
+                                    class="text-bblue hover:underline inline-flex align-middle">
+                                    Dropdown Menu
+                                </button>
+                                <ul x-show="open" x-transition:enter="transition ease-out duration-200"
+                                    x-transition:enter-start="transform opacity-0 scale-95"
+                                    x-transition:enter-end="transform opacity-100 scale-100"
+                                    x-transition:leave="transition ease-in duration-75"
+                                    x-transition:leave-start="transform opacity-100 scale-100"
+                                    x-transition:leave-end="transform opacity-0 scale-95"
+                                    class="absolute bg-white shadow-md rounded-lg py-2 w-48 mt-2">
+                                    <li>
+                                        <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                            Item
+                                            1
+                                        </a>
+                                    </li>
+                                    <li><a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                            Item
+                                            2
+                                        </a>
+                                    </li>
+                                    <li><a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                            Item
+                                            3
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li> --}}
+                        <li><a href="{{ route('kahani.about') }}"
                                 class="font-roxborough font-black p-2 text-gray-200 hover:text-bblue inline-block transition-all duration-100">
                                 About
                                 Us
                             </a>
                         </li>
                         <li>
-                            <a href="#"
+                            <a href="{{ route('kahani.contact') }}"
                                 class="font-roxborough font-black p-2 text-gray-200 hover:text-bblue inline-block transition-all duration-100">
                                 Contact
                                 Us
@@ -214,14 +281,14 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#"
+                            <a href="{{ route('kahani.about') }}"
                                 class="font-roxborough font-black p-2 text-gray-200 hover:text-bblue inline-block transition-all duration-100">
                                 About
                                 Us
                             </a>
                         </li>
                         <li>
-                            <a href="#"
+                            <a href="{{ route('kahani.contact') }}"
                                 class="font-roxborough font-black p-2 text-gray-200 hover:text-bblue inline-block transition-all duration-100">
                                 Contact
                                 Us
@@ -257,10 +324,14 @@
                             <ul class="flex justify-center gap-4 text-[18px] flex-col md:flex-row items-center">
                                 <li><a class="text-white/70 hover:text-white"
                                         href="{{ route('kahani.home') }}">Home</a></li>
-                                <li><a class="text-white/70 hover:text-white" href="#">FAQ</a></li>
-                                <li><a class="text-white/70 hover:text-white" href="#">Privacy Policy</a></li>
-                                <li><a class="text-white/70 hover:text-white" href="#">Delivery Policy</a></li>
-                                <li><a class="text-white/70 hover:text-white" href="#">Return Policy</a></li>
+                                <li><a class="text-white/70 hover:text-white"
+                                        href="{{ route('kahani.faq') }}">FAQ</a></li>
+                                <li><a class="text-white/70 hover:text-white"
+                                        href="{{ route('kahani.privacypolicy') }}">Privacy Policy</a></li>
+                                <li><a class="text-white/70 hover:text-white"
+                                        href="{{ route('kahani.privacypolicy') }}">Delivery Policy</a></li>
+                                <li><a class="text-white/70 hover:text-white"
+                                        href="{{ route('kahani.privacypolicy') }}">Return Policy</a></li>
                             </ul>
                         </div>
                         <div

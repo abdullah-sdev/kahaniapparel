@@ -21,7 +21,7 @@
 
                             @forelse ($categories as $category)
                             <div class="prod-card | mx-auto">
-                                <a href="{{ route('kahani.products') }}?{{ $category->slug }}">
+                                <a href="{{ route('kahani.category', $category->slug) }}">
                                     <div
                                     class="prod-img | aspect-square max-h-[248px] overflow-hidden rounded-3xl bg-slate-300">
                                     <img src="{{ $category->image }}"
@@ -241,7 +241,7 @@
                         </div>
                         <div class="flex items-center justify-center">
                             <a class="inline-block mt-4 font-normal bg-slate-600 hover:bg-bblue border border-bblue px-2 py-1 rounded-xl transition-all duration-100"
-                                href="#">View all</a>
+                                href="{{ route('kahani.products') }}">View all</a>
                         </div>
                     </div>
                     <hr class="border-t-2 border-slate-200/25 w-[80%] mx-auto">

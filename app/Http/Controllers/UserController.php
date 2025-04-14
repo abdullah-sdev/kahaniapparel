@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -13,7 +14,7 @@ class UserController extends Controller
     public function index()
     {
         //
-        $users = User::select('first_name', 'last_name', 'email', 'phone', 'gender', 'dateOfBirth')->paginate(10);
+        $users = User::select('id', 'first_name', 'last_name', 'email', 'phone', 'gender', 'dateOfBirth')->withTrashed()->paginate(10);
         $data = compact('users');
 
         return view('admin.users.index', $data);
@@ -62,8 +63,21 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user)
+
+
+    public function destroy($id)
     {
-        //
+        $user = User::withTrashed()->findOrFail($id);
+
+        if (Auth::user()->cannot('delete', $user)) {
+            abort(403);
+        }
+
+        if ($user->trashed()) {
+            $user->forceDelete();
+        } else {
+            $user->delete();
+        }
+        return redirect()->route('admin.users.index')->with('success', 'User deleted successfully');
     }
 }
