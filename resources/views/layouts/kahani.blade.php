@@ -327,6 +327,8 @@
                                 <li><a class="text-white/70 hover:text-white"
                                         href="{{ route('kahani.faq') }}">FAQ</a></li>
                                 <li><a class="text-white/70 hover:text-white"
+                                        href="{{ route('kahani.faq') }}">Terms & Conditions</a></li>
+                                <li><a class="text-white/70 hover:text-white"
                                         href="{{ route('kahani.privacypolicy') }}">Privacy Policy</a></li>
                                 <li><a class="text-white/70 hover:text-white"
                                         href="{{ route('kahani.privacypolicy') }}">Delivery Policy</a></li>

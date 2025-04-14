@@ -11,6 +11,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderItemController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SocialiteController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -48,6 +49,13 @@ Route::post('/cart/add', [KahaniProductController::class, 'add'])->name('cart.ad
 Route::post('/apply-coupon', [KahaniProductController::class, 'coupon_apply'])->name('coupon.apply');
 Route::post('/remove-coupon', [KahaniProductController::class, 'coupon_remove'])->name('coupon.remove');
 
+
+// Socialite Routes
+
+Route::controller(SocialiteController::class)->group(function () {
+    Route::get('auth/google', 'googleLogin')->name('auth.google');
+    Route::get('auth/google-callback', 'googleAuthentication')->name('auth.google-callback');
+});
 // Route::get('product-view2', [KahaniProductController::class, 'productview2']);
 
 Route::get('/dashboard', function () {

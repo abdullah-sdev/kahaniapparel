@@ -72,7 +72,7 @@
                     <div class="bg-white  md:rounded-none md:rounded-l-3xl md:w-2/3 rounded-3xl md:border-black md:border-2">
 
                         <div class="p-10"
-                            style="background: url('{{ asset('kahani-apparel/assets/backgrounds/bg-blackbg.svg') }}'); background-size: 768px; background-repeat: repeat;">
+                            style="background: url('{{ asset('kahani-apparel/assets/backgrounds/bg-blackbg.svg') }}'); background-size: 733px; background-repeat: repeat;">
 
                             <h2 class="text-xl font-bold mb-8 text-center font-roxborough">Login to Your Account</h2>
                             <h3 class="text-2xl font-black mb-8 text-center font-roxborough text-black">
@@ -103,7 +103,18 @@
                                             <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
                                         </label>
                                     </div>
+                                    <a href="{{ route('auth.google') }}"
+                                        class="shadow inline-block items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input hover:bg-accent hover:text-accent-foreground w-full bg-[#2b2c41] text-white">
+                                        <div class="flex items-center justify-center gap-2 h-10 px-4 py-2 ">
+                                            <img src="{{ asset('kahani-apparel/assets/icons/google_logo.svg') }}" alt="" class="h-6">
+                                            <div class="font-roxborough">Login with Google</div>
+                                        </div>
+                                    </a>
 
+
+                                    {{-- <a href="{{ route('auth.google') }}"
+                                        class="inline-block px-6 py-2 text-white bg-red-500 rounded-lg shadow">Login with
+                                        Google</a> --}}
                                     @if (Route::has('password.request'))
                                         <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                                             href="{{ route('password.request') }}">
@@ -124,7 +135,7 @@
                         class="bg-bblue text-black md:rounded-none md:rounded-r-3xl rounded-3xl flex flex-col justify-center align-middle items-center md:w-1/2 md:border-black md:border-2">
 
                         <div class="p-10 h-full flex flex-col justify-center align-middle items-center"
-                            style="background: url('{{ asset('kahani-apparel/assets/backgrounds/bg-blackbg.svg') }}'); background-size: 768px; background-repeat: repeat;">
+                            style="background: url('{{ asset('kahani-apparel/assets/backgrounds/bg-2.svg') }}'); background-size: 640px; background-repeat: repeat;">
 
 
                             <h3 class="text-xl font-black mb-2 text-center font-roxborough">For inquiries contact us
