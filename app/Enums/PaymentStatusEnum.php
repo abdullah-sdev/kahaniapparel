@@ -6,6 +6,7 @@ enum PaymentStatusEnum: string
 {
     //
     case DRAFT = 'draft';
+    case PENDING = 'pending';
     case ABANDONED = 'abandoned';
     case FAILED = 'failed';
     case DECLINED = 'declined';

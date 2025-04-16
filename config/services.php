@@ -45,6 +45,6 @@ return [
             'email',
             'https://www.googleapis.com/auth/user.gender.read',
         ],
-    ]
+    ],
 
 ];

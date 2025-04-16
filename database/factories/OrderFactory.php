@@ -2,6 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Enums\OrderTrackingStatusEnum;
+use App\Enums\PaymentStatusEnum;
+use App\Enums\PaymentTypeEnum;
 use App\Models\Address;
 use App\Models\CargoCompany;
 use App\Models\Discount;
@@ -30,14 +33,15 @@ class OrderFactory extends Factory
             ->pluck('id')
             ->toArray();
         $cargoCompanyId = CargoCompany::pluck('id')->toArray();
+        // $paymentStatuses =
 
         return [
             //
             'user_id' => $selectedUserId,
             'address_id' => $this->faker->randomElement($addressId),
-            'payment_status' => $this->faker->randomElement(['pending', 'paid', 'failed']),
-            'order_status' => $this->faker->randomElement(['processing', 'shipped', 'delivered', 'cancelled']),
-            'payment_type' => $this->faker->randomElement(['cash', 'credit_card']),
+            'payment_status' => $this->faker->randomElement(PaymentStatusEnum::cases()),
+            'order_status' => $this->faker->randomElement(OrderTrackingStatusEnum::cases()),
+            'payment_type' => $this->faker->randomElement(PaymentTypeEnum::cases()),
             'tracking_number' => $this->faker->unique()->numberBetween(100000, 999999),
             'cargo_company_id' => $this->faker->randomElement($cargoCompanyId),
             'discount_id' => $this->faker->optional()->randomElement($discountId),

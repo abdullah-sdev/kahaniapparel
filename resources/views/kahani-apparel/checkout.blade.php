@@ -1,6 +1,6 @@
 @extends('layouts.kahani')
 
-@section('title', 'Kahani Apparel | Products')
+@section('title', 'Kahani Apparel | Checkout')
 
 @section('content')
     <main>
@@ -25,53 +25,45 @@
         <section class="checkout">
             <div class="container | mx-auto max-w-[1200px] p-10 md:p-20">
                 <div class=" mb-8">
-                    <form action="{{ route('proceedToCheckout', $order) }}" method="post">
+                    <form action="{{ route('processCheckout', $order) }}" method="post" id="checkoutForm">
                         @csrf
 
                         <div class="font-normal grid grid-cols-12 gap-4">
                             <div class="col-span-12 md:col-span-8">
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 ">
-                                    <div class="flex flex-col gap-2">
-                                        <label for="fname" class="">
-                                            First Name
-                                        </label>
-                                        <input type="text" name="fname" id="fname"
-                                            class="border border-white bg-black py-2 px-3 text-white"
-                                            placeholder="Enter Your First Name">
-                                    </div>
-                                    <div class="flex flex-col gap-2">
-                                        <label for="lname" class="">
-                                            Last Name
-                                        </label>
-                                        <input type="text" name="lname" id="lname"
-                                            class="border border-white bg-black py-2 px-3 text-white"
-                                            placeholder="Enter Your Last Name">
-                                    </div>
 
-                                    <div class="flex flex-col gap-2">
-                                        <label for="email" class="">
-                                            Email Address
-                                        </label>
-                                        <input type="email" name="email" id="email"
-                                            class="border border-white bg-black py-2 px-3 text-white"
-                                            placeholder="Enter Your Email Address">
-                                    </div>
-                                    <div class="flex flex-col gap-2">
-                                        <label for="phone" class="">
-                                            Phone Number
-                                        </label>
-                                        <input type="tel" name="phone" id="phone"
-                                            class="border border-white bg-black py-2 px-3 text-white"
-                                            placeholder="Enter Your Phone Number">
-                                    </div>
-                                </div>
                                 @role([\App\Enums\RoleEnum::ADMIN->value, \App\Enums\RoleEnum::CUSTOMER->value])
+
+
+
+                                    <!-- Basic Information -->
+                                    {{-- <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 ">
+                                        <div class="flex flex-col gap-2">
+                                            <div class="text-sm font-medium text-white">First Name</div>
+                                            <div class="border border-white bg-black py-2 px-3 text-white rounded">
+                                                {{ Auth::user()->first_name }}</div>
+                                        </div>
+                                        <div class="flex flex-col gap-2">
+                                            <div class="text-sm font-medium text-white">Last Name</div>
+                                            <div class="border border-white bg-black py-2 px-3 text-white rounded">
+                                                {{ Auth::user()->last_name }}</div>
+                                        </div>
+                                        <div class="flex flex-col gap-2">
+                                            <div class="text-sm font-medium text-white">Email</div>
+                                            <div class="border border-white bg-black py-2 px-3 text-white rounded">
+                                                {{ Auth::user()->email }}</div>
+                                        </div>
+                                        <div class="flex flex-col gap-2">
+                                            <div class="text-sm font-medium text-white">Phone</div>
+                                            <div class="border border-white bg-black py-2 px-3 text-white rounded">
+                                                {{ Auth::user()->phone }}</div>
+                                        </div>
+                                    </div> --}}
                                     <!-- Address Selection -->
                                     <div class=" rounded-lg shadow">
                                         {{-- <h2 class="text-lg font-semibold mb-4 text-blue-700 border-b pb-2">Shipping Address</h2> --}}
 
                                         <div class="space-y-4">
-                                            <h3 class="font-medium text-white">Select Address</h3>
+                                            <h3 class="font-medium text-white">Select Shipping Address</h3>
 
                                             <!-- Validation Error for Address Selection -->
                                             {{-- @error('address_id', 'new_address')
@@ -154,10 +146,10 @@
                                                 </div>
 
                                                 <!-- Swiper navigation -->
-                                                <div class="flex justify-between mt-4 text-white">
-                                                    <div class="swiper-button-prev"></div>
-                                                    <div class="swiper-button-next"></div>
-                                                </div>
+                                                {{-- <div class="flex justify-between mt-4 text-white">
+                                                    <div class="swiper-button-prev">Prev</div>
+                                                    <div class="swiper-button-next">Next</div>
+                                                </div> --}}
                                             </div>
 
 
@@ -190,7 +182,8 @@
                                                                 class="block text-sm font-medium text-white mb-1">Full
                                                                 Name</label>
                                                             <input type="text" id="full_name" name="new_address[full_name]"
-                                                                class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                                                                value="{{ old('new_address.full_name', $user->fullname()) }}"
+                                                                class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-black"
                                                                 value="{{ old('new_address.full_name') }}">
                                                             @error('new_address.full_name')
                                                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -203,9 +196,21 @@
                                                                 class="block text-sm font-medium text-white mb-1">Phone
                                                                 Number</label>
                                                             <input type="tel" id="phone" name="new_address[phone]"
-                                                                class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 "
-                                                                value="{{ old('new_address.phone') }}">
+                                                                class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-black"
+                                                                value="{{ old('new_address.phone', Auth::user()->phone) }}">
                                                             @error('new_address.phone')
+                                                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                                            @enderror
+                                                        </div>
+
+                                                        <!-- Email -->
+                                                        <div class="md:col-span-2">
+                                                            <label for="email"
+                                                                class="block text-sm font-medium text-white mb-1">Email</label>
+                                                            <input type="email" id="email" name="new_address[email]"
+                                                                class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-black"
+                                                                value="{{ old('new_address.email', Auth::user()->email) }}">
+                                                            @error('new_address.email')
                                                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                                             @enderror
                                                         </div>
@@ -217,7 +222,7 @@
                                                                 Line 1</label>
                                                             <input type="text" id="address_line_1"
                                                                 name="new_address[address_line_1]"
-                                                                class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 "
+                                                                class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-black"
                                                                 value="{{ old('new_address.address_line_1') }}">
                                                             @error('new_address.address_line_1')
                                                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -231,7 +236,7 @@
                                                                 Line 2 (Optional)</label>
                                                             <input type="text" id="address_line_2"
                                                                 name="new_address[address_line_2]"
-                                                                class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                                                                class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-black"
                                                                 value="{{ old('new_address.address_line_2') }}">
                                                         </div>
 
@@ -240,7 +245,7 @@
                                                             <label for="city"
                                                                 class="block text-sm font-medium text-white mb-1">City</label>
                                                             <input type="text" id="city" name="new_address[city]"
-                                                                class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 "
+                                                                class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-black"
                                                                 value="{{ old('new_address.city') }}">
                                                             @error('new_address.city')
                                                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -252,7 +257,7 @@
                                                             <label for="state"
                                                                 class="block text-sm font-medium text-white mb-1">State/Province</label>
                                                             <input type="text" id="state" name="new_address[state]"
-                                                                class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 "
+                                                                class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-black"
                                                                 value="{{ old('new_address.state') }}">
                                                             @error('new_address.state')
                                                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -266,7 +271,7 @@
                                                                 Code</label>
                                                             <input type="text" id="postal_code"
                                                                 name="new_address[postal_code]"
-                                                                class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                                                                class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-black"
                                                                 value="{{ old('new_address.postal_code') }}">
                                                             @error('new_address.postal_code')
                                                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -278,7 +283,7 @@
                                                             <label for="country"
                                                                 class="block text-sm font-medium text-white mb-1">Country</label>
                                                             <input type="text" id="country" name="new_address[country]"
-                                                                class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 "
+                                                                class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-black"
                                                                 value="{{ old('new_address.country') }}">
                                                             @error('new_address.country')
                                                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -296,13 +301,63 @@
                                                                 default
                                                                 address</label>
                                                         </div>
+                                                        <div class="flex items-center">
+                                                            <input type="checkbox" id="use_address"
+                                                                name="new_address[use_address]" value="1"
+                                                                class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                                                                {{ old('new_address.use_address') ? 'checked' : '' }}>
+                                                            <label for="use_address" class="ml-2 block text-sm text-white">Use
+                                                                this
+                                                                address</label>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+
+
                                 @endrole
                                 @guest
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 ">
+                                        <div class="flex flex-col gap-2">
+                                            <label for="fname" class="">
+                                                First Name
+                                            </label>
+                                            <input type="text" name="fname" id="fname" form="checkoutForm"
+                                                value="{{ old('fname') }}"
+                                                class="border border-white bg-black py-2 px-3 text-white"
+                                                placeholder="Enter Your First Name">
+                                        </div>
+                                        <div class="flex flex-col gap-2">
+                                            <label for="lname" class="">
+                                                Last Name
+                                            </label>
+                                            <input type="text" name="lname" id="lname" form="checkoutForm"
+                                                value="{{ old('lname') }}"
+                                                class="border border-white bg-black py-2 px-3 text-white"
+                                                placeholder="Enter Your Last Name">
+                                        </div>
+
+                                        <div class="flex flex-col gap-2">
+                                            <label for="email" class="">
+                                                Email Address
+                                            </label>
+                                            <input type="email" name="email" id="email" form="checkoutForm"
+                                                value="{{ old('email') }}"
+                                                class="border border-white bg-black py-2 px-3 text-white"
+                                                placeholder="Enter Your Email Address">
+                                        </div>
+                                        <div class="flex flex-col gap-2">
+                                            <label for="phone" class="">
+                                                Phone Number
+                                            </label>
+                                            <input type="tel" name="phone" id="phone" form="checkoutForm"
+                                                value="{{ old('phone') }}"
+                                                class="border border-white bg-black py-2 px-3 text-white"
+                                                placeholder="Enter Your Phone Number">
+                                        </div>
+                                    </div>
                                     <div class="grid grid-cols-1 gap-4 mb-4 ">
                                         <div class="flex flex-col gap-2">
                                             <label for="address1" class="">
@@ -466,21 +521,20 @@
                                                 @if ($order->discount_id == null)
 
 
-                                                        <div class="grid grid-cols-12 gap-2 py-2">
-                                                            <div class="col-span-8">
-                                                                <input type="text" name="coupon" id="coupon" form="apply-discount"
-                                                                    class="w-full rounded-md border border-black bg-white py-1 px-3 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                                                                    placeholder="Enter Voucher Code">
-                                                            </div>
-                                                            <div class="col-span-4">
-                                                                <button type="submit"
+                                                    <div class="grid grid-cols-12 gap-2 py-2">
+                                                        <div class="col-span-8">
+                                                            <input type="text" name="coupon" id="coupon"
                                                                 form="apply-discount"
-                                                                    class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-1 bg-bblue text-base font-medium text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                                                                    Apply
-                                                                </button>
-                                                            </div>
+                                                                class="w-full rounded-md border border-black bg-white py-1 px-3 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                                                                placeholder="Enter Voucher Code">
                                                         </div>
-
+                                                        <div class="col-span-4">
+                                                            <button type="submit" form="apply-discount"
+                                                                class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-1 bg-bblue text-base font-medium text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                                                Apply
+                                                            </button>
+                                                        </div>
+                                                    </div>
                                                 @else
                                                     <div class="flex justify-between px-2">
                                                         <div>Discount Code</div>
@@ -517,14 +571,12 @@
 
                                         </div>
                                         <div>
-                                            <form action="{{ route('proceedToCheckout', $order) }}" method="post"
-                                                id="checkout-form">
-                                                @csrf
-                                                <button type="submit"
-                                                    class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-bblue text-base font-normal text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                                                    Proceed To Checkout
-                                                </button>
-                                            </form>
+
+                                            <button type="submit"
+                                                class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-bblue text-base font-normal text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                                Proceed To Checkout
+                                            </button>
+
 
                                         </div>
                                     </div>
@@ -535,11 +587,11 @@
 
                     </form>
                     @if ($order->discount_id == null)
-                        <form action="{{ route('coupon.apply') }}" method="post" id="apply-discount">
+                        <form action="{{ route('coupon.apply', $order) }}" method="post" id="apply-discount">
                             @csrf
                         </form>
                     @else
-                        <form action="{{ route('coupon.remove') }}" method="post" id="remove-discount">
+                        <form action="{{ route('coupon.remove', $order) }}" method="post" id="remove-discount">
                             @csrf
                         </form>
                     @endif

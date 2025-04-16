@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Enums\DiscountStatusEnum;
+use App\Enums\DiscountTypeEnum;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -24,8 +26,8 @@ class DiscountFactory extends Factory
             'end_date' => $this->faker->dateTimeBetween('now', '+1 year'),
             'usage_limit' => $this->faker->numberBetween(70, 100),
             'usage_count' => $this->faker->numberBetween(0, 80),
-            'status' => $this->faker->randomElement(['active', 'inactive']),
-            'type' => $this->faker->randomElement(['percentage', 'amount']),
+            'status' => $this->faker->randomElement(DiscountStatusEnum::cases()),
+            'type' => $this->faker->randomElement(DiscountTypeEnum::cases()),
             'value' => $this->faker->numberBetween(1, 100),
         ];
     }

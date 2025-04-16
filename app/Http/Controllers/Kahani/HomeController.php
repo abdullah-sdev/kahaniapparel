@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Kahani;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Order;
 use App\Models\Product;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -23,7 +25,8 @@ class HomeController extends Controller
     public function products()
     {
         $categories = Category::select('id', 'name', 'slug', 'image')->limit('4')->get();
-        $products = Product::paginate(16);
+        $products = Product::active()->inStock()
+            ->paginate(16);
 
         return view('kahani-apparel.product', compact('products', 'categories'));
     }
@@ -39,10 +42,11 @@ class HomeController extends Controller
         $relatedProducts = Product::whereHas('categories', function ($query) use ($currentProduct) {
             $query->whereIn('categories.id', $currentProduct->categories()->pluck('categories.id'));
         })
-        ->where('id', '!=', $currentProduct->id)
-        ->inRandomOrder()  // Use this to get random results
-        ->limit(4)          // Limit to 4 products
-        ->get();
+            ->where('id', '!=', $currentProduct->id)
+            ->active()->inStock()
+            ->inRandomOrder()  // Use this to get random results
+            ->limit(4)          // Limit to 4 products
+            ->get();
 
         $data = compact('product', 'categories', 'relatedProducts');
         // dd($data);
@@ -54,7 +58,9 @@ class HomeController extends Controller
     {
         $categories = Category::select('id', 'name', 'slug', 'image')->limit('4')->get();
 
-        return view('kahani-apparel.panel.index', compact('categories'));
+        $orders = Order::where('user_id', Auth::user()->id)->get();
+
+        return view('kahani-apparel.panel.index', compact('categories', 'orders'));
     }
 
     public function about()
@@ -78,7 +84,10 @@ class HomeController extends Controller
 
         $category = Category::where('slug', $slug)->firstOrFail();
         $category->load('products');
-        $products = $category->products()->paginate(16);
+        // $products = $category->products()->paginate(16);
+        $products = $category->products()
+        ->active()->inStock()
+            ->paginate(16);
         $data = compact('category', 'products', 'categories');
 
         return view('kahani-apparel.product')->with($data);

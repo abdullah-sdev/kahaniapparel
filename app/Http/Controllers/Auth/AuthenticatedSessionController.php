@@ -19,6 +19,7 @@ class AuthenticatedSessionController extends Controller
     {
         $categories = Category::select('id', 'name', 'slug', 'image')->limit('4')->get();
         $data = compact('categories');
+
         return view('auth.login', $data);
     }
 

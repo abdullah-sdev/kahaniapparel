@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\RoleEnum;
 use App\Models\User;
 use Exception;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Laravel\Socialite\Facades\Socialite;
+use Str;
 
 class SocialiteController extends Controller
 {
@@ -23,27 +25,38 @@ class SocialiteController extends Controller
         try {
 
             $googleUser = Socialite::driver('google')->user();
-            // dd($googleUser);
+            // dd($googleUser, $googleUser->id);
 
             $user = User::where('google_id', $googleUser->id)->first();
+            // dd($user);
             if ($user) {
                 Auth::login($user);
+
                 return redirect()->route('kahani.home');
             } else {
+
                 $userdata = User::create([
-                    'name' => $googleUser->name,
+                    'first_name' => $googleUser->user['given_name'] ?? null,
+                    'last_name' => $googleUser->user['family_name'] ?? null,
                     'email' => $googleUser->email,
                     'google_id' => $googleUser->id,
-                    'password' => null,
-                ])->syncRoles('customer');
+                    'password' => bcrypt(Str::random(32)),
+                ]);
+                $userdata->assignRole(RoleEnum::CUSTOMER->value);
 
                 if ($userdata) {
-                    Auth::login($user);
+                    Auth::login($userdata);
+
                     return redirect()->route('kahani.home');
                 }
             }
         } catch (Exception $e) {
-            dd($e);
+            // dd($e);
+            // Log the error
+            Log::error('Google Login Error', ['exception' => $e]);
+
+            // Return the User
+            return redirect()->back()->with('error', 'Something went wrong.');
         }
     }
 }

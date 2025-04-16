@@ -19,8 +19,8 @@ return new class extends Migration
             $table->date('end_date')->nullable();
             $table->integer('usage_limit')->nullable();
             $table->integer('usage_count')->default(0)->constrained()->constrained();
-            $table->enum('status', ['active', 'inactive'])->default('active');
-            $table->enum('type', ['percentage', 'amount'])->default('percentage');
+            $table->string('status')->default('active'); // DiscountStatusENUM
+            $table->string('type')->default('percentage'); // DistountTypeENUM
             $table->decimal('value', 10, 2);
             $table->timestamps();
             $table->softDeletes();

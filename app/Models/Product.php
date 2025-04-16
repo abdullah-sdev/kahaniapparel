@@ -61,4 +61,15 @@ class Product extends Model
     {
         return $this->morphMany(Gallery::class, 'imageable')->orderBy('sort_order', 'asc')->orderBy('id', 'asc');
     }
+
+
+    public function scopeActive($query)
+    {
+        return $query->where('is_enable', true);
+    }
+
+    public function scopeInStock($query)
+    {
+        return $query->where('is_in_stock', true);
+    }
 }

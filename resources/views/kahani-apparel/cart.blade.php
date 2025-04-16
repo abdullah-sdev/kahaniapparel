@@ -191,7 +191,7 @@
 
                                             @if ($order->discount_id == null)
 
-                                                <form action="{{ route('coupon.apply') }}" method="post">
+                                                <form action="{{ route('coupon.apply', $order) }}" method="post">
                                                     @csrf
                                                     <div class="grid grid-cols-12 gap-2 py-2">
                                                         <div class="col-span-8">
@@ -221,7 +221,7 @@
                                                     @endif
                                                 </div>
                                                 <div class="flex mt-2">
-                                                    <form action="{{ route('coupon.remove') }}" method="post">
+                                                    <form action="{{ route('coupon.remove', $order) }}" method="post">
                                                         @csrf
                                                         {{-- <button type="submit" class="bg-red-400 text-white rounded inline-block px-2 py-1 font-bold self-end ">Remove
                                                             Code</button> --}}

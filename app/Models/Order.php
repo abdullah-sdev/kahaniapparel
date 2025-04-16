@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Enums\OrderTrackingStatusEnum;
+use App\Enums\PaymentStatusEnum;
+use App\Enums\PaymentTypeEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -25,8 +28,18 @@ class Order extends Model
         'cargo_company_id',
         'discount_id',
         'subtotal',
+        'total',
         'delivery_cost',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'payment_status' => PaymentStatusEnum::class,
+            'order_status' => OrderTrackingStatusEnum::class,
+            'payment_type' => PaymentTypeEnum::class,
+        ];
+    }
 
     public function cargoCompany(): BelongsTo
     {

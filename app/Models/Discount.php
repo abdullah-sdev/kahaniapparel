@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Enums\DiscountStatusEnum;
+use App\Enums\DiscountTypeEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -24,6 +26,14 @@ class Discount extends Model
         'value',
     ];
 
+    protected function casts(): array
+    {
+        return [
+            'status' => DiscountStatusEnum::class,
+            'type' => DiscountTypeEnum::class,
+        ];
+    }
+
     public function orders(): HasMany
     {
         return $this->hasMany(User::class);
@@ -41,7 +51,7 @@ class Discount extends Model
 
     public function isActive(): bool
     {
-        return $this->status === 'active';
+        return $this->status === DiscountStatusEnum::ACTIVE;
     }
 
     public function isUsed(): bool

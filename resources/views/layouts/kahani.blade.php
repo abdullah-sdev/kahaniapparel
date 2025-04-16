@@ -77,7 +77,7 @@
                                 <ul x-show="open" @click.outside="open = false"
                                     class="absolute right-0 mt-2 max-w-48 bg-white rounded-md shadow-lg py-1">
                                     <li>
-                                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                        <a href="{{ route('kahani.panel') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                                             {{ __('Dashboard') }}
                                         </a>
                                     </li>
@@ -189,7 +189,7 @@
 
 
                                     </li>
-                                    @forelse ($categories as $category)
+                                    @forelse ($navcategories as $category)
                                         <li>
                                             <a href="{{ route('kahani.category', $category->slug) }}"
                                                 class="block px-4 py-2 text-gray-700 hover:bg-gray-100">

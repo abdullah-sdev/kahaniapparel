@@ -63,8 +63,6 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-
-
     public function destroy($id)
     {
         $user = User::withTrashed()->findOrFail($id);
@@ -78,6 +76,7 @@ class UserController extends Controller
         } else {
             $user->delete();
         }
+
         return redirect()->route('admin.users.index')->with('success', 'User deleted successfully');
     }
 }

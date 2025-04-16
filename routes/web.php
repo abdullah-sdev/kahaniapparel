@@ -24,21 +24,26 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('/')->name('kahani.')->group(function () {
     Route::get('/', [KahaniHomeController::class, 'index'])->name('home');
-    // Route::view('/about', 'kahani-apparel.about')->name('about');
     Route::get('/about', [KahaniHomeController::class, 'about'])->name('about');
     Route::get('/privacy-policy', [KahaniHomeController::class, 'privacypolicy'])->name('privacypolicy');
-Route::get('/contact', [KahaniHomeController::class, 'contact'])->name('contact');
+    Route::get('/contact', [KahaniHomeController::class, 'contact'])->name('contact');
 
     Route::get('/faq', [KahaniHomeController::class, 'faq'])->name('faq');
     Route::get('/shop', [KahaniHomeController::class, 'products'])->name('products');
     Route::get('shop/{category}', [KahaniHomeController::class, 'category'])->name('category');
     Route::get('shop/products/{product}', [KahaniHomeController::class, 'product'])->name('product');
     Route::get('/cart', [KahaniProductController::class, 'cart'])->name('cart');
-    Route::get('/checkout', [KahaniProductController::class, 'checkout'])->name('checkout');
-    Route::get('/panel', [KahaniHomeController::class, 'panel'])->name('panel')->middleware(['auth', 'role:'.RoleEnum::ADMIN->value.'|'.RoleEnum::CUSTOMER->value]);
+    Route::get('/checkout/{order?}', [KahaniProductController::class, 'checkout'])->name('checkout');
+    Route::get('/panel', [KahaniHomeController::class, 'panel'])->name('panel')->middleware(
+        [
+            'auth',
+            'role:' . RoleEnum::ADMIN->value . '|' . RoleEnum::CUSTOMER->value
+        ]
+    );
 });
 
 Route::post('/proceed-to-checkout/{order}', [KahaniProductController::class, 'proceedToCheckout'])->name('proceedToCheckout');
+Route::post('/process-checkout/{order}', [KahaniProductController::class, 'processCheckout'])->name('processCheckout');
 
 Route::post('/cart', [KahaniProductController::class, 'store_to_cart'])->name('store_to_cart');
 
@@ -46,9 +51,8 @@ Route::delete('/cart/remove/{orderItem}', [KahaniProductController::class, 'remo
 
 Route::post('/cart/add', [KahaniProductController::class, 'add'])->name('cart.add');
 
-Route::post('/apply-coupon', [KahaniProductController::class, 'coupon_apply'])->name('coupon.apply');
-Route::post('/remove-coupon', [KahaniProductController::class, 'coupon_remove'])->name('coupon.remove');
-
+Route::post('/apply-coupon/{order}', [KahaniProductController::class, 'coupon_apply'])->name('coupon.apply');
+Route::post('/remove-coupon/{order}', [KahaniProductController::class, 'coupon_remove'])->name('coupon.remove');
 
 // Socialite Routes
 
@@ -67,7 +71,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::prefix('admin')->middleware(['role:'.RoleEnum::ADMIN->value])->name('admin.')->group(function () {
+    Route::prefix('admin')->middleware(['role:' . RoleEnum::ADMIN->value])->name('admin.')->group(function () {
         Route::resource('users', UserController::class);
         Route::resource('categories', CategoryController::class);
         Route::resource('colors', ColorController::class);
@@ -79,4 +83,4 @@ Route::middleware('auth')->group(function () {
     });
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

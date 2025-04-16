@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Enums\OrderTrackingStatusEnum;
 use App\Models\Order;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -68,7 +69,7 @@ class OrderPolicy
     {
         // dd($order->user->id);
 
-        return Auth::check() && Auth::user()->orders()->where('order_status', 'processing')->exists();
+        return Auth::check() && Auth::user()->orders()->where('order_status', OrderTrackingStatusEnum::DRAFT)->exists();
     }
 
     public function addToCart(User $user): bool
